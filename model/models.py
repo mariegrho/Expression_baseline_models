@@ -97,7 +97,7 @@ class ZGA_Model_M(SimulationBase):
 class Repression_Z():
 
     def __init__(self):
-        self.name = "Rep_Z" 
+        self.name = "Repression_Z" 
 
         # model parameters
         self.params_info = {
@@ -148,7 +148,7 @@ class Repression_Z():
 class Repression_M():
 
     def __init__(self):
-        self.name = "Rep_M" 
+        self.name = "Repression_M" 
 
         # model parameters
         self.params_info = {

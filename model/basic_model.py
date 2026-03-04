@@ -4,16 +4,11 @@ from pymob.sim.config import DataVariable
 from pymob.simulation import SimulationBase
 from pymob.sim.config import Param
 
-import xarray as xr
-import pandas as pd
 import jax.numpy as jnp
-import numpy as np
-import jax
 import os
 import click
 
-from model.plots import plot_model_results
-from model.dataset import prepare_dataset, tpm_genedata_white
+from data.dataset import prepare_dataset, tpm_genedata_white
 
 def basic_1s(t, M0, beta, delta):
     '''
@@ -22,22 +17,17 @@ def basic_1s(t, M0, beta, delta):
     '''
     return M0 * jnp.exp(-delta * t) + beta/delta * (1 - jnp.exp(-delta * t))
 
-
-@click.command()
-@click.option("--gene_id",     type=str, default=None,     help="Run a single gene ID (used for array jobs)")
-@click.option("--model",       type=str, default=None,     help="Chose Model: zga, impulse, degradation, basic")
-@click.option("--kernel",      type=str, default="nuts",   help="Inference kernel to use: svi or nuts")
-@click.option("--t_end",       type=int, default=120,      help="end point of simulation: 120 or 24 hpf")
-def main(gene_id, model, kernel, t_end):
+def _simulate(gene_id, kernel="nuts", t_end=120):
 
     sim = SimulationBase()
+    model = "basic_1s"
     sim.config.case_study.name = f"{model}_{kernel}_{t_end}"
     sim.config.case_study.scenario = gene_id
     sim.config.simulation.x_dimension = "time"
     sim.config.simulation.seed = 2
 
     # --- Create output directories -
-    output = os.getenv("RESULTS_DIR", "./results")
+    output = "results"
     os.makedirs(output, exist_ok=True)
     gene_output_dir = os.path.join(output, sim.config.case_study.name , gene_id)
 
@@ -46,11 +36,7 @@ def main(gene_id, model, kernel, t_end):
     #    return
 
     # --- Prepare the Simulation --
-    if model=="basic_1s":
-        sim.solver = solve_analytic_1d
-    else:
-        sim.solver = JaxSolver
-
+    sim.solver = solve_analytic_1d
     sim.model = basic_1s
     obs = tpm_genedata_white(gene_id).sel(time=slice(0, t_end))
     sim.observations = obs 
@@ -136,7 +122,7 @@ def main(gene_id, model, kernel, t_end):
     
     # --- Report and save results
     sim.report()
-    sim.save_observations(force=True)
+    #sim.save_observations(force=True)
     sim.config.save(force=True)
 
     ## plot smoother trajectories with higher time resolution
@@ -148,7 +134,3 @@ def main(gene_id, model, kernel, t_end):
 
     return f"Finished {gene_id} ({sim.config.case_study.name}). Saved to: {gene_output_dir}"
 
-
-
-if __name__ == "__main__":
-    main()
