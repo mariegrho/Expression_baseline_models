@@ -171,4 +171,4 @@ def _simulate(gene_id, kernel="nuts", t_end=120, seed=1):
 
 
 if __name__ == "__main__":
-    main()
+    initialise()

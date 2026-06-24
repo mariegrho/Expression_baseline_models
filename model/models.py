@@ -7,6 +7,35 @@ import jax
 import jax.numpy as jnp
 from pymob.simulation import SimulationBase
 
+
+class Basic_1s(SimulationBase):
+
+    def __init__(self):
+        super().__init__()
+
+        self.name = "Basic_1s"
+
+        # model parameters
+        self.params_info = {
+            "beta":    {"name": "beta",    "initial": 2.0,  "vary": True,   "prior": "lognorm(scale=2, s=1)"},
+            "delta": {"name": "delta", "initial": 1.4,  "vary": True,  },
+        }
+
+        # model states
+        self.state_variables = {
+            "y":          {"dimensions": ["time",], "observed": True},              # M + Z
+        }
+
+        @staticmethod
+        def _rhs_jax(t, M0, beta, delta):
+            '''
+            beta: transcription rate
+            delta:  degradation rate
+            '''
+            y = M0 * jnp.exp(-delta * t) + beta/delta * (1 - jnp.exp(-delta * t))
+            return y
+
+
 class ZGA_Model_Z(SimulationBase):
 
     def __init__(self):
@@ -73,7 +102,6 @@ class ZGA_Model_M(SimulationBase):
             "M":          {"dimensions": ["time",], "observed": False, "y0": 1.0},  # maternal
             "Z":          {"dimensions": ["time",], "observed": False, "y0": 0.0},  # zygotic
             "y":          {"dimensions": ["time",], "observed": True},              # M + Z
-            "repression": {"dimensions": ["time",], "observed": False},
         }
 
     # right-hand side ODE
@@ -97,7 +125,7 @@ class ZGA_Model_M(SimulationBase):
 class Repression_Z():
 
     def __init__(self):
-        self.name = "Repression_Z" 
+        self.name = "Rep_Z" 
 
         # model parameters
         self.params_info = {
@@ -148,7 +176,7 @@ class Repression_Z():
 class Repression_M():
 
     def __init__(self):
-        self.name = "Repression_M" 
+        self.name = "Rep_M" 
 
         # model parameters
         self.params_info = {
