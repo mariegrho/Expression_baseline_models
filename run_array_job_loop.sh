@@ -22,19 +22,22 @@ GENE_ID=$(sed -n "${SLURM_ARRAY_TASK_ID}p" data/genes_clustered_white.txt)
 
 echo "[$(date)] Starting task $SLURM_ARRAY_TASK_ID: $GENE_ID"
 
-datasets=("White" "Pauli" "BK" "JN" "Medina_Munoz_polyA" "Medina_Munoz_ribo")
+datasets120=("White" "Pauli" "BK" "JN" "Medina_Munoz_polyA" "Medina_Munoz_ribo")
+datasets8=("Medina_Munoz_polyA" "Medina_Munoz_ribo")
+
 model_versions=("Rep_M" "Rep_Z" "ZGA_M" "ZGA_Z")
 
-srun python simulate.py --gene_id "$GENE_ID" --model_version ${model_versions[0]} --dataset ${datasets[0]} --plot --t_end 120
-#srun python simulate.py --gene_id "$GENE_ID" --model_version ${model_versions[0]} --dataset ${datasets[4]} --plot --t_end 8
-#srun python model/basic_model.py --gene_id "$GENE_ID" --dataset ${datasets[0]}  --plot --t_end 8
+for dataset in "${datasets120[@]}"; do
+    srun python model/basic_model.py --gene_id "$GENE_ID" --dataset "$dataset" --plot --t_end 120
+
+    for model_version in "${model_versions[@]}"; do
+        srun python simulate.py --gene_id "$GENE_ID" --model_version "$model_version" --dataset "$dataset" --plot --t_end 120
+    done
+done
 
 echo "[$(date)] Finished task $SLURM_ARRAY_TASK_ID: $GENE_ID"
 
 # sbatch run_array_job.sh
-# sbatch --array=2-2 run_array_job.sh
+# sbatch --array=2-2 run_array_job_loop.sh
 # watch squeue --me
 # sed -i 's/\r$//' data/genes_clustered_white.txt
-# rm results/logs/*
-
-

@@ -8,6 +8,24 @@ from pymob.solvers.diffrax import JaxSolver
 
 def init_Basic(sim, model):
 
+    # --- Parameterize ---
+    M0 = obs.sel(time=0).y.item()
+    Z_ss0 = sim.observations.y[-3:].mean().item()  # steady-state TPM -> beta
+
+    delta_0 = 0.1 # 6 hours halflife
+    beta0 = Z_ss0 * delta_0 + 1e-8
+
+    sim.config.model_parameters.M0 =    Param(value=M0, free=False)
+    sim.config.model_parameters.beta =  Param(value=beta0, free=True,     prior=f"lognorm(scale={beta0}, s=1.0)")
+    sim.config.model_parameters.delta = Param(value=delta_0, free=True,     prior=f"lognorm(scale={delta_0}, s=1.0)")
+
+    # Error Model
+    sim.config.model_parameters.sigma_y = Param(value=0.1,  free=True, prior="lognorm(scale=0.5, s=0.5)")
+    sim.config.error_model.y = "normal(loc=0, scale=sigma_y, obs=jnp.log1p(obs) - jnp.log1p(y), obs_inv=jnp.expm1(res + jnp.log1p(y)))"
+
+    sim.model_parameters["parameters"] = sim.config.model_parameters.value_dict
+    print("model_parameters:", sim.config.model_parameters.value_dict)
+
     return sim, model
 
 def init_ZGA_M(sim, model):

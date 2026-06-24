@@ -67,7 +67,6 @@ def main(gene_id, model_version, dataset, kernel="nuts", t_end=120, plot=True, s
 
     sim = SimulationBase()
     model = {
-        "Basic": Basic_1s(), 
         "ZGA_M": ZGA_Model_M(),
         "ZGA_Z": ZGA_Model_Z(),
         "Rep_M": Repression_M(),
@@ -79,7 +78,6 @@ def main(gene_id, model_version, dataset, kernel="nuts", t_end=120, plot=True, s
     # simulation setup
     sim.config.case_study.name = f"{model.name}/{dataset}_{t_end}"
     sim.config.case_study.scenario = f"{gene_id}"
-    sim.config.simulation.x_dimension = "time"
 
     # output directories
     out_path = os.getenv("RESULTS_DIR", "./results")
@@ -122,7 +120,6 @@ def main(gene_id, model_version, dataset, kernel="nuts", t_end=120, plot=True, s
 
     ## initialise model parameter
     sim, model = {
-        "Basic": init_Basic, 
         "ZGA_M": init_ZGA_M,
         "ZGA_Z": init_ZGA_Z,
         "Rep_M": init_Rep_M,
@@ -157,7 +154,7 @@ def main(gene_id, model_version, dataset, kernel="nuts", t_end=120, plot=True, s
         print(f"[ERROR] Gene {gene_id} failed: {e}")
         with open(os.path.join(out_path, "failed_genes.txt"), "a") as f:
             f.write(f"{sim.config.case_study.name}, {gene_id}, {e}\n")
-        return 
+        return
 
     sim.inferer.store_results()
     sim.posterior_predictive_checks(pred_mode="mean+hdi", pred_hdi_style={"color": "#7034b1", "alpha": .15})
@@ -173,6 +170,7 @@ def main(gene_id, model_version, dataset, kernel="nuts", t_end=120, plot=True, s
     if plot:
         from model.plots import plot_model_results
         plot_model_results(sim.inferer.idata, gene_id, model_version, path=gene_output_dir)
+    
 
 
 if __name__ == "__main__":

@@ -4,11 +4,34 @@ from pymob.sim.config import DataVariable
 from pymob.simulation import SimulationBase
 from pymob.sim.config import Param
 
+from plots import plot_model_results
 import jax.numpy as jnp
 import os
 import click
+import xarray as xr
+import numpy as np
 
-from data.dataset import prepare_dataset, tpm_genedata_white
+def prepare_dataset(gene_id, dataset, t_end):
+
+    try:
+        transcript_data = {
+            "White": xr.load_dataset("data/genes_tpms_white_pauli_JN_BK_mean.nc").sel(source="White et al.").sel(time=slice(0, t_end)),
+            "Pauli": xr.load_dataset("data/genes_tpms_white_pauli_JN_BK_mean.nc").sel(source="Pauli et al.").sel(time=slice(0, t_end)),
+            "JN": xr.load_dataset("data/genes_tpms_white_pauli_JN_BK_mean.nc").sel(source="JN").sel(time=slice(0, t_end)),
+            "BK": xr.load_dataset("data/genes_tpms_white_pauli_JN_BK_mean.nc").sel(source="BK").sel(time=slice(0, t_end)),
+            "Medina_Munoz_polyA": xr.load_dataset("data/dataset_medina_munoz.nc").sel(selection_method="polyA+"), 
+            "Medina_Munoz_ribo": xr.load_dataset("data/dataset_medina_munoz.nc").sel(selection_method="ribo-"), 
+        }[dataset]
+    except KeyError:
+        raise ValueError(f"Dataset {dataset} not found. \nChoose from: White, Pauli, JN, BK, Medina_Munoz_polyA, Medina_Munoz_ribo.") 
+
+    
+    try:
+        obs = transcript_data.tpm.sel(ensembl_gene_id=gene_id).to_dataset(name="y") 
+    except KeyError:
+        raise ValueError(f"gene id {gene_id} not found in dataset.") 
+
+    return obs
 
 def basic_1s(t, M0, beta, delta):
     '''
@@ -17,41 +40,51 @@ def basic_1s(t, M0, beta, delta):
     '''
     return M0 * jnp.exp(-delta * t) + beta/delta * (1 - jnp.exp(-delta * t))
 
-def _simulate(gene_id, kernel="nuts", t_end=120):
+@click.command() 
+@click.option("--gene_id", type=str, default=None,    help="Run a single gene ID (used for array jobs)")
+@click.option("--dataset", type=str, default=None,    help="Dataset to fit: White, Medina-Munoz_polyA, Medina-Munoz_ribo, Pauli, JN, BK")
+@click.option("--t_end",   type=int, default=120,     help="Simulation Endpoint")
+@click.option("--kernel",  type=str, default="nuts",  help="Inference kernel to use: svi or nuts")
+@click.option("--plot",    is_flag=True,              help="generate plots of results")
+@click.option("--smooth",  is_flag=True,              help="Produce smoother trajectories with higher time resolution")
+@click.option("--skip_duplicates", is_flag=True,      help="Skip duplicate gene IDs for processing")
+@click.option("--seed",    type=int, default=1,       help="Random seed for reproducibility")
+def main(gene_id, dataset, kernel="nuts", t_end=120, plot=True, smooth=False, skip_duplicates=True, seed=1):
 
     sim = SimulationBase()
-    model = "basic_1s"
-    sim.config.case_study.name = f"{model}_{kernel}_{t_end}"
-    sim.config.case_study.scenario = gene_id
-    sim.config.simulation.x_dimension = "time"
-    sim.config.simulation.seed = 2
-
-    # --- Create output directories -
-    output = "results"
-    os.makedirs(output, exist_ok=True)
-    gene_output_dir = os.path.join(output, sim.config.case_study.name , gene_id)
-
-    #if os.path.exists(os.path.join(gene_output_dir, "numpyro_posterior.nc")):
-    #    print(f"[SKIP] Gene {gene_id} already processed — skipping.")
-    #    return
-
-    # --- Prepare the Simulation --
-    sim.solver = solve_analytic_1d
+    model = "Basic"
     sim.model = basic_1s
-    obs = tpm_genedata_white(gene_id).sel(time=slice(0, t_end))
-    sim.observations = obs 
 
-    # --- Config Settings ---
-    sim.config.data_structure.y = DataVariable(dimensions=["time"], observed=True)
-    sim.config.simulation.n_ode_states = 1
+    sim.config.case_study.name = f"{model}/{dataset}_{t_end}"
+    sim.config.case_study.scenario = gene_id
+    
+    
+    # --- Create output directories -
+    out_path = os.getenv("RESULTS_DIR", "./results")
+    os.makedirs(out_path, exist_ok=True)
+    gene_output_dir = os.path.join(out_path, sim.config.case_study.name , gene_id)
+
+    if os.path.exists(os.path.join(gene_output_dir, "numpyro_posterior.nc")) and skip_duplicates:
+        print(f"[SKIP] Gene {gene_id} already processed — skipping.")
+        return
 
     # --- Create output directories ---
     os.makedirs(gene_output_dir, exist_ok=True)
     sim.config.case_study.output_path = gene_output_dir
     sim.config.create_directory("scenario", force=True)
-    os.makedirs(output, exist_ok=True)
 
+    # --- Prepare the Simulation --
+    obs = prepare_dataset(gene_id, dataset, t_end)
+    sim.observations = obs 
 
+    # --- Config Settings ---
+    sim.config.simulation.x_dimension = "time"
+    sim.config.data_structure.y = DataVariable(dimensions=["time"], observed=True)
+    sim.config.simulation.n_ode_states = 1
+    sim.config.simulation.seed = seed
+    sim.config.report.goodness_of_fit_use_predictions = True
+
+    sim.solver = solve_analytic_1d
     sim.config.jaxsolver.throw_exception = False
     sim.config.jaxsolver.diffrax_solver = "Tsit5"
     sim.config.jaxsolver.pcoeff = 0.2
@@ -84,12 +117,12 @@ def _simulate(gene_id, kernel="nuts", t_end=120):
 
     sim.model_parameters["parameters"] = sim.config.model_parameters.value_dict
     print("model_parameters:", sim.config.model_parameters.value_dict)
-    sim.dispatch_constructor()
+
 
     # --- Parameter Estimation & Inferer Settings ---~
+    sim.dispatch_constructor()
     sim.set_inferer("numpyro")
     sim.inferer.config.inference_numpyro.kernel = kernel
-    sim.config.jaxsolver.throw_exception = False
     sim.config.inference_numpyro.init_strategy = "init_to_median"
 
     if kernel == "svi":
@@ -112,9 +145,9 @@ def _simulate(gene_id, kernel="nuts", t_end=120):
         sim.inferer.run()
     except Exception as e:
         print(f"[ERROR] Gene {sim.config.case_study.scenario} failed: {e}")
-        with open(os.path.join(output, "failed_genes.txt"), "a") as f:
+        with open(os.path.join(out_path, "failed_genes.txt"), "a") as f:
             f.write(f"{sim.config.case_study.name}, {gene_id}, {e}\n")
-        return e
+        return
     
     # --- Plots and Results
     sim.inferer.store_results()
@@ -125,12 +158,16 @@ def _simulate(gene_id, kernel="nuts", t_end=120):
     #sim.save_observations(force=True)
     sim.config.save(force=True)
 
-    ## plot smoother trajectories with higher time resolution
-    #sim.coordinates["time"]= np.linspace(0, t_end, 1000)
-    #sim.dispatch_constructor()
-    #p_pred = sim.inferer.posterior_predictions(n=1000, seed=10)
-    #p_pred.to_netcdf(f"{gene_output_dir}/posterior_predictive.nc")
+    if smooth:
+        sim.coordinates["time"]= np.linspace(0, t_end, 1000)
+        sim.dispatch_constructor()
+        p_pred = sim.inferer.posterior_predictions(n=1000, seed=10)
+        p_pred.to_netcdf(f"{gene_output_dir}/posterior_predictive.nc")
+
+    if plot:
+        plot_model_results(sim.inferer.idata, gene_id, model_version="Basic", path=gene_output_dir)
 
 
-    return f"Finished {gene_id} ({sim.config.case_study.name}). Saved to: {gene_output_dir}"
+if __name__ == "__main__":
+    main()
 

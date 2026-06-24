@@ -25,9 +25,10 @@ def plot_model_results(results, gene_id, model_version, path=None, show=False):
     if "Z" in result.data_vars:
         ax.plot(result.time, result.Z, label="Z", c="cornflowerblue", ls="-.")
 
-    t_zga_fit = results.posterior.mean(dim=["draw", "chain"]).t_zga
-    if t_zga_fit <= obs.time.max():
-        ax.scatter(x=t_zga_fit, y=0, color="green", marker="^", label=f"t_zga = {t_zga_fit:.1f}")
+    if model_version != "Basic":
+        t_zga_fit = results.posterior.mean(dim=["draw", "chain"]).t_zga
+        if t_zga_fit <= obs.time.max():
+            ax.scatter(x=t_zga_fit, y=0, color="green", marker="^", label=f"t_zga = {t_zga_fit:.1f}")
 
     if model_version in ["Rep_Z", "Rep_M"]:
         t_reg_fit = results.posterior.mean(dim=["draw", "chain"]).dt_rep + t_zga_fit
