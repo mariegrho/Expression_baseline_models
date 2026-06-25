@@ -136,7 +136,7 @@ class Repression_Z():
             "delta_r":   {"name": "delta_r", "initial": 1.4, "vary": False,},
 
             "t_zga":    {"name": "t_zga",  "initial": 3.0, "vary": True,   "prior": "lognorm(scale=3, s=1)"},
-            "dt_rep":        {"name": "t_rep",   "min": 1e-3,  "max": 50,  "initial": 15.0, "vary": True,   "prior": "lognorm(scale=15, s=1)"},
+            "t_rep":        {"name": "t_rep",   "min": 1.0,  "max": 50,  "initial": 15.0, "vary": True,   "prior": "lognorm(scale=15, s=1)"},
         }
 
         # model states
@@ -150,14 +150,14 @@ class Repression_Z():
 
     # right-hand side ODE
     @staticmethod
-    def _rhs_jax(t, y, x_in, alpha, beta, delta_m, delta_z, t_zga, dt_rep, s):
+    def _rhs_jax(t, y, x_in, alpha, beta, delta_m, delta_z, t_zga, t_rep, s):
 
         M, Z = y
         R_t = x_in.evaluate(t)
 
         dM_dt = - R_t * delta_m * M
 
-        t_rep = t_zga + dt_rep
+        t#_rep = t_zga + dt_rep
         on = jax.nn.sigmoid(s * (t - t_zga))
         off =  jax.nn.sigmoid(s * (t - t_rep))
         beta_on = alpha * on * (1 - off) + beta * off
@@ -187,7 +187,7 @@ class Repression_M():
             "delta_m":   {"name": "delta_r", "initial": 0.7, "vary": False,},
 
             "t_zga":    {"name": "t_zga",  "initial": 3.0, "vary": True,   "prior": "lognorm(scale=3, s=1)"},
-            "dt_rep":        {"name": "t_rep",   "min": 1e-3,  "max": 50,  "initial": 15.0, "vary": True,   "prior": "lognorm(scale=15, s=1)"},
+            "t_rep":        {"name": "t_rep",   "min": 1.0,  "max": 50,  "initial": 15.0, "vary": True,   "prior": "lognorm(scale=15, s=1)"},
         }
 
         # model states
@@ -199,13 +199,13 @@ class Repression_M():
 
     # right-hand side ODE
     @staticmethod
-    def _rhs_jax(t, y, alpha, beta, delta_z, delta_m, t_zga, dt_rep, s):
+    def _rhs_jax(t, y, alpha, beta, delta_z, delta_m, t_zga, t_rep, s):
 
         M, Z = y
 
         dM_dt = - delta_m * M
 
-        t_rep = t_zga + dt_rep
+        #t_rep = t_zga + dt_rep
         on = jax.nn.sigmoid(s * (t - t_zga))
         off =  jax.nn.sigmoid(s * (t - t_rep))
 

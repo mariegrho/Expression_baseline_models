@@ -25,9 +25,9 @@ echo "[$(date)] Starting task $SLURM_ARRAY_TASK_ID: $GENE_ID"
 datasets=("White" "Pauli" "BK" "JN" "Medina_Munoz_polyA" "Medina_Munoz_ribo")
 model_versions=("Rep_M" "Rep_Z" "ZGA_M" "ZGA_Z")
 
-srun python simulate.py --gene_id "$GENE_ID" --model_version ${model_versions[0]} --dataset ${datasets[0]} --plot --t_end 120
+srun python simulate.py --gene_id "$GENE_ID" --model_version ${model_versions[0]} --dataset ${datasets[0]} --plot --smooth --t_end 120
 #srun python simulate.py --gene_id "$GENE_ID" --model_version ${model_versions[0]} --dataset ${datasets[4]} --plot --t_end 8
-#srun python model/basic_model.py --gene_id "$GENE_ID" --dataset ${datasets[0]}  --plot --t_end 8
+#srun python model/basic_model.py --gene_id "$GENE_ID" --dataset ${datasets[0]}  --plot --smooth --t_end 8
 
 echo "[$(date)] Finished task $SLURM_ARRAY_TASK_ID: $GENE_ID"
 
@@ -36,5 +36,6 @@ echo "[$(date)] Finished task $SLURM_ARRAY_TASK_ID: $GENE_ID"
 # watch squeue --me
 # sed -i 's/\r$//' data/genes_clustered_white.txt
 # rm results/logs/*
+# rm -rf case_studies/*
 
 

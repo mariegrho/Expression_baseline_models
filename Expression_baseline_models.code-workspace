@@ -5,6 +5,9 @@
 		},
 		{
 			"path": "../test_sim"
+		},
+		{
+			"path": "../polya_model"
 		}
 	],
 	"settings": {}

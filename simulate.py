@@ -4,6 +4,7 @@ import xarray as xr
 
 from initialise import *
 from model.models import *
+from reports.report import *
 
 from pymob.simulation import SimulationBase
 from pymob.sim.config import DataVariable
@@ -53,6 +54,31 @@ def prepare_dataset(gene_id, dataset, model_version, t_end):
         return combined_ds
 
 
+def gof_evaluation(idata, gene_id, model, dataset, out_path):
+
+    non_nan_times = idata.observed_data.y.time.values[~np.isnan(idata.observed_data.y.values)]
+    obs = idata.observed_data.y.sel(time=non_nan_times).values
+    pred = idata.posterior_model_fits.y.mean(dim=("chain","draw")).sel(time=non_nan_times).values
+
+    metrics = pd.DataFrame(columns=["gene_id", "model", "BIC", "rho", "NRMSE", "MASE"])
+
+    rho = spearman_correlation(obs, pred)
+    nrmse = calc_nrmse(obs, pred)[0]         # by Range
+    accepted = (rho > 0.7) & (nrmse < 0.2)
+
+    row = []
+    row.append({
+        "gene_id":gene_id,
+        "model":model,
+        "dataset": dataset,
+        "BIC": calc_bic(idata),
+        "rho": rho,
+        "NRMSE": nrmse, 
+        "MASE": calc_mase(obs, pred),
+        "accepted": accepted,
+    })
+    pd.DataFrame(row).to_csv(os.path.join(out_path, "gof_metrics.csv"), index=False)
+    
 @click.command() 
 @click.option("--gene_id", type=str, default=None,    help="Run a single gene ID (used for array jobs)")
 @click.option("--model_version", type=str, default=None,    help="Model version: Basic, ZGA_M, ZGA_Z, Rep_M, Rep_Z")
@@ -76,7 +102,7 @@ def main(gene_id, model_version, dataset, kernel="nuts", t_end=120, plot=True, s
     sim.model = model._rhs_jax
 
     # simulation setup
-    sim.config.case_study.name = f"{model.name}/{dataset}_{t_end}"
+    sim.config.case_study.name = f"{t_end}_hpf/{model.name}/{dataset}"
     sim.config.case_study.scenario = f"{gene_id}"
 
     # output directories
@@ -161,6 +187,9 @@ def main(gene_id, model_version, dataset, kernel="nuts", t_end=120, plot=True, s
     sim.report()
     sim.config.save(force=True)
 
+    # evaluation of results
+    gof_evaluation(sim.inferer.idata, gene_id, model_version, dataset, out_path=gene_output_dir)
+
     if smooth:
         sim.coordinates["time"]= np.linspace(0, t_end, 1000)
         sim.dispatch_constructor()
@@ -170,7 +199,6 @@ def main(gene_id, model_version, dataset, kernel="nuts", t_end=120, plot=True, s
     if plot:
         from model.plots import plot_model_results
         plot_model_results(sim.inferer.idata, gene_id, model_version, path=gene_output_dir)
-    
 
 
 if __name__ == "__main__":

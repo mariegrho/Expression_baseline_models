@@ -33,6 +33,31 @@ def prepare_dataset(gene_id, dataset, t_end):
 
     return obs
 
+def gof_evaluation(idata, gene_id, model, dataset, out_path):
+
+    non_nan_times = idata.observed_data.y.time.values[~np.isnan(idata.observed_data.y.values)]
+    obs = idata.observed_data.y.sel(time=non_nan_times).values
+    pred = idata.posterior_model_fits.y.mean(dim=("chain","draw")).sel(time=non_nan_times).values
+
+    metrics = pd.DataFrame(columns=["gene_id", "model", "BIC", "rho", "NRMSE", "MASE"])
+
+    rho = spearman_correlation(obs, pred)
+    nrmse = calc_nrmse(obs, pred)[0]         # by Range
+    accepted = (rho > 0.7) & (nrmse < 0.2)
+
+    row = []
+    row.append({
+        "gene_id":gene_id,
+        "model":model,
+        "dataset": dataset,
+        "BIC": calc_bic(idata),
+        "rho": rho,
+        "NRMSE": nrmse, 
+        "MASE": calc_mase(obs, pred),
+        "accepted": accepted,
+    })
+    pd.DataFrame(row).to_csv(out_path, index=False)
+
 def basic_1s(t, M0, beta, delta):
     '''
     beta: transcription rate
@@ -55,7 +80,7 @@ def main(gene_id, dataset, kernel="nuts", t_end=120, plot=True, smooth=False, sk
     model = "Basic"
     sim.model = basic_1s
 
-    sim.config.case_study.name = f"{model}/{dataset}_{t_end}"
+    sim.config.case_study.name = f"{t_end}_hpf/{model}/{dataset}"
     sim.config.case_study.scenario = gene_id
     
     
@@ -157,6 +182,9 @@ def main(gene_id, dataset, kernel="nuts", t_end=120, plot=True, smooth=False, sk
     sim.report()
     #sim.save_observations(force=True)
     sim.config.save(force=True)
+
+    # evaluation of results
+    gof_evaluation(sim.inferer.idata, gene_id, "Basic", dataset, out_path=gene_output_dir)
 
     if smooth:
         sim.coordinates["time"]= np.linspace(0, t_end, 1000)

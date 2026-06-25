@@ -21,24 +21,22 @@ def _autocorrelation(residuals, lag=1):
     """This uses unaggregated data residuals[id,time]"""
     return pd.Series(residuals).autocorr(lag=lag)
 
-def spearman_correlation(idata):
+def spearman_correlation(obs, pred):
     '''pattern accuracy'''
     from scipy.stats import spearmanr
-    obs = idata.observed_data.y
-    pred = idata.posterior_model_fits.y.mean(dim=("chain", "draw"))
     corr = spearmanr(obs, pred)[0]
     return float(corr)
 
-def calc_nrmse(y_true, y_pred):
+def calc_nrmse(obs, pred):
     '''Normalized Root Mean Square Error'''
-    rmse = np.sqrt(np.mean((y_true - y_pred)**2))
+    rmse = np.sqrt(np.mean((obs - pred)**2))
 
     # by range
-    nrmse_range = rmse / (y_true.max() - y_true.min())
+    nrmse_range = rmse / (obs.max() - obs.min())
     # by mean
-    nrmse_mean = rmse / y_true.mean()
+    nrmse_mean = rmse / obs.mean()
     # by std
-    nrmse_std = rmse / y_true.std()
+    nrmse_std = rmse / obs.std()
 
     return [nrmse_range, nrmse_mean, nrmse_std]
 
@@ -52,3 +50,17 @@ def calc_mase(obs, pred):
     mase = mae_model / mae_naive
 
     return mase
+
+def calc_bic(idata):
+    '''
+    k = free parameters
+    n = data points
+    LL = max. Log-Likelihood (sum)
+    '''
+
+    n = len(idata.posterior_model_fits.time)
+    k = len(idata.posterior.data_vars)
+    LL = idata.log_likelihood.y.mean(dim=("chain", "draw")).sum().item()
+    bic =  k * np.log(n) - 2 * LL
+    return float(bic)
+
