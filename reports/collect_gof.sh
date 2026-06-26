@@ -7,12 +7,7 @@
 #SBATCH --cpus-per-task=1                 
 
 # Base directory
-BASE_DIR="/home/student/m/mgrosseholth/projects/test_sim/results/Rep_Mdecay1_nuts_8"
-#BASE_DIR="/home/student/m/mgrosseholth/projects/test_sim/results/ZGA_Mdecay1_nuts_8"
-#BASE_DIR="/home/student/m/mgrosseholth/projects/test_sim/results/ZGA_Mdecay_red_nuts_120"
-#BASE_DIR="/home/student/m/mgrosseholth/projects/test_sim/results/Rep_Zdecay1_nuts_120"
-#BASE_DIR="/home/student/m/mgrosseholth/projects/test_sim/results/basic_1s_nuts_24"
-
+BASE_DIR="/home/student/m/mgrosseholth/projects/test_sim/results/120_hpf"
 
 # Output file
 OUT_FILE="$BASE_DIR/goodness_of_fit_summary.csv"

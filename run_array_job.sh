@@ -38,4 +38,3 @@ echo "[$(date)] Finished task $SLURM_ARRAY_TASK_ID: $GENE_ID"
 # rm results/logs/*
 # rm -rf case_studies/*
 
-

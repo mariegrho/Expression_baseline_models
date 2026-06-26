@@ -2,7 +2,7 @@ import os
 import click
 import xarray as xr
 
-from initialise import *
+from model.initialise import *
 from model.models import *
 from reports.report import *
 
@@ -12,8 +12,7 @@ from pymob.sim.parameters import Param
 from pymob.solvers.diffrax import JaxSolver
 from pymob.sim.plot import SimulationPlot
 
-'''Wrapper to simulate diffrent model versions and datasets'''
-
+''' Wrapper to simulate the different model versions (ZGA, Rep) and datasets '''
 
 def regulator_activity(t, t_on, t_off=4.0):
     t = np.asarray(t)
@@ -34,7 +33,6 @@ def prepare_dataset(gene_id, dataset, model_version, t_end):
         }[dataset]
     except KeyError:
         raise ValueError(f"Dataset {dataset} not found. Choose from: White, Pauli, JN, BK, Medina_Munoz_polyA, Medina_Munoz_ribo.") 
-
     
     try:
         obs = transcript_data.tpm.sel(ensembl_gene_id=gene_id).to_dataset(name="y") 
@@ -49,7 +47,7 @@ def prepare_dataset(gene_id, dataset, model_version, t_end):
     combined_ds = xr.merge([obs, rep_on_obs])
 
     if model_version in ["Basic", "ZGA_M", "Rep_M"]:
-        return obs
+        return obs ## M decay version without regulator
     else:
         return combined_ds
 
