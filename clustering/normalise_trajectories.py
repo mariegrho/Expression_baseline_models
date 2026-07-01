@@ -106,7 +106,7 @@ def normalize_dataset(da):
 
 if __name__ == "__main__":
 
-    t_end = 120
+    t_end = 12
     da = xr.open_dataarray(f"results/gene_trajectories_{t_end}.nc")
 
     print(da)

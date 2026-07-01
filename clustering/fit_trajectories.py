@@ -165,7 +165,7 @@ def fit_all_genes(ds):
 
 if __name__ == "__main__":
 
-    t_end = 24
+    t_end = 12
     ds = xr.open_dataset("../data/genes_tpms_white_pauli_JN_BK_mean.nc").sel(time=slice(0, t_end))
     #ds = ds.sel(ensembl_gene_id=ds.ensembl_gene_id.values[0:500])
     trajectories = fit_all_genes(ds)
