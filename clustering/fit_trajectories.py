@@ -165,11 +165,13 @@ def fit_all_genes(ds):
 
 if __name__ == "__main__":
 
-    t_end = 12
-    ds = xr.open_dataset("../data/genes_tpms_white_pauli_JN_BK_mean.nc").sel(time=slice(0, t_end))
-    #ds = ds.sel(ensembl_gene_id=ds.ensembl_gene_id.values[0:500])
-    trajectories = fit_all_genes(ds)
+    t_end = 120
+    ds = xr.open_dataset("../data/genes_tpms_white_pauli_JN_BK_mean.nc")
+    mask = ds.tpm.max(dim=["time", "source"], skipna=True) >= 1
 
-    print(trajectories)
+    ds_filtered = ds.sel(ensembl_gene_id=mask).sel(time=slice(0, t_end))
+    #ds = ds.sel(ensembl_gene_id=ds.ensembl_gene_id.values[0:500])
+    trajectories = fit_all_genes(ds_filtered)
+    #print(trajectories)
 
     trajectories.to_netcdf(f"results/gene_trajectories_{t_end}.nc")

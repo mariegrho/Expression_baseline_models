@@ -41,7 +41,7 @@ def plot_cluster_centers(centers_da):
     plt.legend()
     plt.tight_layout()
     plt.savefig(f"figs/cluster_centers.png")
-    plt.show()
+    #plt.show()
     plt.close()
 
 
@@ -113,7 +113,7 @@ def plot_membership_heatmap(membership_da, sc, max_genes=1000):
 
     plt.tight_layout()
     plt.savefig(f"figs/membership_heatmap_Supercluster_{sc}.png")
-    plt.show()
+    #plt.show()
     plt.close()
 
 
@@ -211,7 +211,7 @@ def plot_super_subcluster_grid1(
             for g in range(min(20, len(subset))):
                 ax.plot(t, subset[g], alpha=0.3, linewidth=0.8)
             ax.plot(t, mean, "k", linewidth=2)
-            ax.set_title(f"S{sc}.C{sb} ({len(idx)})", fontsize=9)
+            ax.set_title(f"S{sc}.C{sb} ({len(subset)})", fontsize=9)
 
         # hide unused columns in this row
         for j in range(len(sub_ids), ncols):
@@ -303,6 +303,9 @@ if __name__ == "__main__":
         trajectories_da=trajectories,
         super_labels_da=super_labels,
         sub_labels_da=sub_labels,)
+    
+    plot_cluster_centers(xr.open_dataarray("results/superclusters_centers.nc"))
+    plot_cluster_with_variance(trajectories, super_labels,n_clusters=None)
     
     membership_da = xr.open_dataarray(f"results/superclusters_membership.nc")
     plot_membership_heatmap(membership_da, "All", max_genes=500)

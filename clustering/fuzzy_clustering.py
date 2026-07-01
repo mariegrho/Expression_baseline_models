@@ -26,7 +26,7 @@ import matplotlib.pyplot as plt
 # CONFIG
 # =====================================================
 
-K_RANGE = range(2, 10)
+K_RANGE = range(2, 5)
 FUZZINESS = 1.8   # m parameter (1.5–2.5 typical)
 MAX_ITER = 300
 ERROR = 1e-5
@@ -37,15 +37,15 @@ N_CLUSTER = None
 # Fuzzy clustering wrapper
 # =====================================================
 
-def run_fuzzy_cmeans(data, k):
+def run_fuzzy_cmeans(data, k, seed=None):
     """
-    data shape: (n_genes, n_timepoints)
+    data shape: (n_timepoints, n_genes)
     """
 
     cntr, u, u0, d, jm, p, fpc = fuzz.cluster.cmeans(
         data, c=k, 
         m=FUZZINESS, error=ERROR, maxiter=MAX_ITER, 
-        init=None,seed=0)
+        init=None,seed=seed)
     return cntr, u, fpc
 
 # =====================================================
@@ -69,57 +69,77 @@ from sklearn.utils import resample
 def stability_score(data, k, n_runs=20, sample_frac=0.8):
 
     scores = []
+    n_genes = data.shape[1]
 
     for _ in range(n_runs):
 
+        seed1 = np.random.randint(0, 1_000_000)
+        seed2 = np.random.randint(0, 1_000_000)
+
         idx = resample(
-            np.arange(data.shape[0]),
-            replace=False,
-            n_samples=int(data.shape[0] * sample_frac)
+            np.arange(n_genes),
+            replace=True,
+            n_samples=int(n_genes * sample_frac)
         )
 
-        sub = data[idx, :]
+        sub = data[:, idx]
+        cntr1, u1, _ = run_fuzzy_cmeans(sub, k, seed1)
 
-        cntr, u, _ = run_fuzzy_cmeans(sub, k)
-        labels = np.argmax(u, axis=0)
+        # assign FULL dataset
+        u_full1, _, _, _, _, _ = fuzz.cluster.cmeans_predict(
+            data, cntr1, m=FUZZINESS, error=ERROR, maxiter=MAX_ITER)
+        labels1 = np.argmax(u_full1, axis=0)
 
         # second run for comparison
         idx2 = resample(
-            np.arange(data.shape[0]),
-            replace=False,
-            n_samples=int(data.shape[0] * sample_frac)
+            np.arange(n_genes),
+            replace=True,
+            n_samples=int(n_genes * sample_frac)
         )
 
-        sub2 = data[idx2, :]
-        cntr2, u2, _ = run_fuzzy_cmeans(sub2, k)
-        labels2 = np.argmax(u2, axis=0)
+        sub2 = data[:, idx2]
+        cntr2, u2, _ = run_fuzzy_cmeans(sub2, k, seed2)
 
-        # overlap genes between subsets
-        common = np.intersect1d(idx, idx2)
+        # assign FULL dataset
+        u_full2, _, _, _, _, _ = fuzz.cluster.cmeans_predict(
+            data, cntr2, m=FUZZINESS, error=ERROR, maxiter=MAX_ITER)
+        labels2 = np.argmax(u_full2, axis=0)
 
-        if len(common) < 5:
-            continue
+        scores.append(adjusted_rand_score(labels1, labels2))
 
-        map1 = np.searchsorted(idx, common)
-        map2 = np.searchsorted(idx2, common)
-
-        scores.append(adjusted_rand_score(labels[map1], labels2[map2]))
-
-    return np.mean(scores)
+    return {
+                "mean": np.mean(scores),
+                "std": np.std(scores),
+                "scores": scores
+            }
 
 
 def select_best_k_stability(data, k_range):
     best_k = None
     best_score = -np.inf
 
+    means = []
+    stds = []
+
     for k in k_range:
-        score = stability_score(data, k)
+        scores = stability_score(data, k)
+        print(f"K={k} | stability={scores['mean']:.4f}")
 
-        print(f"K={k} | stability={score:.4f}")
+        means.append(scores["mean"])
+        stds.append(scores["std"])
 
-        if score > best_score:
-            best_score = score
+        if scores['mean'] > best_score:
+            best_score = scores['mean']
             best_k = k
+
+    plt.figure(figsize=(6, 3))
+    plt.errorbar(list(k_range), means, yerr=stds, marker="o", linestyle="--", capsize=5)
+    plt.xlabel("Number of clusters (K)")
+    plt.ylabel("Stability Score")
+    plt.title("Fuzzy clustering model selection")
+    plt.tight_layout()
+    plt.show()
+    plt.close()
 
     return best_k
 
@@ -292,8 +312,8 @@ def cluster_dataset(da, output_prefix, k_range=K_RANGE):
 
 if __name__ == "__main__":
 
-    t_end = 24
+    t_end = 12
     da = xr.open_dataarray(f"results/normalized_trajectories_{t_end}.nc")
     membership, labels, centers = cluster_dataset(da, f"results/{t_end}hpf", k_range=K_RANGE)
 
-    plot_clusters(centers)
+    plot_clusters(centers, "All")
