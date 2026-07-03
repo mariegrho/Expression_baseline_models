@@ -205,7 +205,8 @@ if __name__ == "__main__":
 
     # assume dataset is loaded as ds
     ds =  xr.load_dataset("genes_tpms_white_pauli_JN_BK_mean.nc")
-    #ds["tpm"] = np.log2(ds.tpm+1)
+    ds["tpm"] = np.log2(ds.tpm+1)
+    # z-score
     ds["tpm"] = (ds["tpm"] - ds["tpm"].mean(dim=("time", "source"))) / ds["tpm"].std(dim=("time", "source"))
 
     #X = ds.tpm

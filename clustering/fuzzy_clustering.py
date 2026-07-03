@@ -138,7 +138,8 @@ def select_best_k_stability(data, k_range):
     plt.ylabel("Stability Score")
     plt.title("Fuzzy clustering model selection")
     plt.tight_layout()
-    plt.show()
+    plt.savefig(f"figs/k_selection_stability")
+    #plt.show()
     plt.close()
 
     return best_k
@@ -228,7 +229,7 @@ def fuzzy_cmeans_clustering(da, k_range=K_RANGE):
     else:
         best_k = N_CLUSTER
     print(f"Number of Clusters: {best_k}")
-    centers, membership, fpc = run_fuzzy_cmeans(data, best_k)
+    centers, membership, fpc = run_fuzzy_cmeans(data, best_k, seed=1)
 
     labels = np.argmax(membership, axis=0)
 
@@ -290,7 +291,8 @@ def plot_clusters(centers_da, cluster):
     plt.title(f"Fuzzy c-means cluster center trajectories ({cluster})")
     plt.legend()
     plt.tight_layout()
-    plt.show()
+    plt.savefig(f"figs/FCM_cluster_centers_{cluster}")
+    plt.close()
 
 
 def cluster_dataset(da, output_prefix, k_range=K_RANGE):
@@ -313,7 +315,7 @@ def cluster_dataset(da, output_prefix, k_range=K_RANGE):
 if __name__ == "__main__":
 
     t_end = 12
-    da = xr.open_dataarray(f"results/normalized_trajectories_{t_end}.nc")
+    da = xr.load_dataarray(f"results/normalized_trajectories_{t_end}.nc")
     membership, labels, centers = cluster_dataset(da, f"results/{t_end}hpf", k_range=K_RANGE)
 
     plot_clusters(centers, "All")

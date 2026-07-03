@@ -1,0 +1,2 @@
+gene_id,model,dataset,BIC,rho,NRMSE,MASE,accepted
+ENSDARG00000000001,Basic,Pauli,11.736069016284437,,,,False

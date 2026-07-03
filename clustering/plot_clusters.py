@@ -49,10 +49,9 @@ def plot_cluster_centers(centers_da):
 # 2. Plot clusters with variability (if membership provided)
 # =====================================================
 
-def plot_cluster_with_variance(trajectories_da, labels_da, n_clusters=None):
+def plot_cluster_with_variance(trajectories_da, labels, n_clusters=None):
 
     data = trajectories_da.values
-    labels = labels_da.values
 
     if n_clusters is None:
         n_clusters = labels.max() + 1
@@ -121,11 +120,9 @@ def plot_membership_heatmap(membership_da, sc, max_genes=1000):
 # 4. Plot representative genes per cluster
 # =====================================================
 
-def plot_representative_genes(trajectories_da, labels_da, cluster_id, top_n=10):
+def plot_representative_genes(trajectories_da, labels, cluster_id, top_n=50):
 
     data = trajectories_da.values
-    labels = labels_da.values
-
     idx = np.where(labels == cluster_id)[0]
 
     if len(idx) == 0:
@@ -153,32 +150,21 @@ def plot_representative_genes(trajectories_da, labels_da, cluster_id, top_n=10):
     plt.legend()
     plt.tight_layout()
     plt.savefig(f"figs/representative_genes_Cluster_{cluster_id}.png")
-    plt.show()
+    #plt.show()
     plt.close()
 
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 
-def plot_super_subcluster_grid1(
-        trajectories_da,    super_labels_da,    sub_labels_da,
-        max_super=None,    max_sub=None,    figsize=None):
+def plot_super_subcluster_grid1(trajectories_da, super_labels, sub_labels, max_super=None, max_sub=None, figsize=None):
 
     data = trajectories_da.values
-    super_labels = super_labels_da.values
-    sub_labels = sub_labels_da.values
     t = trajectories_da.time.values
 
     super_ids = np.unique(super_labels)
-    sub_ids_all = np.unique(sub_labels[sub_labels >= 0])
-
-    if max_super:
-        super_ids = super_ids[:max_super]
-    if max_sub:
-        sub_ids_all = sub_ids_all[:max_sub]
-
     # group subclusters per supercluster
-    groups = {sc: np.unique(sub_labels[super_labels == sc])for sc in super_ids}
+    groups = {sc: np.unique(sub_labels[(super_labels == sc) & (sub_labels >= 0)]) for sc in super_ids}
 
     # estimate layout
     nrows = len(super_ids)
@@ -208,7 +194,7 @@ def plot_super_subcluster_grid1(
             mean = subset.mean(axis=0)
 
             # plot individual trajectories (limit for readability)
-            for g in range(min(20, len(subset))):
+            for g in range(min(50, len(subset))):
                 ax.plot(t, subset[g], alpha=0.3, linewidth=0.8)
             ax.plot(t, mean, "k", linewidth=2)
             ax.set_title(f"S{sc}.C{sb} ({len(subset)})", fontsize=9)
@@ -223,7 +209,7 @@ def plot_super_subcluster_grid1(
     plt.show()
     plt.close()
 
-def plot_super_subcluster_grid(trajectories_da,super_labels_da,sub_labels_da,
+def plot_super_subcluster_grid(trajectories_da,super_labels,sub_labels,
                                 max_super=None,max_sub=None,figsize=(12, 7)):
     """
     Plot trajectories grouped by (supercluster, subcluster)
@@ -231,8 +217,6 @@ def plot_super_subcluster_grid(trajectories_da,super_labels_da,sub_labels_da,
     """
 
     data = trajectories_da.values
-    super_labels = super_labels_da.values
-    sub_labels = sub_labels_da.values
     t = trajectories_da.time.values
 
     super_ids = np.unique(super_labels)
@@ -294,22 +278,22 @@ if __name__ == "__main__":
 
     t_end = 120
 
-    super_labels = xr.open_dataarray("results/superclusters_labels.nc")
-    sub_labels = xr.open_dataset("results/gene_cluster_annotation.nc").subcluster
-    trajectories = xr.open_dataarray(f"results/normalized_trajectories_{t_end}.nc")
+    super_labels = xr.load_dataset("results/gene_cluster_annotation.nc").supercluster.values
+    sub_labels = xr.load_dataset("results/gene_cluster_annotation.nc").subcluster.values
+    trajectories_da = xr.load_dataarray(f"results/normalized_trajectories_{t_end}.nc")
 
     # Plot super × sub cluster grid
-    plot_super_subcluster_grid1(
-        trajectories_da=trajectories,
-        super_labels_da=super_labels,
-        sub_labels_da=sub_labels,)
+    plot_super_subcluster_grid1(trajectories_da,super_labels,sub_labels)
     
-    plot_cluster_centers(xr.open_dataarray("results/superclusters_centers.nc"))
-    plot_cluster_with_variance(trajectories, super_labels,n_clusters=None)
+    plot_cluster_centers(xr.load_dataarray("results/superclusters_centers.nc"))
+    plot_cluster_with_variance(trajectories_da, super_labels,n_clusters=None)
+
+    for cluster_id in np.unique(super_labels):
+        plot_representative_genes(trajectories_da, super_labels, cluster_id, top_n=50)
     
-    membership_da = xr.open_dataarray(f"results/superclusters_membership.nc")
+    membership_da = xr.load_dataarray(f"results/superclusters_membership.nc")
     plot_membership_heatmap(membership_da, "All", max_genes=500)
     
-    for sc in np.unique(super_labels.values):
-        membership_da = xr.open_dataarray(f"results/supercluster_{sc}_membership.nc")
+    for sc in np.unique(super_labels):
+        membership_da = xr.load_dataarray(f"results/supercluster_{sc}_membership.nc")
         plot_membership_heatmap(membership_da, sc, max_genes=500)
