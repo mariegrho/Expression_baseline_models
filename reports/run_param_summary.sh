@@ -12,18 +12,7 @@
 set -euo pipefail
 
 # --- CONFIGURATION ---
-#base_dir="/home/student/m/mgrosseholth/projects/test_sim/results/Thresh2_nuts"
-#base_dir="/home/student/m/mgrosseholth/projects/test_sim/results/ZGA_Model_svi"
-#base_dir="/home/student/m/mgrosseholth/projects/test_sim/results/Repr2_nuts"
-
-#base_dir="/home/student/m/mgrosseholth/projects/test_sim/output/results"
-#base_dir="/home/student/m/mgrosseholth/projects/test_sim/results/zga_1s_nuts_120"
-#base_dir="/home/student/m/mgrosseholth/projects/test_sim/results/Basic_Model_nuts"
-#base_dir="/home/student/m/mgrosseholth/projects/test_sim/results/ZGA_Mdecay1_nuts_8"
-base_dir="/home/student/m/mgrosseholth/projects/test_sim/results/Rep_Mdecay1_nuts_8"
-
-#base_dir="/home/student/m/mgrosseholth/projects/test_sim/results/PolyAModel_mean_approx_White1"
-#base_dir="/home/student/m/mgrosseholth/projects/test_sim/results/PolyAModel_mean_approx_Winata"
+base_dir="/home/student/m/mgrosseholth/projects/test_sim/results/120_hpf"
 
 output_file="$base_dir/parameter_fit_summary.csv"
 

@@ -23,7 +23,7 @@ class Basic_1s(SimulationBase):
 
         # model states
         self.state_variables = {
-            "y":          {"dimensions": ["time",], "observed": True},              # M + Z
+            "y":          {"dimensions": ["time","source"], "observed": True},              # M + Z
         }
 
         @staticmethod
@@ -141,10 +141,10 @@ class Repression_Z():
 
         # model states
         self.state_variables = {
-            "M":          {"dimensions": ["time",], "observed": False, "y0": 1.0},  # maternal
-            "Z":          {"dimensions": ["time",], "observed": False, "y0": 0.0},  # zygotic
-            "y":          {"dimensions": ["time",], "observed": True},              # M + Z
-            "repression": {"dimensions": ["time",], "observed": False},
+            "M":          {"dimensions": ["time","source"], "observed": False, "y0": 1.0},  # maternal
+            "Z":          {"dimensions": ["time","source"], "observed": False, "y0": 0.0},  # zygotic
+            "y":          {"dimensions": ["time","source"], "observed": True},              # M + Z
+            "repression": {"dimensions": ["time","source"], "observed": False},
 
         }
 
@@ -192,9 +192,9 @@ class Repression_M():
 
         # model states
         self.state_variables = {
-            "M":          {"dimensions": ["time",], "observed": False, "y0": 1.0},  # maternal
-            "Z":          {"dimensions": ["time",], "observed": False, "y0": 0.0},  # zygotic
-            "y":          {"dimensions": ["time",], "observed": True},              # M + Z
+            "M":          {"dimensions": ["time","source"], "observed": False, "y0": 1.0},  # maternal
+            "Z":          {"dimensions": ["time","source"], "observed": False, "y0": 0.0},  # zygotic
+            "y":          {"dimensions": ["time","source"], "observed": True},              # M + Z
         }
 
     # right-hand side ODE
