@@ -276,24 +276,31 @@ def plot_super_subcluster_grid(trajectories_da,super_labels,sub_labels,
 
 if __name__ == "__main__":
 
+    NORMALISATION = "minmax"
     t_end = 120
+    #data = "White"
+    data = "all"
 
-    super_labels = xr.load_dataset("results/gene_cluster_annotation.nc").supercluster.values
-    sub_labels = xr.load_dataset("results/gene_cluster_annotation.nc").subcluster.values
-    trajectories_da = xr.load_dataarray(f"results/normalized_trajectories_{t_end}.nc")
+    labels = xr.load_dataset(f"results/{data}_gene_cluster_annotation_{NORMALISATION}.nc")
+    super_labels = labels.supercluster.values
+    sub_labels = labels.subcluster.values
+
+    trajectories_da = xr.load_dataarray(f"results/{data}_normalized_trajectories_{t_end}_{NORMALISATION}.nc")
+    trajectories_da = trajectories_da.sel(ensembl_gene_id=labels.ensembl_gene_id)
+
 
     # Plot super × sub cluster grid
     plot_super_subcluster_grid1(trajectories_da,super_labels,sub_labels)
     
-    plot_cluster_centers(xr.load_dataarray("results/superclusters_centers.nc"))
+    plot_cluster_centers(xr.load_dataarray(f"results/{data}_superclusters_centers.nc"))
     plot_cluster_with_variance(trajectories_da, super_labels,n_clusters=None)
 
     for cluster_id in np.unique(super_labels):
         plot_representative_genes(trajectories_da, super_labels, cluster_id, top_n=50)
     
-    membership_da = xr.load_dataarray(f"results/superclusters_membership.nc")
+    membership_da = xr.load_dataarray(f"results/{data}_superclusters_membership.nc")
     plot_membership_heatmap(membership_da, "All", max_genes=500)
     
     for sc in np.unique(super_labels):
-        membership_da = xr.load_dataarray(f"results/supercluster_{sc}_membership.nc")
+        membership_da = xr.load_dataarray(f"results/{data}_supercluster_{sc}_membership.nc")
         plot_membership_heatmap(membership_da, sc, max_genes=500)

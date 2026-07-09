@@ -36,22 +36,21 @@ from tqdm.auto import tqdm
 
 N_SPLINES = 20
 N_JOBS = -1
-GOF_THRESHOLD = 0.15
+GOF_THRESHOLD = 0.2
 
 DATA_WEIGHT = {
     'BK': 2, 
     'JN': 1, 
-    'Pauli et al.': 1, 
-    'White et al.': 5,
+    'Pauli': 1, 
+    'White': 3,
 }
 
-T_END = 24
 
 # ----------------------------------------------------------
 # fit one gene
 # ----------------------------------------------------------
 
-def sigmoid_weights(t, midpoint=T_END/2, scale=15, floor=0.5, ceiling=1.0):
+def sigmoid_weights(t, midpoint, scale=15, floor=0.5, ceiling=1.0):
     """
     Fallende S-Kurve: hohes Plateau für frühe t, sanfter Übergang
     um `midpoint`, niedriges Plateau (floor) für späte t.
@@ -60,7 +59,7 @@ def sigmoid_weights(t, midpoint=T_END/2, scale=15, floor=0.5, ceiling=1.0):
     return floor + (ceiling - floor) * s
 
 
-def fit_gene1(gene, ds, prediction_grid):
+def fit_gene(gene, ds, prediction_grid):
 
     g = ds.sel(ensembl_gene_id=gene)
 
@@ -69,11 +68,11 @@ def fit_gene1(gene, ds, prediction_grid):
     source_all = []
     weight_all = []          # <-- per-observation weights, not per-study
 
-    sources = ds.source.values
-
+    sources = np.atleast_1d(ds.source.values)
     for source_index, source in enumerate(sources):
 
         y = g.tpm.sel(source=source).values
+        y = np.atleast_1d(y)    
         t = ds.time.values
 
         mask = np.isfinite(y)
@@ -88,123 +87,38 @@ def fit_gene1(gene, ds, prediction_grid):
     if len(t_all) == 0:
         return None
 
+
     t = np.concatenate(t_all)
     y = np.concatenate(y_all)
     source_all = np.asarray(source_all)
     weights = np.asarray(weight_all, dtype=float)
-
-    y = np.log2(y + 1)
-
     X = np.column_stack([t, source_all])
 
+    if len(y) < N_SPLINES:   # fewer points than spline basis functions requested
+        print(f"[fit_gene] {gene}: only {len(y)} obs, skipping (need >= {N_SPLINES})")
+        return None
+
+
+    n_obs = len(y)
+    n_splnes = min(N_SPLINES, max(4, n_obs // 2))
+
     try:
-        gam = LinearGAM(s(0, n_splines=N_SPLINES) + f(1))
-        gam.gridsearch(X, y, weights=weights, lam=np.logspace(-3, 3, 8), progress=False)
+        if len(sources) > 1:
+            gam = LinearGAM(s(0, n_splines=n_splnes) + f(1))
+            gam.gridsearch(X, y, weights=weights, lam=np.logspace(-3, 3, 8), progress=False) 
+        else: 
+            gam = LinearGAM(s(0, n_splines=n_splnes))
+            gam.gridsearch(X, y, lam=np.logspace(-3, 3, 8), progress=False)
     except Exception as e:
         print(f"[fit_gene] {gene}: {e}")
         return None
 
-    # ---------------------------------------------
     # predict on common time grid
-    # ---------------------------------------------
     pred = np.zeros((len(sources), len(prediction_grid)))
     for source_index in range(len(sources)):
         Xpred = np.column_stack([prediction_grid, np.repeat(source_index, len(prediction_grid))])
         pred[source_index] = gam.predict(Xpred)
 
-    # study weighting is now already reflected in the fit itself —
-    # average across sources unweighted (see note below)
-    mean_curve = pred.mean(axis=0)
-    return mean_curve
-
-def fit_gene(gene, ds, prediction_grid):
-
-    g = ds.sel(ensembl_gene_id=gene)
-
-    t_all = []
-    y_all = []
-    source_all = []
-    weights_d = []
-
-    sources = ds.source.values
-
-    # ---------------------------------------------
-    # collect observations from every study
-    # ---------------------------------------------
-
-    for source_index, source in enumerate(sources):
-
-        y = g.tpm.sel(source=source).values
-        t = ds.time.values
-
-        mask = np.isfinite(y)
-
-        #if mask.sum() < 5:
-        #    continue
-
-        t_all.append(t[mask])
-        y_all.append(y[mask])
-        source_all.extend([source_index] * mask.sum())
-
-        weights_d.append(DATA_WEIGHT[source])
-
-    if len(t_all) == 0:
-        return None
-
-    t = np.concatenate(t_all)
-    y = np.concatenate(y_all)
-
-    source_all = np.asarray(source_all)
-
-    # ---------------------------------------------
-    # log transform
-    # ---------------------------------------------
-
-    y = np.log2(y + 1)
-
-    # ---------------------------------------------
-    # design matrix
-    # column 0 = time
-    # column 1 = study
-    # ---------------------------------------------
-
-    X = np.column_stack([t, source_all])
-
-
-    tau = 40
-    floor = 0.15
-    #time_weights = floor + (1 - floor) * np.exp(-t / tau)
-    #time_weights = sigmoid_weights(t)
-
-    #plt.plot(t, time_weights, 'o')
-    #plt.show()
-
-    try:
-        
-        #gam = LinearGAM(te(0, 1, n_splines=[N_SPLINES, len(sources)]))
-        gam = LinearGAM(s(0,n_splines=N_SPLINES)+f(1))
-        #gam.gridsearch(X, y, weights=time_weights, lam=np.logspace(-5, 3, 10), progress=False)
-        gam.gridsearch(X,y, lam=np.logspace(-3,3,8), progress=False)
-        #print(gam.lam)
-
-    except Exception as e:
-        print(f"[fit_gene] {gene}: {e}")
-        return None
-
-    # ---------------------------------------------
-    # predict on common time grid
-    # ---------------------------------------------
-
-    pred = np.zeros((len(sources), len(prediction_grid)))
-
-    for source_index in range(len(sources)):
-        Xpred = np.column_stack([prediction_grid, np.repeat(source_index, len(prediction_grid))])
-        pred[source_index] = gam.predict(Xpred)
-
-    # ---------------------------------------------
-    # average over studies
-    # ---------------------------------------------
-    #mean_curve = np.average(pred, axis=0, weights=weights_d)
     mean_curve = pred.mean(axis=0)
     return mean_curve
 
@@ -249,12 +163,11 @@ def fit_all_genes(ds):
     return trajectories
 
 
-def gof_trajectories(ds, trajectories):
+def gof_trajectories(ds, trajectories, t_end):
 
     """
     Compute goodness-of-fit metrics for every gene
     """
-    ds = np.log2(ds + 1)
 
     genes = trajectories.ensembl_gene_id.values
     sources = ds.source.to_series().unique()
@@ -267,31 +180,37 @@ def gof_trajectories(ds, trajectories):
 
         for gene in tqdm(genes):
 
-            y_true = data.sel(ensembl_gene_id=gene, drop=True).tpm
-            y_pred = trajectories.sel(ensembl_gene_id=gene, drop=True).values
-
-            norm = y_true.max("time").item() - y_true.min("time").item()
+            try:
+                y_true = data.sel(ensembl_gene_id=gene, drop=True).tpm
+                y_pred = trajectories.sel(ensembl_gene_id=gene, drop=True).values
+            except Exception:
+                gof.append(np.nan)
+                accept.append(False)
+                continue
 
             mask = np.isfinite(y_true) & np.isfinite(y_pred)
 
             if mask.sum() < 2:
                 gof.append(np.nan)
+                accept.append(False)
                 continue
 
             y_true = y_true[mask]
             y_pred = y_pred[mask]
             
-
             rmse = np.sqrt(np.mean((y_true.values - y_pred)**2))
-            nrmse = rmse / norm if norm > 0 else np.nan
+            n_range = y_true.max("time").item() - y_true.min("time").item()  # range
+            nrmse = rmse / n_range if n_range > 0 else np.nan
 
             gof.append(nrmse)
-            accept.append(nrmse < GOF_THRESHOLD)
+            accept.append(bool(nrmse < GOF_THRESHOLD) if np.isfinite(nrmse) else False)
 
         rows.append(pd.DataFrame({"ensembl_gene_id": genes, "source": src, "nrmse": gof, "accepted": accept, }))
 
-    return pd.concat(rows, ignore_index=True)
+    df = pd.concat(rows, ignore_index=True)
+    df.to_csv(f"results/gof_trajectories_{t_end}.csv", index=False)
 
+    return df
 
 
 # ----------------------------------------------------------
@@ -300,14 +219,23 @@ def gof_trajectories(ds, trajectories):
 
 if __name__ == "__main__":
 
+    DATA = ["all", 'White', "Pauli", "BK", "JN"]
+
     ds = xr.load_dataset("../data/genes_tpms_white_pauli_JN_BK_mean.nc")
-    #ds = ds.sel(source = ['White et al.', ])
+    ds["tpm"] = np.log2(ds.tpm + 1)
+    #ds = ds.sel(source = ['White'])
     #ds = ds.sel(ensembl_gene_id=ds.ensembl_gene_id.values[0:5])
 
-    mask = ds.tpm.max(dim=["time", "source"], skipna=True) >= 5
+    ds_clean = ds.dropna(dim="time", how="all", subset=["tpm"])
+    # Keep only relevantly expressed genes
+    mask = (ds_clean.tpm.max(dim="time", skipna=True) >= 1).any(dim="source")
 
-    ds_filtered = ds.sel(ensembl_gene_id=mask).sel(time=slice(0, T_END))
-    trajectories = fit_all_genes(ds_filtered)
-    #print(trajectories)
+    for T_END in [24]:
+        print(f"fitting over t={T_END} hpf")
 
-    trajectories.to_netcdf(f"results/gene_trajectories_{T_END}.nc")
+        ds_filtered = ds.sel(ensembl_gene_id=mask).sel(time=slice(0, T_END))
+        trajectories = fit_all_genes(ds_filtered)
+        trajectories.to_netcdf(f"results/{DATA[0]}_gene_trajectories_{T_END}.nc")
+
+        print(f"Calculating goodness of fit...")
+        gof_trajectories(ds_filtered, trajectories, T_END)

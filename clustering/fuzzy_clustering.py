@@ -20,6 +20,7 @@ import numpy as np
 import xarray as xr
 import skfuzzy as fuzz
 import matplotlib.pyplot as plt
+import os
 
 
 # =====================================================
@@ -32,6 +33,7 @@ MAX_ITER = 300
 ERROR = 1e-5
 N_CLUSTER = None
 
+rng = np.random.default_rng(seed=1)
 
 # =====================================================
 # Fuzzy clustering wrapper
@@ -73,14 +75,12 @@ def stability_score(data, k, n_runs=20, sample_frac=0.8):
 
     for _ in range(n_runs):
 
-        seed1 = np.random.randint(0, 1_000_000)
-        seed2 = np.random.randint(0, 1_000_000)
+        seed1 = rng.integers(0, 1_000_000)
+        seed2 = rng.integers(0, 1_000_000)
+        resample_seed1 = rng.integers(0, 1_000_000)
+        resample_seed2 = rng.integers(0, 1_000_000)
 
-        idx = resample(
-            np.arange(n_genes),
-            replace=True,
-            n_samples=int(n_genes * sample_frac)
-        )
+        idx = resample(np.arange(n_genes),replace=True,n_samples=int(n_genes * sample_frac), random_state=resample_seed1)
 
         sub = data[:, idx]
         cntr1, u1, _ = run_fuzzy_cmeans(sub, k, seed1)
@@ -91,11 +91,7 @@ def stability_score(data, k, n_runs=20, sample_frac=0.8):
         labels1 = np.argmax(u_full1, axis=0)
 
         # second run for comparison
-        idx2 = resample(
-            np.arange(n_genes),
-            replace=True,
-            n_samples=int(n_genes * sample_frac)
-        )
+        idx2 = resample(np.arange(n_genes),replace=True,n_samples=int(n_genes * sample_frac), random_state=resample_seed2)
 
         sub2 = data[:, idx2]
         cntr2, u2, _ = run_fuzzy_cmeans(sub2, k, seed2)
@@ -291,7 +287,7 @@ def plot_clusters(centers_da, cluster):
     plt.title(f"Fuzzy c-means cluster center trajectories ({cluster})")
     plt.legend()
     plt.tight_layout()
-    plt.savefig(f"figs/FCM_cluster_centers_{cluster}")
+    plt.savefig(f"figs/FCM_cluster_centers_{cluster}.png")
     plt.close()
 
 
@@ -313,6 +309,9 @@ def cluster_dataset(da, output_prefix, k_range=K_RANGE):
 # =====================================================
 
 if __name__ == "__main__":
+
+    os.makedirs("figs", exist_ok=True)
+    os.makedirs("results", exist_ok=True)
 
     t_end = 12
     da = xr.load_dataarray(f"results/normalized_trajectories_{t_end}.nc")

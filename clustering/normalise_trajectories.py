@@ -106,10 +106,12 @@ def normalize_dataset(da):
 
 if __name__ == "__main__":
 
-    t_end = 24
-    da = xr.load_dataarray(f"results/gene_trajectories_{t_end}.nc")
+    DATA = ["all", 'White', "Pauli", "BK", "JN"]
+    source = DATA[0]
 
-    print(da)
-    normalized = normalize_dataset(da)
-    print(normalized)
-    normalized.to_netcdf(f"results/normalized_trajectories_{t_end}.nc")
+    for t_end in [24, 120]:
+        print(f"Normalise {t_end} dataset")
+        da = xr.load_dataarray(f"results/{source}_gene_trajectories_{t_end}.nc")
+        normalized = normalize_dataset(da)
+        normalized.to_netcdf(f"results/{source}_normalized_trajectories_{t_end}_{NORMALIZATION}.nc")
+        print(f"Saved under: ./results/{source}_normalized_trajectories_{t_end}_{NORMALIZATION}.nc")
