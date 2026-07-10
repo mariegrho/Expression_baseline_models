@@ -35,7 +35,7 @@ def prepare_dataset(gene_id, model_version, t_end):
     rep_on_obs = rep.interp(time_rep=obs.time).drop_vars("time_rep")
     combined_ds = xr.merge([obs, rep_on_obs])
 
-    if model_version in ["Basic", "ZGA_M", "Rep_M"]:
+    if model_version in ["Basic", "ZGA_M", "Rep_M", "Rep_V"]:
         return obs ## M decay version without regulator
     else:
         return combined_ds
@@ -87,6 +87,7 @@ def main(gene_id, model_version, kernel="nuts", t_end=120, plot=True, smooth=Fal
         "ZGA_Z": ZGA_Model_Z(),
         "Rep_M": Repression_M(),
         "Rep_Z": Repression_Z(),
+        "Rep_V": Repression_V(),
         }[model_version]
 
     sim.model = model._rhs_jax
@@ -140,6 +141,7 @@ def main(gene_id, model_version, kernel="nuts", t_end=120, plot=True, smooth=Fal
         "ZGA_Z": init_ZGA_Z,
         "Rep_M": init_Rep_M,
         "Rep_Z": init_Rep_Z,
+        "Rep_V": init_Rep_V,
         }[model_version](sim, model)
 
     # Simulate

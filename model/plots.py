@@ -30,10 +30,15 @@ def plot_model_results(results, gene_id, model_version, path=None, show=False):
         if t_zga_fit <= obs.time.max():
             ax.scatter(x=t_zga_fit, y=0, color="green", marker="^", label="$t_{zga}$"+f" = {t_zga_fit:.1f}")
 
-    if model_version in ["Rep_Z", "Rep_M"]:
+    if model_version == "Rep_V":
+        t_deg_fit = results.posterior.mean(dim=["draw", "chain",]).t_deg
+        if t_deg_fit <= obs.time.max():
+            ax.scatter(x=t_deg_fit, y=0, color="crimson", marker="^", label="$t_{deg}$"+f" = {t_deg_fit:.1f}")
+
+    if model_version in ["Rep_Z", "Rep_M", "Rep_V"]:
         t_reg_fit = results.posterior.mean(dim=["draw", "chain",]).t_rep
         if t_reg_fit <= obs.time.max():
-            ax.scatter(x=t_reg_fit, y=0, color="crimson", marker="^", label="$t_{reg}$"+f" = {t_reg_fit:.1f}")
+            ax.scatter(x=t_reg_fit, y=0, color="steelblue", marker="^", label="$t_{reg}$"+f" = {t_reg_fit:.1f}")
 
     ax.set(xlabel="time (hpf)", ylabel="expression (TPM)", title=f"{gene_id} ({model_version})")
     ax.legend(loc=(1.01, 0.1))

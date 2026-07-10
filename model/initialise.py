@@ -205,3 +205,48 @@ def init_Rep_Z(sim, model):
     return sim, model
 
 
+def init_Rep_V(sim, model):
+
+    # --- Initialize parameters ---
+    sim.config.data_structure.M = DataVariable(dimensions=("time","source"), observed=False)
+    sim.config.data_structure.Z = DataVariable(dimensions=("time","source"), observed=False)
+
+    # inital condiion
+    model.state_variables["Z"]["y0"] = 0.0
+    model.state_variables["M"]["y0"] = sim.observations.y[0].mean().item()
+    
+    sim.config.simulation.y0 = [f"{k}={v['y0']}" for k, v in model.state_variables.items() if "y0" in v]
+    sim.model_parameters["y0"] = sim.parse_input("y0", sim.observations, drop_dims="time")
+    
+    Z_max0 = sim.observations.y[2:-2].max().item() # steady-state TPM -> alpha
+    Z_ss0 = sim.observations.y[-9:].mean().item()  # steady-state TPM -> beta
+    print("Mean TPM", Z_max0, Z_ss0) 
+
+    delta_r = 1.4  # t12 = 30 min
+
+    t1 = 3.0
+    t2 = 10.0
+    t3 = 2.0
+    delta_z0 = 0.1 # t12 = 6h
+    alpha0   = Z_max0 * delta_z0 + 1e-8 # first rate
+    beta0    = Z_ss0 * delta_z0 + 1e-8 # final rate
+
+    sim.config.model_parameters.alpha = Param(value=alpha0, free=True, prior=f"lognorm(scale={alpha0}, s=0.5)")
+    sim.config.model_parameters.beta = Param(value=beta0, free=True, prior=f"lognorm(scale={beta0}, s=0.5)")
+
+    sim.config.model_parameters.delta_z = Param(value=delta_z0, free=True, prior=f"lognorm(scale={delta_z0}, s=1.0)")
+    sim.config.model_parameters.delta_m = Param(value=delta_r, free=True, prior=f"lognorm(scale={delta_r}, s=0.5)")
+
+    sim.config.model_parameters.t_zga =   Param(value=t1, free=True,      prior=f"lognorm(scale={t1}, s=1.0)")
+    sim.config.model_parameters.t_rep =   Param(value=t2,  free=True,      prior=f"lognorm(scale={t2}, s=1.0)")
+    sim.config.model_parameters.t_deg =   Param(value=t3,  free=True,      prior=f"lognorm(scale={t3}, s=1.0)")
+    sim.config.model_parameters.s =   Param(value=5, free=False)
+
+    # Error Model
+    sim.config.model_parameters.sigma_y = Param(value=0.3,  free=True, prior="lognorm(scale=0.5, s=0.5)")
+    sim.config.error_model.y = "normal(loc=0, scale=sigma_y, obs=jnp.log1p(obs) - jnp.log1p(y), obs_inv=jnp.expm1(res + jnp.log1p(y)))"
+    sim.model_parameters["parameters"] = sim.config.model_parameters.value_dict
+
+    print("model_parameters:", sim.config.model_parameters.value_dict)
+
+    return sim, model

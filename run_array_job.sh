@@ -22,15 +22,16 @@ GENE_ID=$(sed -n "${SLURM_ARRAY_TASK_ID}p" data/genes.txt)
 echo "[$(date)] Starting task $SLURM_ARRAY_TASK_ID: $GENE_ID"
 
 datasets=("White" "Pauli" "BK" "JN" "Medina_Munoz_polyA" "Medina_Munoz_ribo")
-model_versions=("Rep_M" "Rep_Z" "ZGA_M" "ZGA_Z")
+model_versions=("Rep_M" "Rep_Z" "Rep_V" "ZGA_M" "ZGA_Z")
 
-#srun python simulate.py --gene_id "$GENE_ID" --model_version ${model_versions[0]}  --plot --t_end 120
-#srun python simulate_single.py --gene_id "$GENE_ID" --model_version ${model_versions[0]} --dataset ${datasets[0]} --plot --t_end 120
-srun python basic_model.py --gene_id "$GENE_ID" --plot --t_end 120
+#srun python basic_model_single.py --gene_id "$GENE_ID" --dataset ${datasets[0]} --plot --t_end 120
+srun python simulate.py --gene_id "$GENE_ID" --model_version ${model_versions[2]} --plot --t_end 120
+#srun python basic_model.py --gene_id "$GENE_ID" --plot --t_end 120
 
 echo "[$(date)] Finished task $SLURM_ARRAY_TASK_ID: $GENE_ID"
 
 # sbatch run_array_job.sh
+# sbatch --array=1-1 run_array_job.sh
 # sbatch --array=1-28725%50 run_array_job.sh
 # watch squeue --me
 # sed -i 's/\r$//' data/genes_clustered_white.txt
