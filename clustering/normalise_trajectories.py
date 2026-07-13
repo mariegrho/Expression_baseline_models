@@ -1,6 +1,7 @@
 """
 normalize_trajectories.py
 
+Step 2.
 Normalize fitted gene trajectories before clustering.
 
 Input

@@ -1,7 +1,7 @@
 """
 cluster_fuzzy.py
 
-Fuzzy clustering of gene expression trajectories.
+Fuzzy c-means clustering of gene expression trajectories.
 
 Input:
     normalized_trajectories.nc

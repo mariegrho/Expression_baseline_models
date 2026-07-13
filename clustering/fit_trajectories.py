@@ -1,7 +1,8 @@
 """
 fit_trajectories.py
 
-Fit study-aware GAM trajectories for every gene
+Step 1.
+Fit GAM trajectories for every gene
 and evaluate them on the common time grid.
 
 Input

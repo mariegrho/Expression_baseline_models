@@ -1,3 +1,20 @@
+"""
+hierarchical_clustering.py
+
+Step 3.
+Cluster the normalised trajectories using fuzzy c-means.
+Calls fuzzy_clustering.py.
+
+Input
+-----
+_normalized_trajectories_120-.nc
+
+Output
+------
+_gene_cluster_annotation_.nc
+"""
+
+
 import xarray as xr
 import numpy as np
 import pandas as pd

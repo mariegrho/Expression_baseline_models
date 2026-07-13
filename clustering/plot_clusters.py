@@ -1,16 +1,14 @@
 """
 plot_clusters.py
 
-Visualization utilities for fuzzy gene expression clustering.
+Visualizatios for fuzzy gene expression clustering.
 
 Inputs:
-    - cluster_centers.nc
-    - fuzzy_membership.nc (optional)
-    - normalized trajectories (optional for overlays)
+    - _gene_cluster_annotation_.nc
+    - _superclusters_centers.nc
+    - _superclusters_membership.nc 
+    - normalized trajectories 
 
-Outputs:
-    - cluster plots
-    - optional per-cluster gene overlays
 """
 
 import numpy as np
