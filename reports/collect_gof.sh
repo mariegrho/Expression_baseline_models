@@ -6,11 +6,15 @@
 #SBATCH --mem=500MB
 #SBATCH --cpus-per-task=1
 
-MODEL="Basic"
+MODEL="Rep_Z"
 BASE_DIR="results/120_hpf/$MODEL/all"
 OUT_FILE="results_summary/$MODEL/goodness_of_fit_summary.csv"
 FILELIST="$(mktemp)"
 DONE_GENES="$(mktemp)"
+
+mkdir -p "$(dirname "$OUT_FILE")"
+
+echo "Start gof summary with HDIs for model $MODEL"
 
 # Header if starting fresh
 if [ ! -s "$OUT_FILE" ]; then
@@ -53,7 +57,7 @@ $1=="BIC"                                {bic   = $3}
 $1=="BIC (95%-hdi[lower])"               {bic_l = $3}
 $1=="BIC (95%-hdi[upper])"               {bic_u = $3}
 END { flush() }
-' filelist="$FILELIST" /dev/null >> "$OUT_FILE"
+' /dev/null >> "$OUT_FILE"
 
 # sort genes by GeneID
 {

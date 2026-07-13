@@ -8,7 +8,7 @@
 
 set -euo pipefail
 
-MODEL="Basic"
+MODEL="Rep_Z"
 BASE_DIR="results/120_hpf/$MODEL/all"
 OUT_FILE="results_summary/$MODEL/parameter_fit_summary.csv"
 
@@ -72,7 +72,7 @@ END {
     for (i = 1; i <= pn; i++) sorted_params[i] = params[i]
     n2 = asort(sorted_params)   # gawk builtin: sorts array in place, returns count
 
-    printf "GeneID"
+    printf "gene_id"
     for (i = 1; i <= n2; i++) printf ",%s_mean", sorted_params[i]
     for (i = 1; i <= n2; i++) printf ",%s_std",  sorted_params[i]
     printf "\n"

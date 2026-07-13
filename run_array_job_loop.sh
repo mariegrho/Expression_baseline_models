@@ -19,8 +19,8 @@ spack unload miniconda3
 export XLA_FLAGS="--xla_force_host_platform_device_count=$SLURM_CPUS_PER_TASK"
 
 # --- Get current gene ---
-GENE_ID=$(sed -n "${SLURM_ARRAY_TASK_ID}p" data/genes.txt)
-#GENE_ID=$(sed -n "${SLURM_ARRAY_TASK_ID}p" data/missing_genes.txt)
+#GENE_ID=$(sed -n "${SLURM_ARRAY_TASK_ID}p" data/genes.txt)
+GENE_ID=$(sed -n "${SLURM_ARRAY_TASK_ID}p" data/missing_genes.txt)
 
 echo "[$(date)] Starting task $SLURM_ARRAY_TASK_ID: $GENE_ID"
 
@@ -40,6 +40,6 @@ done
 echo "[$(date)] Finished task $SLURM_ARRAY_TASK_ID: $GENE_ID"
 
 # sbatch --array=1-1 run_array_job_loop.sh
-# sbatch --array=1-28725%50 run_array_job_loop.sh
+# sbatch --array=1-6771%50 run_array_job_loop.sh
 # watch squeue --me
 # sed -i 's/\r$//' data/genes_clustered_white.txt

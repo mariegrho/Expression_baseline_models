@@ -16,16 +16,19 @@ print(len(genes))
 with open('data/genes.txt', 'w+') as f:
     f.write("\n".join(genes)) 
 
-base_dir = "results/120_hpf/Basic/all"
-files = list(Path(base_dir).rglob("gof_metrics.csv"))
-genes_fitted = {f.parent.name for f in files}
+base_dir = "results_summary/120_hpf/Rep_M/all"
+#files = list(Path(base_dir).rglob("gof_metrics.csv"))
+#genes_fitted = {f.parent.name for f in files}
+
+fitted = pd.read_csv(f"results_summary/Rep_M/goodness_of_fit_summary.csv")
+genes_fitted = set(fitted.gene_id)
+
 missing_genes = sorted(set(genes) - genes_fitted)
 print(f"{len(missing_genes)} genes missing")
 with open('data/missing_genes.txt', 'w+') as f:
     f.write("\n".join(missing_genes)) 
 
-
-print("File written successfully")
+print("File written successfully.")
 
 # chmod +x data/gene_list.py
 # conda activate thesis

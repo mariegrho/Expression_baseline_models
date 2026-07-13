@@ -10,9 +10,11 @@ spack load miniconda3
 source activate thesis 
 spack unload miniconda3
 
-MODEL="Basic"
+MODEL="Rep_Z"
 BASE_DIR="results/120_hpf/$MODEL/all"
 OUT_FILE="results_summary/$MODEL/gof_by_source_joined.csv"
+
+echo "Start joining gof metrics for model $MODEL"
 
 find "$BASE_DIR" -name "gof_metrics.csv" | sort > files.txt
 first_file=$(head -n 1 files.txt)
