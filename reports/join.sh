@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --job-name=join     
+#SBATCH --job-name=0join     
 #SBATCH --output=results/logs/%x_%A_%a.out
 #SBATCH --error=results/logs/%x_%A_%a.err    
 #SBATCH --time=01:30:00                   
@@ -10,18 +10,19 @@ spack load miniconda3
 source activate thesis 
 spack unload miniconda3
 
-base_dir="results/120_hpf/"
-output_file="${base_dir}/gof_metrics_joined.csv"
+MODEL="Basic"
+BASE_DIR="results/120_hpf/$MODEL/all"
+OUT_FILE="results_summary/$MODEL/gof_by_source_joined.csv"
 
-find "$base_dir" -name "gof_metrics.csv" | sort > files.txt
+find "$BASE_DIR" -name "gof_metrics.csv" | sort > files.txt
 first_file=$(head -n 1 files.txt)
-head -n 1 "$first_file" > "$output_file"
+head -n 1 "$first_file" > "$OUT_FILE"
 
 # Append data rows only
 while IFS= read -r f; do
     tail -n +2 "$f"
-done < files.txt >> "$output_file"
+done < files.txt >> "$OUT_FILE"
 
-echo "Joined gof_metrics.csv files into $output_file"
+echo "Joined gof_metrics.csv files into $OUT_FILE"
 
 # sbatch reports/join.sh
