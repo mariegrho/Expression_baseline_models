@@ -7,7 +7,6 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-
 ''' ----- Global Parmeters ----- '''
 
 FIG_PATH = "figures"
@@ -15,31 +14,28 @@ FIG_PATH = "figures"
 NRMSE_thres = 0.2
 RHO_thres = 0.7
 
+cluster = xr.load_dataset("data/all_gene_cluster_annotation_minmax.nc")
+cluster_order = ["SD", "DSD", "SU", "DSU"]
 cluster_names = {0 : "SD", 1 : "DSD", 2 : "SU", 3 : "DSU"}
+col_c = sns.color_palette("Set1", n_colors=4)  
+cluster_color_dict = {"SD": col_c[0], "DSD": col_c[1], "SU": col_c[2], "DSU": col_c[3], }
 
-col = sns.color_palette("Dark2")  
-mod_color_dict = {
-    "Basic": col[7], # grey
-    "Rep_M": col[1], # orange
-    "Rep_Z": col[3]} # pink
+col_m = sns.color_palette("Dark2")  
+mod_color_dict = {"Basic": col_m[7],"Rep_M": col_m[1], "Rep_Z": col_m[3]} 
+model_order = ["Basic", "Rep_M", "Rep_Z"]
 
-col1 = sns.color_palette("twilight_shifted")  
-src_color_dict =  {'White':col1[0], 'Pauli':col1[1], 'JN':col1[4], 'BK':col1[5]}
+col_s = sns.color_palette("twilight_shifted")  
+src_color_dict =  {'White':col_s[0], 'Pauli':col_s[1], 'JN':col_s[4], 'BK':col_s[5]}
 
-cluster_color_dict = {"SD": "tab:red", "DSD": "tab:blue", "SU": "tab:green", "DSU": "tab:purple", }
+# ================================================================================================
 
-
-#--------------------------------
-
-def combine_ds():
+def combine_ds(save_csv=False):
 
     print("Combine Datasets...")
 
     gof_all_list = []
     gof_src_list = []
     params_list = []
-
-    cluster = xr.load_dataset("data/all_gene_cluster_annotation_minmax.nc")
 
     for model in ["Basic", "Rep_M", "Rep_Z"]:
 
@@ -71,9 +67,10 @@ def combine_ds():
     gof_src_combined = pd.concat(gof_src_list, ignore_index=True)
     params_combined = pd.concat(params_list, ignore_index=True)
 
-    #gof_all_combined.to_csv("results_summary/gof_all_combined.csv", index=False)
-    #gof_src_combined.to_csv("results_summary/gof_src_combined.csv", index=False)
-    #params_combined.to_csv("results_summary/params_combined.csv", index=False)
+    if save_csv:
+        gof_all_combined.to_csv("results_summary/gof_all_combined.csv", index=False)
+        gof_src_combined.to_csv("results_summary/gof_src_combined.csv", index=False)
+        params_combined.to_csv("results_summary/params_combined.csv", index=False)
 
     return gof_all_combined, gof_src_combined, params_combined
 
@@ -87,7 +84,7 @@ def point_plot_metrics_all(gof_all_combined):
 
     models = pd.unique(df["model"].dropna())
     supercluster = pd.unique(df["supercluster"].dropna())
-    metrics = ["BIC", "NRMSE"]
+    metrics = ["BIC", "NRMSE", "rho"]
 
     fig, ax = plt.subplots(len(metrics), len(supercluster), figsize=(len(supercluster)*2, 1.5*len(metrics)), sharey="row", sharex="row")
 
@@ -98,6 +95,8 @@ def point_plot_metrics_all(gof_all_combined):
             
             if metr == "NRMSE":
                 ax[r][c].axvline(x=NRMSE_thres, color='k', linestyle='-.', linewidth=0.5)
+            if metr == "rho":
+                ax[r][c].axvline(x=RHO_thres, color='k', linestyle='-.', linewidth=0.5)
 
             sns.pointplot(
                 data=data, x=metr, y="model",
@@ -125,7 +124,45 @@ def point_plot_metrics_all(gof_all_combined):
     plt.show()
 
 
-def plot_metrics_distribution(gof_src, hue_key = "source"):
+def plot_metrics_distribution_all(gof_all_combined, hue_key = "model"):
+
+    print("Plot GOF metrics - distribution by model")
+
+    color_dict = {"source": src_color_dict, "model": mod_color_dict}[hue_key]
+
+    data = gof_all_combined[gof_all_combined["NRMSE"] < 1]
+
+    fig, ax = plt.subplots(1, 2, figsize=(9, 4), sharey=True, sharex="col", )
+
+    ax[0].axvline(x=RHO_thres, color="grey", ls="dashed", lw=1.5)
+    ax[0].axvline(x=0.9, color="grey", ls="dotted", lw=1.5)
+    ax[0].fill_between(x=[1.0, RHO_thres], y1=0, y2=1, color="lightgrey", alpha=0.3, label="Accepted fits")
+    sns.kdeplot(data, x="rho", hue=hue_key, hue_order=model_order, palette=color_dict, linewidth=1.5,
+                    cumulative=True, common_norm=False, common_grid=True, legend=False, ax=ax[0] )
+    ax[0].xaxis.set_inverted(False)
+    ax[0].yaxis.set_inverted(False)
+    ax[0].set_xticks([-1, -0.5, 0, 0.5, 1])
+    ax[0].set(title="Spearman's $\\rho$",xlabel="$\\rho$", xlim=(-1.1, 1.1))
+    ax[0].grid(True)
+
+    ax[1].axvline(x=NRMSE_thres, color="grey", ls="dashed", lw=1.5)
+    ax[1].axvline(x=0.1, color="grey", ls="dotted", lw=1.5)
+    ax[1].fill_between(x=[0.0, NRMSE_thres], y1=0, y2=1, color="lightgrey", alpha=0.3, label="Accepted fits")
+    sns.kdeplot(data, x="NRMSE", hue=hue_key, hue_order=model_order, palette=color_dict, linewidth=1.5,
+                cumulative=True, common_norm=False, common_grid=True,legend=True, ax=ax[1], )
+    ax[1].xaxis.set_inverted(False)
+    ax[1].grid(True)
+    ax[1].set(title="NRMSE", xlabel="NRMSE")
+    
+    sns.move_legend(ax[1], loc=(1.02, 0.3), title=hue_key, frameon=False)
+
+    plt.suptitle(f"Goodness of fit metrics distribution", fontsize=12)
+    plt.tight_layout()
+    plt.savefig(f"{FIG_PATH}/gof_distribution_{hue_key}.png", dpi=300, bbox_inches="tight")
+    plt.show()
+
+
+def plot_metrics_distribution_src(gof_src, hue_key = "source"):
 
     print("Plot GOF metrics - distribution")
 
@@ -272,26 +309,21 @@ def plot_rep_params_violin(ds_params):
     params = ["t_zga_mean", "t_rep_mean"]
     title = ["$t_{zga}$", "$t_{reg}$"]
     df = ds_params[ds_params["model"] != "Basic" ].copy()
+    colors = sns.color_palette("Set2", n_colors=2)
     
-    fig, ax = plt.subplots(1, len(params), figsize = (10, 5), sharey=True, sharex=True)
+    fig, ax = plt.subplots(1, len(params), figsize = (10, 4.5), sharey=True, sharex=True)
 
     for i, param in enumerate(params):
-        sns.violinplot(data=df, x=param, y="supercluster",
-                        log_scale=True, hue="model", 
-                        split=True, inner="quart",
-                        palette={"Rep_M": "#66c2a5", "Rep_Z": "#fc8d62"},
-                        legend= True if i == len(params)-1 else False,
-                        ax=ax[i])
+        sns.violinplot(data=df, x=param, y="supercluster", log_scale=True, hue="model", 
+                        split=True, inner="quart",palette=colors, order=cluster_order,
+                        legend= True if i == len(params)-1 else False, ax=ax[i])
         
         ax[i].set(title=title[i], xlabel=title[i])
         ax[i].grid(True)
 
-
     # move legend outside last axes
-    handles, labels = ax[-1].get_legend_handles_labels()
-    ax[-1].legend_.remove()
-    fig.legend(handles, labels, title="model variant", loc="center left", bbox_to_anchor=(1.0, 0.5), frameon=False)
-    fig.suptitle(r"Estimated parameters of transcription onset $t_{zga}$ and regulation onset $t_{reg}$")
+    sns.move_legend(ax[-1], loc=(1.01, 0.4), frameon=False)
+    fig.suptitle("Estimated parameters of transcription onset $t_{zga}$ and regulation onset $t_{reg}$")
     plt.tight_layout()
     plt.savefig(f"{FIG_PATH}/violin_params.png", dpi=300, bbox_inches="tight")
     plt.show()
@@ -305,66 +337,78 @@ def plot_regulation_direction(ds_params):
     df["r"] = df["beta_mean"] / df["alpha_mean"]
     df = df[df["r"] > 1e-5]
 
-    palette = sns.color_palette("Set2") 
-    cluster_order = ["SD", "DSD", "SU", "DSU"]
+    palette = sns.color_palette("Accent") 
 
-    fig, axes = plt.subplots(1, 2, figsize=(11, 5), sharey=True, sharex=True)
     panels = ["Repression M-decay", "Repression Z-decay"]
     models = ["Rep_M", "Rep_Z"]
 
+    fig, axes = plt.subplots(1, 2, figsize=(11, 3.5), sharey=True, sharex=True)
     for i, (ax, model) in enumerate(zip(axes, models)):
         sub = df[df["model"] == model].copy()
 
-        sns.stripplot( data=sub, x="r", y="supercluster",
-            log_scale=True,
-            hue="subcluster_no",
-            order=cluster_order,
-            #hue_order=subcluster,
-            dodge=True, jitter=0.2, size=3,
-            alpha=0.7, palette=palette,
-            ax=ax, legend=(i == 1), zorder=1
-        )
-
+        sns.stripplot( data=sub, x="r", y="supercluster", log_scale=True, hue="subcluster_no", order=cluster_order,
+                        dodge=True, size=3, alpha=0.7, palette=palette, ax=ax, legend=(i == 1), zorder=1)
         # ---- overlay median tick marks per supercluster ----
-        sns.pointplot(data=sub, x="r", y="supercluster",estimator="median", dodge=True,
-                        markers="|", markersize=50, linestyles="", hue="supercluster",
-                        palette=cluster_color_dict, ax=ax, legend=False, zorder=3)
+        sns.pointplot(data=sub, x="r", y="supercluster", markers="|", markersize=40, linestyles="", hue="supercluster",
+                        estimator="median", palette=cluster_color_dict, ax=ax, legend=False, zorder=3)
 
         ax.axvline(1, color="black", linestyle="--", linewidth=1, zorder=2)
-
-        ax.set_title(panels[i])
-        ax.set_xlabel(r"indicator of regulation $r = \beta/\alpha$")
-        ax.set_ylabel("")
-
+        ax.set(title=panels[i], xlabel = "indicator of regulation $r = \\beta / \\alpha$", ylabel="")
 
     # shared legend on the right
-    handles, labels = axes[1].get_legend_handles_labels()
-    axes[1].legend_.remove()
-    fig.legend(handles, labels, title="Subcluster", loc="center left", bbox_to_anchor=(1.0, 0.5), frameon=False)
+    sns.move_legend(axes[1], loc=(1.02, 0.3), frameon=False, title="Subcluster")
 
     plt.tight_layout()
     plt.savefig(f"{FIG_PATH}/regulation_indicator.png", dpi=150, bbox_inches="tight")
     plt.show()
 
 
+def plot_peak_expression():
+
+    ds = cluster.copy().tpm.mean("source")
+    df = pd.DataFrame({"ensembl_gene_id": ds.ensembl_gene_id.values,
+                    "supercluster_no":ds.supercluster.values, "subluster_no":ds.subcluster.values,})
+    stats = xr.Dataset({"t_peak": ds.idxmax(dim="time"),})
+    stats_df = stats.to_dataframe().reset_index().drop(columns=["supercluster", "subcluster"])
+    df = df.merge(stats_df, on="ensembl_gene_id", how="left")
+    df["supercluster"] = df["supercluster_no"].map(cluster_names)
+
+    #time = cluster.sel(source="White").dropna(dim="time", how="all", subset=["tpm"]).time.values
+    time = np.array([  0., 8.  ,24.  ,  36.  ,  48.  ,  72.  ,  96.  , 120.  ])
+
+    fig, ax =plt.subplots(1,1, figsize=(8,4))
+    sns.violinplot(df, x="t_peak", y="supercluster", hue="supercluster", palette=cluster_color_dict, order=cluster_order, ax=ax, inner="box")
+    #sns.stripplot(ds, x="t_max", y="cluster_name", palette=colors, order=order, ax=ax,)
+    #sns.move_legend(ax, loc=(1.01, 0.3), frameon=False, title="Cluster")
+    ax.set(xlabel="Time of peak expression (hpf)", title="Expression peak timing", ylabel="")
+    plt.xticks(time.astype(int))
+    plt.tight_layout()
+    plt.savefig(f"{FIG_PATH}/violin_peak_epxression.png")
+
+
 ## Upset plot
 
+'''-----------------------
+            PLOT 
+--------------------------'''
 
-# -------- PLOT ----------
+#gof_all_combined, gof_src_combined, params_combined = combine_ds(save_csv=True)
 
-#gof_all_combined, gof_src_combined, params_combined = combine_ds()
-
-'''GOF Metrics plots'''
-#point_plot_metrics_all(gof_all_combined)
+'''-- GOF Metrics plots --'''
+point_plot_metrics_all(pd.read_csv("results_summary/gof_all_combined.csv"))
+plot_metrics_distribution_all(pd.read_csv("results_summary/gof_all_combined.csv"), hue_key = "model")
 #plot_metrics_distribution(pd.read_csv("results_summary/gof_src_combined.csv"), hue_key="source")
 #plot_accepted_heatmap(pd.read_csv("results_summary/gof_src_combined.csv"), hue_key="source")
 
 
-'''Parameter plots'''
+'''-- Parameter plots --'''
 #for model in params_combined.model.unique():
 #    plot_params_cluster(pd.read_csv("results_summary/params_combined.csv"), model)
 #plot_rep_params_violin(pd.read_csv("results_summary/params_combined.csv"))
-plot_regulation_direction(pd.read_csv("results_summary/params_combined.csv"))
+#plot_regulation_direction(pd.read_csv("results_summary/params_combined.csv"))
+
+'''-- Peak time --'''
+#plot_peak_expression()
 
 
-# sbatch evaluate.py
+# sbatch plot.sh

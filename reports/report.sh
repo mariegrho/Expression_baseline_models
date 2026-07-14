@@ -11,12 +11,13 @@ spack load miniconda3
 source activate plots 
 spack unload miniconda3
 
-MODEL="Basic"
+for MODEL in Basic Rep_M Rep_Z; do
+    echo "Start reporting for $MODEL"
+    srun python reports/report.py calc_rho_full_ds "$MODEL" "${SLURM_CPUS_PER_TASK:-8}"
+done
+echo "[$(date)] Finished all."
 
-echo "Start reporting for $MODEL"
-
-srun python reports/report.py calc_rho_full_ds "$MODEL" "${SLURM_CPUS_PER_TASK:-8}"
-
-echo "Finished reporting."
-
+# sbatch reports/join.sh
+# sbatch reports/collect_gof.sh
+# sbatch reports/run_param_summary.sh
 # sbatch reports/report.sh
