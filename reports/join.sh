@@ -2,7 +2,7 @@
 #SBATCH --job-name=0join     
 #SBATCH --output=results/logs/%x_%A_%a.out
 #SBATCH --error=results/logs/%x_%A_%a.err    
-#SBATCH --time=00:30:00                   
+#SBATCH --time=01:00:00                   
 #SBATCH --mem=500MB
 #SBATCH --cpus-per-task=1
 
@@ -10,9 +10,9 @@ spack load miniconda3
 source activate thesis 
 spack unload miniconda3
 
-for MODEL in Basic Rep_M Rep_Z; do
+for MODEL in Rep_M Rep_Z; do
     BASE_DIR="results/120_hpf/$MODEL/all"
-    OUT_FILE="results_summary/$MODEL/gof_by_source_joined.csv"
+    OUT_FILE="results/results_summary/$MODEL/gof_by_source_joined.csv"
 
     echo "Start joining gof metrics for model $MODEL"
 

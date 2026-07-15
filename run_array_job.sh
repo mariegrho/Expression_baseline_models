@@ -35,7 +35,7 @@ echo "[$(date)] Finished task $SLURM_ARRAY_TASK_ID: $GENE_ID"
 # sbatch --array=1-28725%50 run_array_job.sh
 # watch squeue --me
 # sed -i 's/\r$//' data/genes_clustered_white.txt
-# rm results/logs/*
+# rm results/logs/all_ds*
 # rm -rf results/120_hpf/Rep_M/*
 # rm -rf results/120_hpf/Basic/White/*
 

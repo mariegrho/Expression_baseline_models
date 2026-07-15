@@ -33,13 +33,13 @@ model_versions=("Rep_M" "Rep_Z" ) #"ZGA_M" "ZGA_Z")
     #srun python basic_model.py --gene_id "$GENE_ID" --dataset "$dataset" --plot --t_end 120 --skip_duplicates
 
 for model_version in "${model_versions[@]}"; do
-    srun python simulate.py --gene_id "$GENE_ID" --model_version "$model_version" --plot --t_end 120 #--skip_duplicates
+    srun python simulate.py --gene_id "$GENE_ID" --model_version "$model_version" --plot --t_end 120 --skip_duplicates --seed 5
     #done
 done
 
 echo "[$(date)] Finished task $SLURM_ARRAY_TASK_ID: $GENE_ID"
 
-# sbatch --array=1-1 run_array_job_loop.sh
+# sbatch --array=1-42 run_array_job_loop.sh
 # sbatch --array=1-6771%50 run_array_job_loop.sh
 # watch squeue --me
 # sed -i 's/\r$//' data/genes_clustered_white.txt

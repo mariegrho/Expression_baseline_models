@@ -2,20 +2,20 @@
 #SBATCH --job-name=0params
 #SBATCH --output=results/logs/%x_%A_%a.out
 #SBATCH --error=results/logs/%x_%A_%a.err
-#SBATCH --time=00:15:00
+#SBATCH --time=01:00:00
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=2G
 
 set -euo pipefail
 
-for MODEL in Basic Rep_M Rep_Z; do
+for MODEL in Rep_Z; do
 
     BASE_DIR="results/120_hpf/$MODEL/all"
-    OUT_FILE="results_summary/$MODEL/parameter_fit_summary.csv"
+    OUT_FILE="results/results_summary/$MODEL/parameter_fit_summary.csv"
 
     mkdir -p "$(dirname "$OUT_FILE")"
 
-    tmpdir=$(mktemp -d)          # outside BASE_DIR now
+    tmpdir=$(mktemp -d)          
     trap 'rm -rf "$tmpdir"' EXIT
 
     echo "Scanning directories under: $BASE_DIR"

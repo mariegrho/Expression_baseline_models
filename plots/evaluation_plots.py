@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 ''' ----- Global Parmeters ----- '''
 
-FIG_PATH = "figures"
+FIG_PATH = "./figures"
 
 NRMSE_thres = 0.2
 RHO_thres = 0.7
@@ -40,9 +40,9 @@ def combine_ds(save_csv=False):
     for model in ["Basic", "Rep_M", "Rep_Z"]:
 
         # load data and combine with cluster assignment
-        gof_all = pd.read_csv(f"results_summary/{model}/goodness_of_fit_summary.csv")
-        gof_src = pd.read_csv(f"results_summary/{model}/gof_by_source_joined.csv")
-        params = pd.read_csv(f"results_summary/{model}/parameter_fit_summary.csv")
+        gof_all = pd.read_csv(f"results/results_summary/{model}/goodness_of_fit_summary.csv")
+        gof_src = pd.read_csv(f"results/results_summary/{model}/gof_by_source_joined.csv")
+        params = pd.read_csv(f"results/results_summary/{model}/parameter_fit_summary.csv")
         
         # Build a lookup table from the DataArray's coordinates
         lookup = pd.DataFrame({
@@ -68,9 +68,9 @@ def combine_ds(save_csv=False):
     params_combined = pd.concat(params_list, ignore_index=True)
 
     if save_csv:
-        gof_all_combined.to_csv("results_summary/gof_all_combined.csv", index=False)
-        gof_src_combined.to_csv("results_summary/gof_src_combined.csv", index=False)
-        params_combined.to_csv("results_summary/params_combined.csv", index=False)
+        gof_all_combined.to_csv("results/results_summary/gof_all_combined.csv", index=False)
+        gof_src_combined.to_csv("results/results_summary/gof_src_combined.csv", index=False)
+        params_combined.to_csv("results/results_summary/params_combined.csv", index=False)
 
     return gof_all_combined, gof_src_combined, params_combined
 
@@ -274,6 +274,7 @@ def plot_params_cluster(ds_params, model_name):
                    "Rep_M": (["delta_m_mean", "delta_z_mean", "alpha_mean", "beta_mean", "t_zga_mean", "t_rep_mean"], [ r"$\delta_m$", r"$\delta_z$", r"$\alpha$", r"$\beta$", r"$t_{zga}$", r"$t_{reg}$"]),
                    "Rep_Z": (["delta_m_mean", "delta_z_mean", "alpha_mean", "beta_mean", "t_zga_mean", "t_rep_mean"], [ r"$\delta_m$", r"$\delta_z$", r"$\alpha$", r"$\beta$", r"$t_{zga}$", r"$t_{reg}$"])}
     
+    ds_params = ds_params[ds_params["model"] == model_name]
     params = params_dict[model_name][0]
     title = params_dict[model_name][1]
 
@@ -295,7 +296,7 @@ def plot_params_cluster(ds_params, model_name):
                     ax=ax[i])
         
         ax[i].set(title=title[i], xlabel=title[i])
-    sns.move_legend(ax[-3], loc=(1.02, 0.3))
+    sns.move_legend(ax[-1], loc=(1.02, 0.3))
     plt.suptitle(model_name)
     plt.tight_layout()
     plt.savefig(f"{FIG_PATH}/params_cluster_{model_name}.png", dpi=300, bbox_inches="tight")
@@ -362,7 +363,6 @@ def plot_regulation_direction(ds_params):
     plt.savefig(f"{FIG_PATH}/regulation_indicator.png", dpi=150, bbox_inches="tight")
     plt.show()
 
-
 def plot_peak_expression():
 
     ds = cluster.copy().tpm.mean("source")
@@ -395,20 +395,19 @@ def plot_peak_expression():
 #gof_all_combined, gof_src_combined, params_combined = combine_ds(save_csv=True)
 
 '''-- GOF Metrics plots --'''
-point_plot_metrics_all(pd.read_csv("results_summary/gof_all_combined.csv"))
-plot_metrics_distribution_all(pd.read_csv("results_summary/gof_all_combined.csv"), hue_key = "model")
-#plot_metrics_distribution(pd.read_csv("results_summary/gof_src_combined.csv"), hue_key="source")
-#plot_accepted_heatmap(pd.read_csv("results_summary/gof_src_combined.csv"), hue_key="source")
+#point_plot_metrics_all(pd.read_csv("results/results_summary/gof_all_combined.csv",))
+#plot_metrics_distribution_all(pd.read_csv("results/results_summary/gof_all_combined.csv",), hue_key = "model")
+#plot_metrics_distribution_src(pd.read_csv("results/results_summary/gof_src_combined.csv",), hue_key="source")
+#plot_accepted_heatmap(pd.read_csv("results/results_summary/gof_src_combined.csv",), hue_key="source")
 
 
 '''-- Parameter plots --'''
-#for model in params_combined.model.unique():
-#    plot_params_cluster(pd.read_csv("results_summary/params_combined.csv"), model)
-#plot_rep_params_violin(pd.read_csv("results_summary/params_combined.csv"))
-#plot_regulation_direction(pd.read_csv("results_summary/params_combined.csv"))
+for model in ["Basic", "Rep_M", "Rep_Z"]:
+    plot_params_cluster(pd.read_csv("results/results_summary/params_combined.csv",), model)
+#plot_rep_params_violin(pd.read_csv("results/results_summary/params_combined.csv",))
+#plot_regulation_direction(pd.read_csv("results/results_summary/params_combined.csv",))
 
 '''-- Peak time --'''
 #plot_peak_expression()
 
-
-# sbatch plot.sh
+# sbatch plots/plot.sh

@@ -16,11 +16,12 @@ print(len(genes))
 with open('data/genes.txt', 'w+') as f:
     f.write("\n".join(genes)) 
 
-base_dir = "results_summary/120_hpf/Rep_M/all"
+model="Basic"
+base_dir = f"results_summary/120_hpf/{model}/all"
 #files = list(Path(base_dir).rglob("gof_metrics.csv"))
 #genes_fitted = {f.parent.name for f in files}
 
-fitted = pd.read_csv(f"results_summary/Rep_M/goodness_of_fit_summary.csv")
+fitted = pd.read_csv(f"results_summary/{model}/goodness_of_fit_summary.csv")
 genes_fitted = set(fitted.gene_id)
 
 missing_genes = sorted(set(genes) - genes_fitted)

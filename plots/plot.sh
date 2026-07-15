@@ -16,8 +16,8 @@ spack unload miniconda3
 
 echo "Start plotting"
 
-srun python evaluate.py
+srun python plots/evaluation_plots.py
 
-echo "Finished Plotting Job."
+echo "[$(date)] Finished Plotting Job."
 
-## sbatch plot.sh
+## sbatch plots/plot.sh

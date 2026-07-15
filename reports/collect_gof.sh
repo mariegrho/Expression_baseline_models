@@ -6,10 +6,10 @@
 #SBATCH --mem=500MB
 #SBATCH --cpus-per-task=1
 
-for MODEL in Basic Rep_M Rep_Z; do
+for MODEL in Rep_M Rep_Z; do
 
     BASE_DIR="results/120_hpf/$MODEL/all"
-    OUT_FILE="results_summary/$MODEL/goodness_of_fit_summary.csv"
+    OUT_FILE="results/results_summary/$MODEL/goodness_of_fit_summary.csv"
     FILELIST="$(mktemp)"
     DONE_GENES="$(mktemp)"
 
