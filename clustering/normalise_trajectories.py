@@ -22,16 +22,15 @@ import xarray as xr
 # =====================================================
 
 NORMALIZATION = "minmax"
+
 # options:
 #   "none"
 #   "center"
 #   "zscore"
 #   "minmax"
-#   "l2"
 
 REMOVE_LOW_VARIANCE = True
-VARIANCE_THRESHOLD = 0.05
-
+VARIANCE_THRESHOLD = 0.01
 
 # =====================================================
 # Normalization methods
@@ -60,14 +59,15 @@ def normalize_curve(curve, method):
             return np.zeros_like(curve)
         return (curve - mn) / (mx - mn)
     
+    elif method == "percentile":
+        lower = np.percentile(curve, 5)
+        upper = np.percentile(curve, 95)
+
+        return (curve - lower) / (upper - lower)
+    
     elif method == "meanmax":
         return (curve - curve.mean()) / abs(curve - curve.mean()).max()
     
-    elif method == "l2":
-        norm = np.linalg.norm(curve)
-        if norm < 1e-8:
-            return np.zeros_like(curve)
-        return curve / norm
     else:
         raise ValueError("Unknown normalization")
 
@@ -110,8 +110,8 @@ if __name__ == "__main__":
     DATA = ["all", 'White', "Pauli", "BK", "JN"]
     source = DATA[0]
 
-    for t_end in [24, 120]:
-        print(f"Normalise {t_end} dataset")
+    for t_end in [16, 24, 120]:
+        print(f"Normalise dataset -> {t_end} hpf")
         da = xr.load_dataarray(f"results/{source}_gene_trajectories_{t_end}.nc")
         normalized = normalize_dataset(da)
         normalized.to_netcdf(f"results/{source}_normalized_trajectories_{t_end}_{NORMALIZATION}.nc")

@@ -14,6 +14,9 @@ Inputs:
 import numpy as np
 import xarray as xr
 import matplotlib.pyplot as plt
+import seaborn as sns
+
+colors = sns.color_palette("Set1")
 
 
 # =====================================================
@@ -30,8 +33,8 @@ def plot_cluster_centers(centers_da):
             centers_da.time.values,
             centers_da.sel(cluster=k).values,
             linewidth=2,
-            label=f"Cluster {k}"
-        )
+            label=f"Cluster {k}",
+            c=colors[k] )
 
     plt.xlabel("Time")
     plt.ylabel("Normalized expression")
@@ -67,13 +70,8 @@ def plot_cluster_with_variance(trajectories_da, labels, n_clusters=None):
         mean = cluster_data.mean(axis=0)
         std = cluster_data.std(axis=0)
 
-        plt.plot(trajectories_da.time.values,mean,label=f"Cluster {k}")
-
-        plt.fill_between(
-            trajectories_da.time.values,
-            mean - std,mean + std,
-            alpha=0.2
-        )
+        plt.plot(trajectories_da.time.values,mean,label=f"Cluster {k}", c=colors[k] )
+        plt.fill_between(trajectories_da.time.values,mean - std,mean + std,alpha=0.2, color=colors[k])
 
     plt.xlabel("Time")
     plt.ylabel("Expression")
@@ -286,9 +284,11 @@ if __name__ == "__main__":
     trajectories_da = xr.load_dataarray(f"results/{data}_normalized_trajectories_{t_end}_{NORMALISATION}.nc")
     trajectories_da = trajectories_da.sel(ensembl_gene_id=labels.ensembl_gene_id)
 
+    trajectories_sub = xr.load_dataarray(f"results/{data}_normalized_trajectories_{t_end}_{NORMALISATION}.nc")
+    trajectories_sub = trajectories_sub.sel(ensembl_gene_id=labels.ensembl_gene_id)
 
     # Plot super × sub cluster grid
-    plot_super_subcluster_grid1(trajectories_da,super_labels,sub_labels)
+    plot_super_subcluster_grid1(trajectories_sub, super_labels, sub_labels)
     
     plot_cluster_centers(xr.load_dataarray(f"results/{data}_superclusters_centers.nc"))
     plot_cluster_with_variance(trajectories_da, super_labels,n_clusters=None)

@@ -14,24 +14,26 @@ Output
 _gene_cluster_annotation_.nc
 """
 
-
 import xarray as xr
 import numpy as np
 import pandas as pd
 from glob import glob
 import fuzzy_clustering as fc
 
-# Hierarchical fuzzy c-means clustering of gene trajectories to indentify subclusters within superclusters with focous on early dynamics.
-MIN_GENES_FOR_SUBCLUSTERING = 10
-BOOTSTRAP_FRAC = 0.8  
-
 NORMALISATION = "minmax"
+
+# options:
+#   "none"
+#   "center"
+#   "zscore"
+#   "minmax"
+#   "percentile"
 
 DATA = ["all", 'White', "Pauli", "BK", "JN"]
 source = DATA[0]
 
 traj120 = xr.load_dataarray(f"results/{source}_normalized_trajectories_120_{NORMALISATION}.nc")
-membership120, labels120, centers120 = fc.cluster_dataset(traj120, f"results/{source}_superclusters", k_range=range(3, 7))
+membership120, labels120, centers120 = fc.cluster_dataset(traj120, f"results/{source}_superclusters", k_range=range(3, 8))
 
 # --- reindex superclusters by increasing peak time ---
 peak_times = np.argmax(centers120.values, axis=1)      # peak time index per (old) cluster
@@ -47,16 +49,16 @@ labels120.to_netcdf(f"results/{source}_superclusters_labels.nc")
 fc.plot_clusters(centers120, "Superclusters")
 
 
-'''  ---- SUBCLSTERING ---- '''
-traj24 = xr.load_dataarray(f"results/{source}_normalized_trajectories_24_{NORMALISATION}.nc")
+'''  ---- SUBCLUSTERING ---- '''
+traj_sub = xr.load_dataarray(f"results/{source}_normalized_trajectories_120_{NORMALISATION}.nc")
 
-common_genes = list(set(traj120.ensembl_gene_id.values) & set(traj24.ensembl_gene_id.values))
+common_genes = list(set(traj120.ensembl_gene_id.values) & set(traj_sub.ensembl_gene_id.values))
 labels120 = labels120.sel(ensembl_gene_id=common_genes)
  
 for sc in np.unique(labels120.values):
     genes = labels120.ensembl_gene_id.where(labels120 == sc,drop=True)
-    subtraj = traj24.sel(ensembl_gene_id=genes)
-    membership, labels, centers =fc.cluster_dataset(subtraj,f"results/{source}_supercluster_{sc}", k_range=range(2, 5))
+    subtraj = traj_sub.sel(ensembl_gene_id=genes)
+    membership, labels, centers =fc.cluster_dataset(subtraj,f"results/{source}_supercluster_{sc}", k_range=range(2, 6))
     fc.plot_clusters(centers, cluster=f"Supercluster {sc}")
 
 ### DataSet

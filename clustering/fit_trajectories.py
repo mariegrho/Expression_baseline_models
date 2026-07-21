@@ -35,7 +35,7 @@ from tqdm.auto import tqdm
 # configuration
 # ----------------------------------------------------------
 
-N_SPLINES = 20
+N_SPLINES = 15
 N_JOBS = -1
 GOF_THRESHOLD = 0.2
 
@@ -46,20 +46,9 @@ DATA_WEIGHT = {
     'White': 3,
 }
 
-
 # ----------------------------------------------------------
 # fit one gene
 # ----------------------------------------------------------
-
-def sigmoid_weights(t, midpoint, scale=15, floor=0.5, ceiling=1.0):
-    """
-    Fallende S-Kurve: hohes Plateau für frühe t, sanfter Übergang
-    um `midpoint`, niedriges Plateau (floor) für späte t.
-    """
-    s = 1.0 / (1.0 + np.exp((t - midpoint) / scale))
-    return floor + (ceiling - floor) * s
-
-
 def fit_gene(gene, ds, prediction_grid):
 
     g = ds.sel(ensembl_gene_id=gene)
@@ -88,20 +77,14 @@ def fit_gene(gene, ds, prediction_grid):
     if len(t_all) == 0:
         return None
 
-
     t = np.concatenate(t_all)
     y = np.concatenate(y_all)
     source_all = np.asarray(source_all)
     weights = np.asarray(weight_all, dtype=float)
     X = np.column_stack([t, source_all])
 
-    if len(y) < N_SPLINES:   # fewer points than spline basis functions requested
-        print(f"[fit_gene] {gene}: only {len(y)} obs, skipping (need >= {N_SPLINES})")
-        return None
-
-
     n_obs = len(y)
-    n_splnes = min(N_SPLINES, max(4, n_obs // 2))
+    n_splnes = min(N_SPLINES, max(4, n_obs // 3))
 
     try:
         if len(sources) > 1:
@@ -123,7 +106,6 @@ def fit_gene(gene, ds, prediction_grid):
     mean_curve = pred.mean(axis=0)
     return mean_curve
 
-
 # ----------------------------------------------------------
 # fit every gene
 # ----------------------------------------------------------
@@ -136,22 +118,17 @@ def fit_all_genes(ds):
         delayed(fit_gene)(gene,ds,prediction_grid)
         for gene in tqdm(genes)
     )
-
     curves = []
     kept = []
 
     for gene, curve in zip(genes, results):
-
         if curve is None:
             continue
-
         curves.append(curve)
         kept.append(gene)
 
     curves = np.asarray(curves)
-
     trajectories = xr.DataArray(
-
         curves,
         dims=["ensembl_gene_id", "time"],
         coords=dict(
@@ -160,9 +137,7 @@ def fit_all_genes(ds):
         ),
         name="trajectory"
     )
-
     return trajectories
-
 
 def gof_trajectories(ds, trajectories, t_end):
 
@@ -213,7 +188,6 @@ def gof_trajectories(ds, trajectories, t_end):
 
     return df
 
-
 # ----------------------------------------------------------
 # main
 # ----------------------------------------------------------
@@ -221,20 +195,18 @@ def gof_trajectories(ds, trajectories, t_end):
 if __name__ == "__main__":
 
     DATA = ["all", 'White', "Pauli", "BK", "JN"]
-
     ds = xr.load_dataset("../data/genes_tpms_white_pauli_JN_BK_mean.nc")
-    ds["tpm"] = np.log2(ds.tpm + 1)
-    #ds = ds.sel(source = ['White'])
-    #ds = ds.sel(ensembl_gene_id=ds.ensembl_gene_id.values[0:5])
-
     ds_clean = ds.dropna(dim="time", how="all", subset=["tpm"])
-    # Keep only relevantly expressed genes
-    mask = (ds_clean.tpm.max(dim="time", skipna=True) >= 1).any(dim="source")
 
-    for T_END in [24]:
+    mask = (ds_clean.tpm.max(dim="time", skipna=True) >= 1).all(dim="source") # Keep only relevantly expressed genes
+    ds_clean = ds_clean.sel(ensembl_gene_id=mask)
+    ds_clean["tpm"] = np.log2(ds_clean.tpm + 1) # Reduce variance by log scaling
+
+    print(len(ds_clean.ensembl_gene_id))
+    for T_END in [16, 120]:
         print(f"fitting over t={T_END} hpf")
 
-        ds_filtered = ds.sel(ensembl_gene_id=mask).sel(time=slice(0, T_END))
+        ds_filtered = ds_clean.sel(time=slice(0, T_END))
         trajectories = fit_all_genes(ds_filtered)
         trajectories.to_netcdf(f"results/{DATA[0]}_gene_trajectories_{T_END}.nc")
 

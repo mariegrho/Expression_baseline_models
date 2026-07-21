@@ -22,7 +22,6 @@ import skfuzzy as fuzz
 import matplotlib.pyplot as plt
 import os
 
-
 # =====================================================
 # CONFIG
 # =====================================================
@@ -250,7 +249,6 @@ def fuzzy_cmeans_clustering(da, k_range=K_RANGE):
         dims=("ensembl_gene_id",),
         coords={"ensembl_gene_id": genes},
         name="cluster_label"
-
     )
 
     centers_da = xr.DataArray(

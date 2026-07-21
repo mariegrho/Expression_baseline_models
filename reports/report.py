@@ -52,3 +52,64 @@ def calc_mase(obs, pred):
     mase = mae_model / mae_naive
 
     return mase
+
+def LOO(idata):
+    '''Leave One Out'''
+    obs = idata.observed_data.y
+    loglik = idata.log_likelihood.mean(dim=("chain", "draw"))
+
+    loo = []
+    return loo
+
+def calc_BIC(idata):
+    '''
+    k = free parameters
+    n = data points
+    LL = max. Log-Likelihood (sum)
+    '''
+
+    n = len(idata.posterior_model_fits.time)
+    k = len(idata.posterior.data_vars)
+    LL = idata.log_likelihood.y.mean(dim=("chain", "draw")).sum().item()
+    bic =  k * np.log(n) - 2 * LL
+    return float(bic)
+
+def calc_AIC(idata):
+    '''
+    k = free parameters
+    LL = max. Log-Likelihood (sum)
+    '''
+    k = len(idata.posterior.data_vars)
+    LL = idata.log_likelihood.y.mean(dim=("chain", "draw")).sum().item()
+    aic = - 2 * LL + 2*k
+    return float(aic)
+
+
+def WAIC(idata):
+    '''Widely Applicable Information Criterion'''
+    pp = idata.posterior_model_fits.y.mean(dim=("chain", "draw"))
+    loglik = idata.log_likelihood.y.mean(dim=("chain", "draw"))
+    waic = -2 * (loglik - sum(np.var(loglik)))
+    return waic
+
+
+def fpe(idata, residual_var="posterior_residuals", var_name="y"):
+    "Final Prediction Error --> smaller FPE = better model "
+    "n: number of observations"
+    "p: number of free parameters"
+    "sigma2_hat  = residual variance estimate"
+    ""
+
+    resid_group = getattr(idata, residual_var)
+    resid = resid_group[var_name]
+
+    resid_mean = resid.mean(dim=("chain", "draw", "source"))  
+    resid_vals = resid_mean[~np.isnan(resid_mean)].values
+
+    n = resid_vals.size
+    p = len(idata.posterior.data_vars)
+
+    sigma2_hat = np.sum(resid_vals**2) / n
+    fpe = sigma2_hat  * (n+p) / (n-p)
+
+    return fpe
