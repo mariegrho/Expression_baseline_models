@@ -21,7 +21,7 @@ col_c = sns.color_palette("Set1", n_colors=4)
 cluster_color_dict = {"SD": col_c[0], "DSD": col_c[1], "SU": col_c[2], "DSU": col_c[3], }
 
 col_m = sns.color_palette("Dark2")  
-mod_color_dict = {"Basic": col_m[7],"Rep_M": col_m[1], "Rep_Z": col_m[3]} 
+mod_color_dict = {"Basic": col_m[7],"Rep_M": col_m[1], "Rep_Z": col_m[3], "Rep_V": col_m[4]} 
 model_order = ["Basic", "Rep_M", "Rep_Z"]
 
 col_s = sns.color_palette("twilight_shifted")  
@@ -37,12 +37,25 @@ def combine_ds(save_csv=False):
     gof_src_list = []
     params_list = []
 
-    for model in ["Basic", "Rep_M", "Rep_Z"]:
+    """
+    data = xr.load_dataset("data/genes_tpms_white_pauli_JN_BK_mean.nc")
+    mask = (data.tpm.max(dim="time", skipna=True) >= 1).all(dim="source") # Keep only relevantly expressed genes
+    data = data.sel(ensembl_gene_id=mask)
+    genes = data.ensembl_gene_id.values
+    """
+    labels = xr.load_dataset("data/all_gene_cluster_annotation_minmax.nc")
+    genes = labels.ensembl_gene_id.values
+
+    for model in model_order:
 
         # load data and combine with cluster assignment
         gof_all = pd.read_csv(f"results/results_summary/{model}/goodness_of_fit_summary.csv")
         gof_src = pd.read_csv(f"results/results_summary/{model}/gof_by_source_joined.csv")
         params = pd.read_csv(f"results/results_summary/{model}/parameter_fit_summary.csv")
+
+        gof_all = gof_all[gof_all["gene_id"].isin(genes)]
+        gof_src = gof_src[gof_src["gene_id"].isin(genes)]
+        params = params[params["gene_id"].isin(genes)]
         
         # Build a lookup table from the DataArray's coordinates
         lookup = pd.DataFrame({
@@ -82,9 +95,10 @@ def point_plot_metrics_all(gof_all_combined):
 
     df = gof_all_combined.sort_values("supercluster_no")
 
-    models = pd.unique(df["model"].dropna())
     supercluster = pd.unique(df["supercluster"].dropna())
-    metrics = ["BIC", "NRMSE", "rho"]
+    metrics = ["BIC", "WAIC", "NRMSE", "rho", "pearsonr"]
+
+    df = df[df["WAIC"] > -100]
 
     fig, ax = plt.subplots(len(metrics), len(supercluster), figsize=(len(supercluster)*2, 1.5*len(metrics)), sharey="row", sharex="row")
 
@@ -100,7 +114,7 @@ def point_plot_metrics_all(gof_all_combined):
 
             sns.pointplot(
                 data=data, x=metr, y="model",
-                order = models,
+                order = model_order,
                 hue = "model",
                 palette = mod_color_dict,
                 estimator="median",
@@ -115,13 +129,13 @@ def point_plot_metrics_all(gof_all_combined):
             ax[r][c].set(xlabel="", ylabel=metr)
             ax[r][c].grid(True)
             ax[0][c].set_title(f"{clstr}", fontsize=10) 
-            ax[r][c].set_yticks(models)
-            ax[r][c].set_yticklabels(models, fontsize=8)
+            ax[r][c].set_yticks(model_order)
+            ax[r][c].set_yticklabels(model_order, fontsize=8)
 
     plt.suptitle(f"Model performance across superclusters", fontsize=11)
     plt.tight_layout()
     plt.savefig(f"{FIG_PATH}/point_plot_metrics_mean.png", dpi=300, bbox_inches="tight")
-    plt.show()
+    plt.close()
 
 
 def plot_metrics_distribution_all(gof_all_combined, hue_key = "model"):
@@ -132,34 +146,45 @@ def plot_metrics_distribution_all(gof_all_combined, hue_key = "model"):
 
     data = gof_all_combined[gof_all_combined["NRMSE"] < 1]
 
-    fig, ax = plt.subplots(1, 2, figsize=(9, 4), sharey=True, sharex="col", )
+    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(9, 4), sharey=True, sharex="col", )
 
-    ax[0].axvline(x=RHO_thres, color="grey", ls="dashed", lw=1.5)
-    ax[0].axvline(x=0.9, color="grey", ls="dotted", lw=1.5)
-    ax[0].fill_between(x=[1.0, RHO_thres], y1=0, y2=1, color="lightgrey", alpha=0.3, label="Accepted fits")
+    ax1.axvline(x=RHO_thres, color="grey", ls="dashed", lw=1.5)
+    ax1.axvline(x=0.9, color="grey", ls="dotted", lw=1.5)
+    ax1.fill_between(x=[1.0, RHO_thres], y1=0, y2=1, color="lightgrey", alpha=0.3, label="Accepted fits")
     sns.kdeplot(data, x="rho", hue=hue_key, hue_order=model_order, palette=color_dict, linewidth=1.5,
-                    cumulative=True, common_norm=False, common_grid=True, legend=False, ax=ax[0] )
-    ax[0].xaxis.set_inverted(False)
-    ax[0].yaxis.set_inverted(False)
-    ax[0].set_xticks([-1, -0.5, 0, 0.5, 1])
-    ax[0].set(title="Spearman's $\\rho$",xlabel="$\\rho$", xlim=(-1.1, 1.1))
-    ax[0].grid(True)
+                    cumulative=True, common_norm=False, common_grid=True, legend=False, ax=ax1 )
+    ax1.xaxis.set_inverted(False)
+    ax1.yaxis.set_inverted(False)
+    ax1.set_xticks([-1, -0.5, 0, 0.5, 1])
+    ax1.set(title="Spearman's $\\rho$",xlabel="$\\rho$", xlim=(-1.1, 1.1))
+    ax1.grid(True)
 
-    ax[1].axvline(x=NRMSE_thres, color="grey", ls="dashed", lw=1.5)
-    ax[1].axvline(x=0.1, color="grey", ls="dotted", lw=1.5)
-    ax[1].fill_between(x=[0.0, NRMSE_thres], y1=0, y2=1, color="lightgrey", alpha=0.3, label="Accepted fits")
+    ax2.axvline(x=RHO_thres, color="grey", ls="dashed", lw=1.5)
+    ax2.axvline(x=0.9, color="grey", ls="dotted", lw=1.5)
+    ax2.fill_between(x=[1.0, RHO_thres], y1=0, y2=1, color="lightgrey", alpha=0.3, label="Accepted fits")
+    sns.kdeplot(data, x="pearsonr", hue=hue_key, hue_order=model_order, palette=color_dict, linewidth=1.5,
+                    cumulative=True, common_norm=False, common_grid=True, legend=False, ax=ax2 )
+    ax2.xaxis.set_inverted(False)
+    ax2.yaxis.set_inverted(False)
+    ax2.set_xticks([-1, -0.5, 0, 0.5, 1])
+    ax2.set(title="Pearson's r",xlabel="Pearson's r", xlim=(-1.1, 1.1))
+    ax2.grid(True)
+
+    ax3.axvline(x=NRMSE_thres, color="grey", ls="dashed", lw=1.5)
+    ax3.axvline(x=0.1, color="grey", ls="dotted", lw=1.5)
+    ax3.fill_between(x=[0.0, NRMSE_thres], y1=0, y2=1, color="lightgrey", alpha=0.3, label="Accepted fits")
     sns.kdeplot(data, x="NRMSE", hue=hue_key, hue_order=model_order, palette=color_dict, linewidth=1.5,
-                cumulative=True, common_norm=False, common_grid=True,legend=True, ax=ax[1], )
-    ax[1].xaxis.set_inverted(False)
-    ax[1].grid(True)
-    ax[1].set(title="NRMSE", xlabel="NRMSE")
+                cumulative=True, common_norm=False, common_grid=True,legend=True, ax=ax3, )
+    ax3.xaxis.set_inverted(False)
+    ax3.grid(True)
+    ax3.set(title="NRMSE", xlabel="NRMSE")
     
-    sns.move_legend(ax[1], loc=(1.02, 0.3), title=hue_key, frameon=False)
+    sns.move_legend(ax3, loc=(1.02, 0.3), title=hue_key, frameon=False)
 
     plt.suptitle(f"Goodness of fit metrics distribution", fontsize=12)
     plt.tight_layout()
     plt.savefig(f"{FIG_PATH}/gof_distribution_{hue_key}.png", dpi=300, bbox_inches="tight")
-    plt.show()
+    plt.close()
 
 
 def plot_metrics_distribution_src(gof_src, hue_key = "source"):
@@ -212,12 +237,10 @@ def plot_metrics_distribution_src(gof_src, hue_key = "source"):
     plt.suptitle(f"Goodness of fit metrics distribution", fontsize=12)
     plt.tight_layout()
     plt.savefig(f"{FIG_PATH}/gof_distribution_{hue_key}.png", dpi=300, bbox_inches="tight")
-    plt.show()
+    plt.close()
 
 
 def plot_accepted_heatmap(gof_src, hue_key="source"):
-
-    model_order = ["Basic", "Rep_M", "Rep_Z"] 
 
     fig, ax = plt.subplots(1, len(model_order), figsize=(5*len(model_order), 4))
 
@@ -263,22 +286,28 @@ def plot_accepted_heatmap(gof_src, hue_key="source"):
     plt.suptitle("Accepted model fits [%] per supercluster and source")
     plt.tight_layout()
     plt.savefig(f"{FIG_PATH}/heatmap_accepted_cluster_{hue_key}.png", dpi=300, bbox_inches="tight")
-    plt.show()
+    plt.close()
 
 
-def plot_params_cluster(ds_params, model_name):
+def plot_params_cluster_model(ds_params, model_name):
 
     print(f"Plot fitted parameter distribution - model {model_name}")
 
-    params_dict = {"Basic": (["delta_mean", "beta_mean"], [r"$\delta$",r"$\beta$"]),
-                   "Rep_M": (["delta_m_mean", "delta_z_mean", "alpha_mean", "beta_mean", "t_zga_mean", "t_rep_mean"], [ r"$\delta_m$", r"$\delta_z$", r"$\alpha$", r"$\beta$", r"$t_{zga}$", r"$t_{reg}$"]),
-                   "Rep_Z": (["delta_m_mean", "delta_z_mean", "alpha_mean", "beta_mean", "t_zga_mean", "t_rep_mean"], [ r"$\delta_m$", r"$\delta_z$", r"$\alpha$", r"$\beta$", r"$t_{zga}$", r"$t_{reg}$"])}
+    params_dict = {
+                "Basic": (["delta_mean", "beta_mean"], [r"$\delta$",r"$\beta$"]),
+                "Rep_M": (["delta_m_mean", "delta_z_mean", "alpha_mean", "beta_mean", "t_zga_mean", "t_rep_mean"], 
+                   [ r"$\delta_m$", r"$\delta_z$", r"$\alpha$", r"$\beta$", r"$t_{zga}$", r"$t_{reg}$"]),
+                "Rep_Z": (["delta_m_mean", "delta_z_mean", "alpha_mean", "beta_mean", "t_zga_mean", "t_rep_mean"], 
+                   [ r"$\delta_m$", r"$\delta_z$", r"$\alpha$", r"$\beta$", r"$t_{zga}$", r"$t_{reg}$"]),
+                "Rep_V": (["delta_m_mean", "delta_z_mean", "alpha_mean", "beta_mean", "t_zga_mean", "t_rep_mean", "t_deg_mean"], 
+                   [ r"$\delta_m$", r"$\delta_z$", r"$\alpha$", r"$\beta$", r"$t_{zga}$", r"$t_{reg}$", r"$t_{deg}$"]) 
+                   }
     
     ds_params = ds_params[ds_params["model"] == model_name]
     params = params_dict[model_name][0]
     title = params_dict[model_name][1]
 
-    fix, ax = plt.subplots(int(len(params)/2), 2, figsize = (8, int(len(params)/2*3)),)
+    fix, ax = plt.subplots(int((len(params)+1)/2), 2, figsize = (8, int((len(params)+1)/2*3)),)
     ax = ax.flatten()
 
     if "beta_mean" in params:
@@ -296,11 +325,11 @@ def plot_params_cluster(ds_params, model_name):
                     ax=ax[i])
         
         ax[i].set(title=title[i], xlabel=title[i])
-    sns.move_legend(ax[-1], loc=(1.02, 0.3))
+    sns.move_legend(ax[len(params)-1], loc=(1.02, 0.3))
     plt.suptitle(model_name)
     plt.tight_layout()
     plt.savefig(f"{FIG_PATH}/params_cluster_{model_name}.png", dpi=300, bbox_inches="tight")
-    plt.show()
+    plt.close()
 
 
 def plot_rep_params_violin(ds_params):
@@ -327,7 +356,7 @@ def plot_rep_params_violin(ds_params):
     fig.suptitle("Estimated parameters of transcription onset $t_{zga}$ and regulation onset $t_{reg}$")
     plt.tight_layout()
     plt.savefig(f"{FIG_PATH}/violin_params.png", dpi=300, bbox_inches="tight")
-    plt.show()
+    plt.close()
 
 
 def plot_regulation_direction(ds_params):
@@ -340,10 +369,10 @@ def plot_regulation_direction(ds_params):
 
     palette = sns.color_palette("Accent") 
 
-    panels = ["Repression M-decay", "Repression Z-decay"]
-    models = ["Rep_M", "Rep_Z"]
+    panels = ["Repression M-decay", "Repression Z-decay",]
+    models = ["Rep_M", "Rep_Z",]
 
-    fig, axes = plt.subplots(1, 2, figsize=(11, 3.5), sharey=True, sharex=True)
+    fig, axes = plt.subplots(1, len(models), figsize=(5.5*len(models), 3.5), sharey=True, sharex=True)
     for i, (ax, model) in enumerate(zip(axes, models)):
         sub = df[df["model"] == model].copy()
 
@@ -361,7 +390,21 @@ def plot_regulation_direction(ds_params):
 
     plt.tight_layout()
     plt.savefig(f"{FIG_PATH}/regulation_indicator.png", dpi=150, bbox_inches="tight")
-    plt.show()
+    plt.close()
+
+
+def barplot_accepted(gof_all):
+
+    gof1 = gof_all[ (gof_all["NRMSE"] < NRMSE_thres) & (gof_all["rho"] > RHO_thres)]
+    cnt = gof1.groupby("model").gene_id.count() / gof_all.groupby("model").gene_id.count()
+
+    plt.figure(figsize=(5, 2.5))
+    sns.barplot(cnt, palette=mod_color_dict)
+    plt.ylabel("accepted (%)")
+    plt.title("Accepted model fits")
+    plt.tight_layout()
+    plt.savefig(f"{FIG_PATH}/barplot_accepted.png", dpi=300)
+    plt.close()
 
 def plot_peak_expression():
 
@@ -384,6 +427,38 @@ def plot_peak_expression():
     plt.xticks(time.astype(int))
     plt.tight_layout()
     plt.savefig(f"{FIG_PATH}/violin_peak_epxression.png")
+    plt.close()
+
+
+def plot_params_cluster(params_all):
+
+    df = params_all[params_all["model"] != "Basic"].copy()
+    df["r"] = df["beta_mean"] / df["alpha_mean"]
+    df = df[(df["r"] > 1e-5) & (df["t_zga_mean"] < 120)]
+
+    df_z = df[df["model"] == "Rep_Z"].copy()
+    df_m = df[df["model"] == "Rep_M"].copy()
+
+    fig, (ax1, ax2) = plt.subplots(1,2, figsize=(12, 6), sharex=True, sharey=True)
+    sns.scatterplot(df_m, x="r", y="t_zga_mean", ax=ax1,  hue="supercluster", size=1, palette=cluster_color_dict, alpha=0.3, legend=False)
+    sns.scatterplot(df_z, x="r", y="t_zga_mean", ax=ax2, hue="supercluster", size=1, palette=cluster_color_dict, alpha=0.3, legend=False)
+
+    sns.kdeplot(df_m, x="r", y="t_zga_mean",  hue="supercluster", ax=ax1, palette=cluster_color_dict, legend=False, log_scale=True, fill=False, levels=4)
+    sns.kdeplot(df_z, x="r",  y="t_zga_mean", hue="supercluster", ax=ax2, palette=cluster_color_dict, legend=True, log_scale=True, fill=False, levels=4)
+
+    ax1.set(xlabel= "$r = \\beta / \\alpha$", ylabel="$t_{zga}$", title="M-decay", xscale="log", yscale="log", xlim=(1e-6, 1e2), )
+    ax2.set(xlabel="$r = \\beta / \\alpha$", ylabel="$t_{zga}$", title="Z-decay", xscale="log", yscale="log", xlim=(1e-6, 1e2), )
+
+    ax1.axvline(1, c="k", ls="--")
+    ax2.axvline(1, c="k", ls="--")
+
+    ax1.axhline(3, c="gray", ls="--", label="ZGA")
+    ax2.axhline(3, c="gray", ls="--", label="ZGA")
+
+    plt.legend(frameon=False)
+    plt.tight_layout()
+    plt.savefig(f"{FIG_PATH}/scatterplot_params_cluster.png")
+    plt.close()
 
 
 ## Upset plot
@@ -395,17 +470,20 @@ def plot_peak_expression():
 #gof_all_combined, gof_src_combined, params_combined = combine_ds(save_csv=True)
 
 '''-- GOF Metrics plots --'''
-#point_plot_metrics_all(pd.read_csv("results/results_summary/gof_all_combined.csv",))
-#plot_metrics_distribution_all(pd.read_csv("results/results_summary/gof_all_combined.csv",), hue_key = "model")
-#plot_metrics_distribution_src(pd.read_csv("results/results_summary/gof_src_combined.csv",), hue_key="source")
-#plot_accepted_heatmap(pd.read_csv("results/results_summary/gof_src_combined.csv",), hue_key="source")
 
+#point_plot_metrics_all(pd.read_csv("results/results_summary/gof_all_combined.csv",))
+# plot_metrics_distribution_all(pd.read_csv("results/results_summary/gof_all_combined.csv",), hue_key = "model")
+# plot_metrics_distribution_src(pd.read_csv("results/results_summary/gof_src_combined.csv",), hue_key="source")
+# plot_accepted_heatmap(pd.read_csv("results/results_summary/gof_src_combined.csv",), hue_key="source")
+# barplot_accepted(pd.read_csv("results/results_summary/gof_all_combined.csv",))
 
 '''-- Parameter plots --'''
-for model in ["Basic", "Rep_M", "Rep_Z"]:
-    plot_params_cluster(pd.read_csv("results/results_summary/params_combined.csv",), model)
-#plot_rep_params_violin(pd.read_csv("results/results_summary/params_combined.csv",))
-#plot_regulation_direction(pd.read_csv("results/results_summary/params_combined.csv",))
+# for model in model_order:
+#     plot_params_cluster_model(pd.read_csv("results/results_summary/params_combined.csv",), model)
+# plot_rep_params_violin(pd.read_csv("results/results_summary/params_combined.csv",))
+plot_regulation_direction(pd.read_csv("results/results_summary/params_combined.csv",))
+
+# plot_params_cluster(pd.read_csv("results/results_summary/params_combined.csv",))
 
 '''-- Peak time --'''
 #plot_peak_expression()

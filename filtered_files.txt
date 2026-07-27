@@ -15,7 +15,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000000189/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000000212/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000000229/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000000241/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000000349/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000000369/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000000370/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000000380/gof_metrics.csv
@@ -23,7 +22,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000000394/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000000423/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000000442/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000000472/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000000474/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000000476/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000000489/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000000503/gof_metrics.csv
@@ -37,7 +35,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000000568/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000000588/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000000631/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000000651/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000000656/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000000666/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000000690/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000000729/gof_metrics.csv
@@ -73,7 +70,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000001241/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001244/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001249/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001259/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000001303/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001313/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001354/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001414/gof_metrics.csv
@@ -88,7 +84,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000001498/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001549/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001557/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001558/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000001559/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001578/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001621/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001634/gof_metrics.csv
@@ -104,19 +99,16 @@ results/120_hpf/Rep_V/all/ENSDARG00000001754/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001760/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001767/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001769/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000001771/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001776/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001777/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001781/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001782/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001785/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001788/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000001803/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001804/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001807/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001817/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001818/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000001825/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001829/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001835/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001857/gof_metrics.csv
@@ -125,7 +117,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000001870/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001873/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001879/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001880/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000001881/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001882/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001888/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000001889/gof_metrics.csv
@@ -167,7 +158,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000002071/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002077/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002082/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002084/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000002097/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002127/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002128/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002131/gof_metrics.csv
@@ -203,8 +193,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000002264/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002267/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002271/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002285/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000002293/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000002295/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002298/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002299/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002300/gof_metrics.csv
@@ -232,18 +220,15 @@ results/120_hpf/Rep_V/all/ENSDARG00000002401/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002402/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002403/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002405/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000002406/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002411/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002445/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002463/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002467/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002479/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000002483/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002487/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002494/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002506/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002507/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000002508/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002509/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002510/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002523/gof_metrics.csv
@@ -255,7 +240,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000002549/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002552/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002564/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002571/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000002576/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002582/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002587/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002589/gof_metrics.csv
@@ -295,7 +279,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000002758/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002760/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002764/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002768/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000002771/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002779/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002787/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002790/gof_metrics.csv
@@ -303,7 +286,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000002791/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002792/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002795/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002798/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000002816/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002826/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002830/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002831/gof_metrics.csv
@@ -324,8 +306,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000002945/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002947/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002949/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002952/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000002956/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000002959/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002967/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002968/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000002970/gof_metrics.csv
@@ -395,7 +375,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000003269/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000003270/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000003281/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000003287/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000003290/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000003293/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000003307/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000003308/gof_metrics.csv
@@ -404,7 +383,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000003313/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000003320/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000003326/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000003328/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000003344/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000003373/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000003375/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000003380/gof_metrics.csv
@@ -498,11 +476,8 @@ results/120_hpf/Rep_V/all/ENSDARG00000003869/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000003872/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000003877/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000003899/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000003900/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000003902/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000003903/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000003904/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000003909/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000003910/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000003920/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000003925/gof_metrics.csv
@@ -523,7 +498,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000003973/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000003974/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000003977/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000003984/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000003989/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000003991/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000003994/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000003998/gof_metrics.csv
@@ -535,7 +509,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000004034/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004037/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004046/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004049/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000004051/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004055/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004059/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004060/gof_metrics.csv
@@ -568,13 +541,11 @@ results/120_hpf/Rep_V/all/ENSDARG00000004187/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004189/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004196/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004199/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000004204/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004211/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004218/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004219/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004227/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004232/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000004243/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004246/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004251/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004256/gof_metrics.csv
@@ -596,7 +567,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000004307/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004308/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004311/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004318/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000004322/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004325/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004328/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004336/gof_metrics.csv
@@ -621,14 +591,11 @@ results/120_hpf/Rep_V/all/ENSDARG00000004447/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004451/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004452/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004455/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000004459/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004460/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004470/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004472/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000004473/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004492/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004497/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000004498/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004502/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004517/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004525/gof_metrics.csv
@@ -636,13 +603,11 @@ results/120_hpf/Rep_V/all/ENSDARG00000004527/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004529/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004537/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004539/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000004561/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004574/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004576/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004577/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004580/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004581/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000004586/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004587/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004588/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004592/gof_metrics.csv
@@ -653,13 +618,11 @@ results/120_hpf/Rep_V/all/ENSDARG00000004618/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004621/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004627/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004632/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000004633/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004634/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004635/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004636/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004643/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004647/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000004648/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004658/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004672/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004680/gof_metrics.csv
@@ -683,12 +646,10 @@ results/120_hpf/Rep_V/all/ENSDARG00000004748/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004753/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004754/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004757/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000004763/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004771/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004774/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004782/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004785/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000004789/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004794/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004796/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004806/gof_metrics.csv
@@ -699,7 +660,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000004840/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004843/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004851/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004861/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000004864/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004866/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004869/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004870/gof_metrics.csv
@@ -714,13 +674,10 @@ results/120_hpf/Rep_V/all/ENSDARG00000004904/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004906/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004925/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004930/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000004931/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004932/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004937/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004939/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004948/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000004952/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000004953/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004954/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004956/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000004964/gof_metrics.csv
@@ -734,7 +691,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000005023/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005026/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005034/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005049/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000005050/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005057/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005058/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005078/gof_metrics.csv
@@ -780,8 +736,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000005284/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005315/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005318/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005320/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000005332/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000005335/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005343/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005350/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005355/gof_metrics.csv
@@ -789,7 +743,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000005356/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005359/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005364/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005368/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000005371/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005372/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005374/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005382/gof_metrics.csv
@@ -871,14 +824,12 @@ results/120_hpf/Rep_V/all/ENSDARG00000005772/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005774/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005775/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005776/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000005780/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005783/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005786/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005789/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005791/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005799/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005800/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000005821/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005823/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005827/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005828/gof_metrics.csv
@@ -886,7 +837,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000005834/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005840/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005841/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005842/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000005846/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005853/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005861/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000005867/gof_metrics.csv
@@ -964,7 +914,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000006279/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006283/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006288/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006290/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000006292/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006299/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006300/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006301/gof_metrics.csv
@@ -994,7 +943,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000006420/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006422/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006427/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006434/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000006447/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006456/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006467/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006468/gof_metrics.csv
@@ -1004,14 +952,11 @@ results/120_hpf/Rep_V/all/ENSDARG00000006487/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006491/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006494/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006497/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000006501/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006508/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006514/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000006522/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006524/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006526/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006527/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000006544/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006545/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006546/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006553/gof_metrics.csv
@@ -1079,7 +1024,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000006878/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006889/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006891/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006892/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000006894/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006896/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006899/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006900/gof_metrics.csv
@@ -1087,7 +1031,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000006901/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006911/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006915/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006921/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000006923/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006924/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006939/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006944/gof_metrics.csv
@@ -1097,7 +1040,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000006981/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006983/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000006990/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007009/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000007018/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007024/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007025/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007034/gof_metrics.csv
@@ -1121,7 +1063,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000007135/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007136/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007141/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007149/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000007151/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007169/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007171/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007172/gof_metrics.csv
@@ -1143,7 +1084,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000007221/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007231/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007241/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007244/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000007245/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007247/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007250/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007257/gof_metrics.csv
@@ -1166,13 +1106,11 @@ results/120_hpf/Rep_V/all/ENSDARG00000007344/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007347/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007349/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007356/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000007358/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007359/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007362/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007366/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007369/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007370/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000007371/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007377/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007382/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007383/gof_metrics.csv
@@ -1201,7 +1139,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000007465/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007477/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007480/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007485/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000007490/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007494/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007496/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007523/gof_metrics.csv
@@ -1209,7 +1146,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000007526/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007531/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007553/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007560/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000007561/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007566/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007576/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007582/gof_metrics.csv
@@ -1231,12 +1167,10 @@ results/120_hpf/Rep_V/all/ENSDARG00000007691/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007693/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007697/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007708/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000007709/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007711/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007715/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007720/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007722/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000007723/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007727/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007734/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007737/gof_metrics.csv
@@ -1249,9 +1183,7 @@ results/120_hpf/Rep_V/all/ENSDARG00000007753/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007755/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007760/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007764/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000007769/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007774/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000007783/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007786/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007788/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007791/gof_metrics.csv
@@ -1266,7 +1198,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000007823/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007824/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007825/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007836/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000007856/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007863/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007867/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007869/gof_metrics.csv
@@ -1275,7 +1206,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000007886/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007891/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007892/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007901/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000007906/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007912/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007916/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007918/gof_metrics.csv
@@ -1283,7 +1213,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000007923/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007941/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007943/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007944/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000007950/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007955/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007959/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007960/gof_metrics.csv
@@ -1297,7 +1226,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000007990/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000007996/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008010/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008014/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000008019/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008020/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008022/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008026/gof_metrics.csv
@@ -1316,12 +1244,10 @@ results/120_hpf/Rep_V/all/ENSDARG00000008119/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008127/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008131/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008133/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000008140/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008141/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008142/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008153/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008155/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000008164/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008165/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008170/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008174/gof_metrics.csv
@@ -1334,7 +1260,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000008200/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008203/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008209/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008218/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000008219/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008224/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008235/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008237/gof_metrics.csv
@@ -1365,7 +1290,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000008384/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008388/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008395/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008396/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000008398/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008403/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008407/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008413/gof_metrics.csv
@@ -1447,7 +1371,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000008886/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008890/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008904/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008906/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000008912/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008920/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008931/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000008936/gof_metrics.csv
@@ -1464,7 +1387,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000008986/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009001/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009014/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009018/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000009020/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009021/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009023/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009026/gof_metrics.csv
@@ -1472,11 +1394,8 @@ results/120_hpf/Rep_V/all/ENSDARG00000009031/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009040/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009046/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009074/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000009087/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000009094/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009106/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009113/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000009123/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009131/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009133/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009134/gof_metrics.csv
@@ -1537,7 +1456,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000009472/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009473/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009477/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009480/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000009482/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009484/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009488/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009493/gof_metrics.csv
@@ -1565,13 +1483,11 @@ results/120_hpf/Rep_V/all/ENSDARG00000009637/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009640/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009653/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009657/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000009673/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009677/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009681/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009685/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009689/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009693/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000009702/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009724/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009727/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009733/gof_metrics.csv
@@ -1609,7 +1525,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000009886/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009899/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009901/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009922/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000009930/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009939/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009941/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000009942/gof_metrics.csv
@@ -1626,7 +1541,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000010010/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010018/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010021/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010023/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000010029/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010031/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010032/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010035/gof_metrics.csv
@@ -1634,14 +1548,11 @@ results/120_hpf/Rep_V/all/ENSDARG00000010042/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010047/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010051/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010052/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000010059/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010070/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000010075/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010078/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010083/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010085/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010096/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000010097/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010098/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010108/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010113/gof_metrics.csv
@@ -1650,7 +1561,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000010132/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010137/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010144/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010145/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000010146/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010149/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010154/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010155/gof_metrics.csv
@@ -1662,7 +1572,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000010186/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010192/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010194/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010207/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000010231/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010238/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010244/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010246/gof_metrics.csv
@@ -1677,19 +1586,16 @@ results/120_hpf/Rep_V/all/ENSDARG00000010279/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010280/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010281/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010294/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000010296/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010300/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010301/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010312/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010316/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000010317/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010318/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010331/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010332/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010347/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010350/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010381/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000010384/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010385/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010400/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010407/gof_metrics.csv
@@ -1704,7 +1610,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000010434/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010437/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010442/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010445/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000010454/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010472/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010477/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010478/gof_metrics.csv
@@ -1728,7 +1633,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000010586/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010591/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010596/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010601/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000010602/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010603/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010610/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010625/gof_metrics.csv
@@ -1737,11 +1641,9 @@ results/120_hpf/Rep_V/all/ENSDARG00000010641/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010654/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010655/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010658/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000010662/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010673/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010680/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010681/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000010700/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010710/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010712/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010717/gof_metrics.csv
@@ -1769,7 +1671,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000010794/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010816/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010823/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010831/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000010841/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010844/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010862/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010873/gof_metrics.csv
@@ -1777,7 +1678,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000010878/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010905/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010918/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010925/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000010933/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010934/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010936/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000010940/gof_metrics.csv
@@ -1807,11 +1707,8 @@ results/120_hpf/Rep_V/all/ENSDARG00000011066/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011072/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011076/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011079/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000011083/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011088/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000011091/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011094/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000011113/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011122/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011125/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011141/gof_metrics.csv
@@ -1841,7 +1738,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000011259/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011262/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011272/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011273/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000011283/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011298/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011299/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011301/gof_metrics.csv
@@ -1864,10 +1760,8 @@ results/120_hpf/Rep_V/all/ENSDARG00000011418/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011422/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011434/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011445/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000011449/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011459/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011462/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000011463/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011466/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011473/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011487/gof_metrics.csv
@@ -1905,7 +1799,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000011611/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011613/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011615/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011618/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000011635/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011640/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011648/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011652/gof_metrics.csv
@@ -1946,7 +1839,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000011851/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011855/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011862/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011863/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000011869/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011870/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011876/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011879/gof_metrics.csv
@@ -1969,7 +1861,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000011956/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011958/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011961/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011973/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000011975/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011983/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011989/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000011998/gof_metrics.csv
@@ -2018,13 +1909,11 @@ results/120_hpf/Rep_V/all/ENSDARG00000012244/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012247/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012248/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012261/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000012269/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012271/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012274/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012275/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012281/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012295/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000012297/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012306/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012311/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012314/gof_metrics.csv
@@ -2033,7 +1922,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000012340/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012341/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012347/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012353/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000012355/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012366/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012367/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012368/gof_metrics.csv
@@ -2054,7 +1942,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000012409/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012422/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012426/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012432/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000012446/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012449/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012450/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012453/gof_metrics.csv
@@ -2070,8 +1957,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000012505/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012506/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012513/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012519/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000012534/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000012539/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012553/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012555/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012563/gof_metrics.csv
@@ -2085,7 +1970,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000012591/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012593/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012600/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012603/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000012609/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012610/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012625/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012627/gof_metrics.csv
@@ -2095,7 +1979,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000012642/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012649/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012656/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012667/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000012671/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012672/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012674/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012682/gof_metrics.csv
@@ -2114,7 +1997,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000012763/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012776/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012777/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012788/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000012789/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012790/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012796/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000012801/gof_metrics.csv
@@ -2162,7 +2044,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000013005/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013006/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013009/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013016/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000013020/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013022/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013023/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013024/gof_metrics.csv
@@ -2188,16 +2069,12 @@ results/120_hpf/Rep_V/all/ENSDARG00000013117/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013122/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013125/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013128/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000013134/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013144/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013150/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000013153/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013161/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013168/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013174/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000013203/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013207/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000013210/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013221/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013222/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013224/gof_metrics.csv
@@ -2229,8 +2106,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000013360/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013371/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013379/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013382/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000013389/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000013390/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013393/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013397/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013409/gof_metrics.csv
@@ -2251,7 +2126,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000013475/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013476/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013477/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013478/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000013491/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013492/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013500/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013505/gof_metrics.csv
@@ -2273,7 +2147,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000013613/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013615/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013623/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013628/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000013649/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013653/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013655/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013659/gof_metrics.csv
@@ -2307,7 +2180,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000013776/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013777/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013784/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013787/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000013789/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013794/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013795/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000013800/gof_metrics.csv
@@ -2363,14 +2235,12 @@ results/120_hpf/Rep_V/all/ENSDARG00000014013/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014015/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014017/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014018/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000014024/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014031/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014039/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014041/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014047/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014050/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014053/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000014057/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014058/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014059/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014068/gof_metrics.csv
@@ -2408,7 +2278,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000014232/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014233/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014239/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014244/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000014246/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014248/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014259/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014273/gof_metrics.csv
@@ -2418,7 +2287,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000014287/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014292/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014302/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014303/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000014309/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014311/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014313/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014320/gof_metrics.csv
@@ -2428,16 +2296,13 @@ results/120_hpf/Rep_V/all/ENSDARG00000014329/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014333/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014340/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014348/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000014356/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014358/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014361/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014366/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014373/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014378/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014386/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000014395/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014420/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000014427/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014428/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014430/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014439/gof_metrics.csv
@@ -2445,7 +2310,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000014462/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014463/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014465/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014474/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000014477/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014479/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014480/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014488/gof_metrics.csv
@@ -2476,7 +2340,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000014591/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014592/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014599/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014623/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000014624/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014626/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014634/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014646/gof_metrics.csv
@@ -2490,7 +2353,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000014674/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014675/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014676/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014680/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000014682/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014685/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014690/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014692/gof_metrics.csv
@@ -2517,7 +2379,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000014817/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014825/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014828/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014840/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000014849/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014854/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014866/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014867/gof_metrics.csv
@@ -2536,17 +2397,14 @@ results/120_hpf/Rep_V/all/ENSDARG00000014939/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014941/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014943/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014945/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000014946/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014953/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014954/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014956/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014962/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014963/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014966/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000014967/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014969/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014973/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000014975/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014976/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014986/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000014994/gof_metrics.csv
@@ -2613,7 +2471,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000015337/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015343/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015349/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015352/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000015355/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015356/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015374/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015385/gof_metrics.csv
@@ -2654,11 +2511,8 @@ results/120_hpf/Rep_V/all/ENSDARG00000015567/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015575/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015576/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015589/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000015592/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000015607/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015610/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015611/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000015623/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015627/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015628/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015638/gof_metrics.csv
@@ -2669,7 +2523,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000015657/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015662/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015674/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015676/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000015678/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015681/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015686/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015707/gof_metrics.csv
@@ -2679,14 +2532,12 @@ results/120_hpf/Rep_V/all/ENSDARG00000015731/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015732/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015747/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015749/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000015752/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015757/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015759/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015765/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015780/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015790/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015793/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000015803/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015805/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015807/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000015822/gof_metrics.csv
@@ -2769,7 +2620,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000016153/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016154/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016156/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016160/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000016161/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016163/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016173/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016177/gof_metrics.csv
@@ -2778,7 +2628,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000016188/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016200/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016212/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016213/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000016227/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016231/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016233/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016238/gof_metrics.csv
@@ -2789,7 +2638,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000016256/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016260/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016263/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016280/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000016290/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016301/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016302/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016304/gof_metrics.csv
@@ -2801,7 +2649,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000016336/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016337/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016343/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016345/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000016348/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016350/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016357/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016360/gof_metrics.csv
@@ -2816,10 +2663,8 @@ results/120_hpf/Rep_V/all/ENSDARG00000016399/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016404/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016412/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016415/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000016421/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016427/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016429/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000016439/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016443/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016447/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016454/gof_metrics.csv
@@ -2830,7 +2675,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000016464/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016470/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016474/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016477/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000016479/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016480/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016481/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016483/gof_metrics.csv
@@ -2844,11 +2688,9 @@ results/120_hpf/Rep_V/all/ENSDARG00000016514/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016516/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016519/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016526/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000016527/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016528/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016531/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016532/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000016536/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016538/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016541/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016543/gof_metrics.csv
@@ -2874,8 +2716,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000016674/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016676/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016687/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016691/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000016695/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000016699/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016704/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016706/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016710/gof_metrics.csv
@@ -2890,7 +2730,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000016742/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016743/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016745/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016749/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000016750/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016753/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016754/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016763/gof_metrics.csv
@@ -2909,7 +2748,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000016794/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016809/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016811/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016815/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000016818/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016830/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016835/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000016837/gof_metrics.csv
@@ -2962,7 +2800,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000017086/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017093/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017105/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017107/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000017108/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017111/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017115/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017119/gof_metrics.csv
@@ -2972,8 +2809,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000017127/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017128/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017140/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017143/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000017154/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000017155/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017162/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017163/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017165/gof_metrics.csv
@@ -2990,13 +2825,11 @@ results/120_hpf/Rep_V/all/ENSDARG00000017219/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017220/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017229/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017230/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000017234/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017235/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017240/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017242/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017244/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017246/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000017251/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017254/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017255/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017261/gof_metrics.csv
@@ -3026,13 +2859,11 @@ results/120_hpf/Rep_V/all/ENSDARG00000017369/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017385/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017386/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017388/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000017391/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017397/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017398/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017400/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017422/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017423/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000017425/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017427/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017429/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017431/gof_metrics.csv
@@ -3053,12 +2884,10 @@ results/120_hpf/Rep_V/all/ENSDARG00000017522/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017525/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017532/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017537/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000017542/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017562/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017565/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017569/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017571/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000017579/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017590/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017591/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017595/gof_metrics.csv
@@ -3066,7 +2895,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000017602/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017605/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017606/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017612/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000017615/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017617/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017624/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017634/gof_metrics.csv
@@ -3086,12 +2914,10 @@ results/120_hpf/Rep_V/all/ENSDARG00000017696/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017703/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017708/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017710/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000017720/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017728/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017739/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017740/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017741/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000017742/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017744/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017748/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017757/gof_metrics.csv
@@ -3129,15 +2955,11 @@ results/120_hpf/Rep_V/all/ENSDARG00000017901/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017905/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017910/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017917/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000017927/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017928/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017929/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017931/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017947/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000017953/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017960/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000017983/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000017984/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017985/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017986/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000017988/gof_metrics.csv
@@ -3157,7 +2979,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000018049/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018060/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018061/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018065/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000018066/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018069/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018073/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018077/gof_metrics.csv
@@ -3165,7 +2986,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000018096/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018105/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018106/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018107/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000018109/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018110/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018111/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018121/gof_metrics.csv
@@ -3198,7 +3018,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000018281/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018283/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018285/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018296/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000018301/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018303/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018312/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018319/gof_metrics.csv
@@ -3239,7 +3058,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000018529/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018530/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018534/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018542/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000018553/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018559/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018562/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018566/gof_metrics.csv
@@ -3249,7 +3067,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000018593/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018600/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018602/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018611/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000018616/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018618/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018619/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018621/gof_metrics.csv
@@ -3271,7 +3088,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000018726/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018738/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018742/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018743/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000018744/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018750/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018757/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000018765/gof_metrics.csv
@@ -3331,7 +3147,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000019033/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019038/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019060/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019062/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000019063/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019081/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019096/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019098/gof_metrics.csv
@@ -3343,7 +3158,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000019122/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019125/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019128/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019130/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000019135/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019137/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019142/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019144/gof_metrics.csv
@@ -3375,7 +3189,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000019274/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019278/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019280/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019293/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000019294/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019299/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019300/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019302/gof_metrics.csv
@@ -3390,12 +3203,10 @@ results/120_hpf/Rep_V/all/ENSDARG00000019332/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019335/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019338/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019339/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000019341/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019342/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019345/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019353/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019355/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000019357/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019360/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019362/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019364/gof_metrics.csv
@@ -3465,7 +3276,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000019726/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019728/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019732/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019741/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000019742/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019743/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019746/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000019747/gof_metrics.csv
@@ -3537,7 +3347,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000020084/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020085/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020086/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020101/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000020102/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020107/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020114/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020122/gof_metrics.csv
@@ -3547,7 +3356,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000020133/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020134/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020136/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020143/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000020149/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020158/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020164/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020176/gof_metrics.csv
@@ -3570,7 +3378,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000020237/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020239/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020241/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020242/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000020250/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020252/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020258/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020261/gof_metrics.csv
@@ -3600,13 +3407,11 @@ results/120_hpf/Rep_V/all/ENSDARG00000020405/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020417/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020427/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020442/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000020443/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020447/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020448/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020449/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020450/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020454/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000020455/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020465/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020467/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020469/gof_metrics.csv
@@ -3655,7 +3460,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000020708/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020711/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020718/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020730/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000020735/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020738/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020741/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020744/gof_metrics.csv
@@ -3673,7 +3477,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000020794/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020795/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020798/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020811/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000020812/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020814/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020820/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000020822/gof_metrics.csv
@@ -3723,7 +3526,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000021032/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021033/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021046/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021048/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000021055/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021059/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021082/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021086/gof_metrics.csv
@@ -3742,7 +3544,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000021141/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021143/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021147/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021149/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000021150/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021151/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021154/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021163/gof_metrics.csv
@@ -3769,10 +3570,8 @@ results/120_hpf/Rep_V/all/ENSDARG00000021257/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021265/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021287/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021288/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000021305/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021309/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021324/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000021336/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021339/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021343/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021345/gof_metrics.csv
@@ -3830,10 +3629,8 @@ results/120_hpf/Rep_V/all/ENSDARG00000021669/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021677/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021681/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021688/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000021697/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021702/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021720/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000021735/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021739/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021753/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021787/gof_metrics.csv
@@ -3853,7 +3650,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000021853/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021855/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021859/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021864/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000021866/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021869/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021882/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021885/gof_metrics.csv
@@ -3875,19 +3671,16 @@ results/120_hpf/Rep_V/all/ENSDARG00000021973/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021974/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021975/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021979/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000021982/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021984/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021985/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021987/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021991/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000021996/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000021997/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022000/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022007/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022020/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022045/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022085/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000022098/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022101/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022129/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022160/gof_metrics.csv
@@ -3909,7 +3702,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000022295/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022303/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022309/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022315/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000022334/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022340/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022350/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022372/gof_metrics.csv
@@ -3927,7 +3719,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000022466/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022493/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022503/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022509/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000022518/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022531/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022550/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022560/gof_metrics.csv
@@ -3942,7 +3733,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000022648/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022650/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022652/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022659/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000022660/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022670/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022684/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022689/gof_metrics.csv
@@ -3965,7 +3755,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000022817/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022832/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022845/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022853/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000022858/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022891/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022895/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000022904/gof_metrics.csv
@@ -4016,19 +3805,15 @@ results/120_hpf/Rep_V/all/ENSDARG00000023237/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000023267/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000023272/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000023279/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000023287/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000023290/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000023298/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000023299/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000023302/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000023303/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000023309/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000023316/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000023318/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000023323/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000023330/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000023362/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000023369/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000023394/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000023396/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000023443/gof_metrics.csv
@@ -4040,7 +3825,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000023484/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000023495/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000023498/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000023508/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000023526/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000023532/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000023536/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000023537/gof_metrics.csv
@@ -4151,12 +3935,10 @@ results/120_hpf/Rep_V/all/ENSDARG00000024548/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000024560/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000024561/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000024564/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000024575/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000024588/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000024598/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000024602/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000024619/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000024631/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000024642/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000024651/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000024654/gof_metrics.csv
@@ -4171,11 +3953,9 @@ results/120_hpf/Rep_V/all/ENSDARG00000024728/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000024740/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000024744/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000024746/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000024759/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000024771/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000024775/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000024785/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000024789/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000024815/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000024818/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000024827/gof_metrics.csv
@@ -4207,7 +3987,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000025032/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025033/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025034/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025043/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000025046/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025071/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025073/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025074/gof_metrics.csv
@@ -4223,7 +4002,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000025147/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025162/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025174/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025187/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000025189/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025206/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025212/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025218/gof_metrics.csv
@@ -4238,7 +4016,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000025299/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025301/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025302/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025309/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000025311/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025319/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025320/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025325/gof_metrics.csv
@@ -4264,10 +4041,8 @@ results/120_hpf/Rep_V/all/ENSDARG00000025436/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025465/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025467/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025468/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000025478/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025495/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025500/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000025504/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025507/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025513/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025518/gof_metrics.csv
@@ -4302,7 +4077,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000025728/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025754/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025757/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025766/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000025783/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025788/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025789/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025797/gof_metrics.csv
@@ -4325,7 +4099,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000025902/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025903/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025904/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025912/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000025914/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025920/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025948/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000025949/gof_metrics.csv
@@ -4339,13 +4112,10 @@ results/120_hpf/Rep_V/all/ENSDARG00000026024/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026028/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026035/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026048/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000026049/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000026052/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026053/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026068/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026070/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026072/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000026084/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026090/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026098/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026109/gof_metrics.csv
@@ -4379,11 +4149,9 @@ results/120_hpf/Rep_V/all/ENSDARG00000026350/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026359/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026369/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026376/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000026383/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026387/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026395/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026400/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000026403/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026406/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026444/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026448/gof_metrics.csv
@@ -4418,7 +4186,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000026664/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026680/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026682/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026701/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000026704/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026712/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026723/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026726/gof_metrics.csv
@@ -4442,7 +4209,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000026829/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026834/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026835/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026839/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000026840/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026842/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026845/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026855/gof_metrics.csv
@@ -4452,7 +4218,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000026871/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026875/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026882/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026892/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000026895/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026902/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026904/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000026907/gof_metrics.csv
@@ -4486,7 +4251,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000027131/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027140/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027141/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027143/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000027153/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027154/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027159/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027169/gof_metrics.csv
@@ -4524,10 +4288,8 @@ results/120_hpf/Rep_V/all/ENSDARG00000027424/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027428/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027461/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027465/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000027472/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027491/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027495/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000027497/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027500/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027501/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027529/gof_metrics.csv
@@ -4545,11 +4307,9 @@ results/120_hpf/Rep_V/all/ENSDARG00000027595/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027599/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027600/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027602/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000027609/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027611/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027612/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027620/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000027638/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027639/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027649/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027657/gof_metrics.csv
@@ -4564,7 +4324,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000027740/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027744/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027749/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027750/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000027777/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027797/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027799/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027803/gof_metrics.csv
@@ -4583,9 +4342,7 @@ results/120_hpf/Rep_V/all/ENSDARG00000027907/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027915/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027916/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027930/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000027933/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027938/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000027940/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027957/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027963/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000027966/gof_metrics.csv
@@ -4640,7 +4397,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000028336/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028346/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028348/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028354/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000028367/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028379/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028386/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028393/gof_metrics.csv
@@ -4649,7 +4405,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000028401/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028431/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028442/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028448/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000028469/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028475/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028478/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028485/gof_metrics.csv
@@ -4666,7 +4421,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000028552/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028559/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028581/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028583/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000028586/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028614/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028618/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028625/gof_metrics.csv
@@ -4680,7 +4434,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000028699/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028715/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028721/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028731/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000028740/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028748/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028784/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028786/gof_metrics.csv
@@ -4706,7 +4459,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000028943/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028949/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028957/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028971/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000028973/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028976/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000028982/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029003/gof_metrics.csv
@@ -4714,7 +4466,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000029011/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029018/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029019/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029036/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000029039/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029043/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029045/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029051/gof_metrics.csv
@@ -4732,7 +4483,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000029105/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029107/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029112/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029114/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000029124/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029133/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029146/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029150/gof_metrics.csv
@@ -4795,7 +4545,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000029511/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029524/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029533/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029544/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000029546/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029556/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029569/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029581/gof_metrics.csv
@@ -4832,7 +4581,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000029818/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029822/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029830/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029832/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000029838/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029841/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029848/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029856/gof_metrics.csv
@@ -4849,7 +4597,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000029905/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029907/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029911/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029928/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000029930/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029931/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029936/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000029944/gof_metrics.csv
@@ -4862,12 +4609,10 @@ results/120_hpf/Rep_V/all/ENSDARG00000030020/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030022/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030038/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030053/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000030058/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030064/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030078/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030087/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030092/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000030094/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030097/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030104/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030106/gof_metrics.csv
@@ -4899,7 +4644,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000030239/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030241/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030250/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030251/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000030254/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030262/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030263/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030265/gof_metrics.csv
@@ -4910,7 +4654,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000030278/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030289/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030297/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030307/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000030311/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030326/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030335/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030340/gof_metrics.csv
@@ -4932,7 +4675,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000030448/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030449/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030463/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030465/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000030472/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030478/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030479/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030490/gof_metrics.csv
@@ -4985,7 +4727,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000030759/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030761/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030765/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030775/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000030778/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030781/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030782/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030786/gof_metrics.csv
@@ -4998,7 +4739,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000030830/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030832/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030839/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030844/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000030867/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030871/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030872/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030881/gof_metrics.csv
@@ -5010,10 +4750,8 @@ results/120_hpf/Rep_V/all/ENSDARG00000030914/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030915/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030932/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030933/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000030938/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030945/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030949/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000030954/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030957/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030961/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000030964/gof_metrics.csv
@@ -5056,7 +4794,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000031246/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031248/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031261/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031269/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000031278/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031283/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031293/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031299/gof_metrics.csv
@@ -5071,11 +4808,9 @@ results/120_hpf/Rep_V/all/ENSDARG00000031343/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031345/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031346/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031348/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000031359/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031366/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031372/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031382/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000031383/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031387/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031388/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031420/gof_metrics.csv
@@ -5100,7 +4835,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000031548/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031560/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031562/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031587/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000031588/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031598/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031600/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031616/gof_metrics.csv
@@ -5119,11 +4853,8 @@ results/120_hpf/Rep_V/all/ENSDARG00000031683/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031698/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031702/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031709/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000031712/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031720/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000031731/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031737/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000031745/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031751/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031756/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031757/gof_metrics.csv
@@ -5147,7 +4878,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000031836/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031845/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031848/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031875/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000031885/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031886/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031888/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031890/gof_metrics.csv
@@ -5157,7 +4887,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000031907/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031911/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031915/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031929/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000031930/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031952/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031954/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000031956/gof_metrics.csv
@@ -5198,7 +4927,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000032199/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000032206/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000032218/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000032221/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000032234/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000032237/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000032238/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000032242/gof_metrics.csv
@@ -5223,7 +4951,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000032344/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000032353/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000032369/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000032373/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000032380/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000032389/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000032405/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000032426/gof_metrics.csv
@@ -5291,20 +5018,17 @@ results/120_hpf/Rep_V/all/ENSDARG00000032865/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000032866/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000032868/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000032876/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000032885/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000032896/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000032919/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000032929/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000032932/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000032933/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000032951/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000032959/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000032963/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000032970/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000032976/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000032985/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000032990/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000032993/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000032997/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033009/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033012/gof_metrics.csv
@@ -5312,10 +5036,8 @@ results/120_hpf/Rep_V/all/ENSDARG00000033020/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033029/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033042/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033046/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000033056/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033089/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033099/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000033104/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033126/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033134/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033138/gof_metrics.csv
@@ -5348,9 +5070,7 @@ results/120_hpf/Rep_V/all/ENSDARG00000033364/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033367/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033370/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033376/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000033380/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033382/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000033411/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033413/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033418/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033436/gof_metrics.csv
@@ -5375,14 +5095,11 @@ results/120_hpf/Rep_V/all/ENSDARG00000033551/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033566/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033567/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033579/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000033587/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000033594/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033596/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033597/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033599/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033604/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033609/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000033610/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033614/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033616/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000033647/gof_metrics.csv
@@ -5443,9 +5160,7 @@ results/120_hpf/Rep_V/all/ENSDARG00000034076/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000034080/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000034086/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000034093/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000034095/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000034105/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000034107/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000034117/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000034138/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000034146/gof_metrics.csv
@@ -5520,7 +5235,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000034624/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000034633/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000034643/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000034650/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000034667/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000034668/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000034670/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000034677/gof_metrics.csv
@@ -5528,7 +5242,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000034685/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000034693/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000034700/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000034705/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000034707/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000034714/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000034717/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000034718/gof_metrics.csv
@@ -5559,7 +5272,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000034897/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000034907/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000034916/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000034933/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000034940/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000034941/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000034943/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000034956/gof_metrics.csv
@@ -5583,7 +5295,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000035095/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035116/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035120/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035122/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000035127/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035129/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035131/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035132/gof_metrics.csv
@@ -5599,13 +5310,11 @@ results/120_hpf/Rep_V/all/ENSDARG00000035152/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035161/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035163/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035167/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000035169/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035171/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035175/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035178/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035181/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035184/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000035185/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035187/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035188/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035198/gof_metrics.csv
@@ -5635,7 +5344,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000035350/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035352/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035357/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035360/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000035377/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035388/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035389/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035390/gof_metrics.csv
@@ -5680,7 +5388,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000035556/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035557/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035558/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035559/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000035560/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035562/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035563/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035564/gof_metrics.csv
@@ -5695,11 +5402,9 @@ results/120_hpf/Rep_V/all/ENSDARG00000035579/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035595/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035596/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035598/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000035601/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035602/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035603/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035605/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000035606/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035607/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035608/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035610/gof_metrics.csv
@@ -5709,7 +5414,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000035625/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035629/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035630/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035631/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000035632/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035633/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035634/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035648/gof_metrics.csv
@@ -5741,7 +5445,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000035735/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035741/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035751/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035763/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000035765/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035771/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035781/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035797/gof_metrics.csv
@@ -5788,13 +5491,11 @@ results/120_hpf/Rep_V/all/ENSDARG00000035914/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035918/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035924/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035942/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000035944/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035949/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035952/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035954/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035957/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035958/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000035961/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035963/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035970/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000035978/gof_metrics.csv
@@ -5835,7 +5536,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000036074/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036076/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036080/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036082/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000036084/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036086/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036090/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036092/gof_metrics.csv
@@ -5848,7 +5548,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000036106/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036107/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036109/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036116/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000036117/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036135/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036136/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036139/gof_metrics.csv
@@ -5857,7 +5556,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000036144/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036147/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036152/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036155/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000036156/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036158/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036161/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036162/gof_metrics.csv
@@ -5873,7 +5571,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000036190/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036194/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036212/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036214/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000036215/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036222/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036227/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036232/gof_metrics.csv
@@ -5885,7 +5582,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000036247/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036252/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036254/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036257/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000036272/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036279/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036281/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036282/gof_metrics.csv
@@ -5913,7 +5609,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000036382/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036383/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036386/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036394/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000036412/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036414/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036415/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036420/gof_metrics.csv
@@ -5929,11 +5624,9 @@ results/120_hpf/Rep_V/all/ENSDARG00000036446/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036456/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036457/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036462/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000036471/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036473/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036481/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036482/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000036483/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036489/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036493/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036494/gof_metrics.csv
@@ -5948,7 +5641,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000036546/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036548/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036549/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036558/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000036560/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036567/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036569/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036571/gof_metrics.csv
@@ -5964,7 +5656,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000036616/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036619/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036625/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036626/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000036628/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036629/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036630/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036636/gof_metrics.csv
@@ -5984,11 +5675,9 @@ results/120_hpf/Rep_V/all/ENSDARG00000036698/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036700/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036704/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036721/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000036722/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036754/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036755/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036764/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000036767/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036772/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036773/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036774/gof_metrics.csv
@@ -6003,13 +5692,11 @@ results/120_hpf/Rep_V/all/ENSDARG00000036793/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036809/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036811/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036816/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000036818/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036820/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036826/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036830/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036831/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036832/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000036833/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036834/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036840/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036844/gof_metrics.csv
@@ -6038,7 +5725,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000036915/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036924/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036929/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036930/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000036940/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036942/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036943/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036944/gof_metrics.csv
@@ -6056,7 +5742,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000036993/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036994/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036995/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000036998/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000036999/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037000/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037002/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037008/gof_metrics.csv
@@ -6066,7 +5751,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000037017/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037018/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037020/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037030/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000037033/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037038/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037040/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037042/gof_metrics.csv
@@ -6075,7 +5759,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000037057/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037059/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037060/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037061/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000037062/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037064/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037066/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037067/gof_metrics.csv
@@ -6102,7 +5785,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000037145/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037153/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037154/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037158/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000037159/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037172/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037174/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037176/gof_metrics.csv
@@ -6118,11 +5800,9 @@ results/120_hpf/Rep_V/all/ENSDARG00000037229/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037238/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037244/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037245/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000037256/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037259/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037260/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037261/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000037262/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037266/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037267/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037276/gof_metrics.csv
@@ -6146,14 +5826,12 @@ results/120_hpf/Rep_V/all/ENSDARG00000037359/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037361/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037362/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037363/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000037373/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037378/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037383/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037390/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037392/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037393/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037397/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000037398/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037402/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037403/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037405/gof_metrics.csv
@@ -6164,7 +5842,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000037415/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037421/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037423/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037425/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000037427/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037429/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037432/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037433/gof_metrics.csv
@@ -6186,11 +5863,9 @@ results/120_hpf/Rep_V/all/ENSDARG00000037514/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037517/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037528/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037532/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000037533/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037537/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037539/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037545/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000037550/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037551/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037553/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037554/gof_metrics.csv
@@ -6201,17 +5876,13 @@ results/120_hpf/Rep_V/all/ENSDARG00000037559/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037560/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037570/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037574/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000037576/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037587/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037588/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037589/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037593/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000037598/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000037603/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037607/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037613/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037618/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000037619/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037628/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037633/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037639/gof_metrics.csv
@@ -6226,11 +5897,9 @@ results/120_hpf/Rep_V/all/ENSDARG00000037675/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037677/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037679/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037691/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000037695/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037706/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037708/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037713/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000037738/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037739/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037746/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037747/gof_metrics.csv
@@ -6243,15 +5912,11 @@ results/120_hpf/Rep_V/all/ENSDARG00000037782/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037783/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037789/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037790/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000037794/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037804/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000037805/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037810/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037813/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000037815/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037833/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037835/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000037836/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037837/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037838/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000037843/gof_metrics.csv
@@ -6314,9 +5979,7 @@ results/120_hpf/Rep_V/all/ENSDARG00000037998/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038000/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038005/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038006/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000038009/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038010/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000038011/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038012/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038018/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038024/gof_metrics.csv
@@ -6325,7 +5988,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000038027/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038028/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038030/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038040/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000038052/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038056/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038059/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038064/gof_metrics.csv
@@ -6343,7 +6005,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000038097/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038099/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038106/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038107/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000038112/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038113/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038114/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038116/gof_metrics.csv
@@ -6358,11 +6019,9 @@ results/120_hpf/Rep_V/all/ENSDARG00000038153/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038154/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038156/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038159/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000038166/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038176/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038185/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038186/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000038191/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038199/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038205/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038207/gof_metrics.csv
@@ -6379,7 +6038,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000038248/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038258/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038270/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038271/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000038278/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038281/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038283/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038288/gof_metrics.csv
@@ -6400,7 +6058,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000038359/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038360/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038363/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038378/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000038384/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038386/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038397/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038398/gof_metrics.csv
@@ -6428,7 +6085,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000038508/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038518/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038524/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038537/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000038541/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038543/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038556/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038557/gof_metrics.csv
@@ -6438,13 +6094,11 @@ results/120_hpf/Rep_V/all/ENSDARG00000038563/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038566/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038567/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038569/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000038570/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038574/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038576/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038577/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038583/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038585/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000038587/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038608/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038609/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038612/gof_metrics.csv
@@ -6460,8 +6114,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000038667/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038668/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038669/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038672/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000038681/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000038683/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038686/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038687/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038693/gof_metrics.csv
@@ -6490,14 +6142,12 @@ results/120_hpf/Rep_V/all/ENSDARG00000038787/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038788/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038789/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038792/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000038793/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038794/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038801/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038802/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038805/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038812/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038814/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000038822/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038826/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038834/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038835/gof_metrics.csv
@@ -6515,7 +6165,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000038868/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038869/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038870/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038876/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000038878/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038879/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038881/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038882/gof_metrics.csv
@@ -6537,15 +6186,12 @@ results/120_hpf/Rep_V/all/ENSDARG00000038956/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038957/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038964/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038967/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000038969/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038974/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038976/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000038977/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038978/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038980/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038981/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038985/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000038987/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038990/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038991/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000038996/gof_metrics.csv
@@ -6561,7 +6207,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000039052/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039062/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039063/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039064/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000039065/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039066/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039069/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039070/gof_metrics.csv
@@ -6569,7 +6214,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000039077/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039082/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039093/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039095/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000039096/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039098/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039099/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039108/gof_metrics.csv
@@ -6582,13 +6226,9 @@ results/120_hpf/Rep_V/all/ENSDARG00000039131/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039133/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039136/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039142/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000039145/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039150/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000039152/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039162/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000039164/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039173/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000039174/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039181/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039185/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039196/gof_metrics.csv
@@ -6598,16 +6238,11 @@ results/120_hpf/Rep_V/all/ENSDARG00000039211/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039213/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039215/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039217/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000039218/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000039220/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000039222/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039225/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039229/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039240/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039241/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000039243/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039255/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000039256/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039263/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039264/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039265/gof_metrics.csv
@@ -6687,7 +6322,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000039517/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039521/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039522/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039534/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000039535/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039543/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039563/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039569/gof_metrics.csv
@@ -6712,9 +6346,7 @@ results/120_hpf/Rep_V/all/ENSDARG00000039667/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039669/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039677/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039681/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000039682/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039684/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000039687/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039697/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039699/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039701/gof_metrics.csv
@@ -6757,13 +6389,10 @@ results/120_hpf/Rep_V/all/ENSDARG00000039915/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039929/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039931/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039934/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000039935/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039937/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039943/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039949/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000039951/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039958/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000039959/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039960/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039963/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039964/gof_metrics.csv
@@ -6776,7 +6405,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000039987/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039989/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039996/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000039997/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000039999/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040001/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040002/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040005/gof_metrics.csv
@@ -6795,7 +6423,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000040046/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040048/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040059/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040064/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000040065/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040070/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040072/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040076/gof_metrics.csv
@@ -6842,7 +6469,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000040249/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040251/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040252/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040253/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000040254/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040255/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040257/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040258/gof_metrics.csv
@@ -6861,7 +6487,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000040291/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040295/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040298/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040300/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000040302/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040303/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040306/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040309/gof_metrics.csv
@@ -6935,11 +6560,9 @@ results/120_hpf/Rep_V/all/ENSDARG00000040610/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040614/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040615/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040620/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000040621/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040623/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040627/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040628/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000040633/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040635/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040640/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040644/gof_metrics.csv
@@ -6947,7 +6570,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000040649/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040650/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040657/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040666/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000040668/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040674/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040678/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040683/gof_metrics.csv
@@ -6955,7 +6577,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000040684/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040695/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040698/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040700/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000040703/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040705/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040707/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040712/gof_metrics.csv
@@ -6965,23 +6586,18 @@ results/120_hpf/Rep_V/all/ENSDARG00000040725/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040727/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040730/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040732/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000040736/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000040738/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040741/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040747/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040764/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040777/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040778/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040779/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000040781/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040799/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040803/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000040812/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040815/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040816/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040822/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040838/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000040841/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040851/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040853/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040854/gof_metrics.csv
@@ -6995,7 +6611,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000040890/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040898/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040907/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040910/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000040911/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040912/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040917/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040920/gof_metrics.csv
@@ -7019,13 +6634,9 @@ results/120_hpf/Rep_V/all/ENSDARG00000040988/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040990/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000040991/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041006/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000041007/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041011/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000041019/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041022/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000041032/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041040/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000041041/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041051/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041060/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041062/gof_metrics.csv
@@ -7033,14 +6644,11 @@ results/120_hpf/Rep_V/all/ENSDARG00000041065/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041068/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041071/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041072/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000041073/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041078/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041080/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041081/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041083/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041085/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000041086/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000041092/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041098/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041108/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041110/gof_metrics.csv
@@ -7055,7 +6663,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000041141/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041145/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041150/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041155/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000041165/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041170/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041179/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041182/gof_metrics.csv
@@ -7064,7 +6671,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000041203/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041205/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041215/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041217/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000041220/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041223/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041226/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041232/gof_metrics.csv
@@ -7096,24 +6702,20 @@ results/120_hpf/Rep_V/all/ENSDARG00000041363/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041372/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041376/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041378/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000041379/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041381/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041382/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041391/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041394/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041397/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000041399/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041400/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041402/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041407/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041411/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000041414/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041417/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041421/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041428/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041429/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041430/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000041431/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041433/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041435/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041449/gof_metrics.csv
@@ -7127,7 +6729,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000041502/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041503/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041505/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041511/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000041515/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041530/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041533/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041538/gof_metrics.csv
@@ -7159,7 +6760,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000041623/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041631/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041644/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041645/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000041660/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041665/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041685/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041689/gof_metrics.csv
@@ -7181,17 +6781,13 @@ results/120_hpf/Rep_V/all/ENSDARG00000041750/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041776/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041779/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041787/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000041791/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000041792/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041797/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041799/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041802/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041811/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041830/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041839/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000041848/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041853/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000041858/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041864/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041869/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041870/gof_metrics.csv
@@ -7203,7 +6799,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000041895/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041896/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041904/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041908/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000041910/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041911/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041915/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000041919/gof_metrics.csv
@@ -7247,7 +6842,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000042065/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042069/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042072/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042087/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000042090/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042091/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042094/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042106/gof_metrics.csv
@@ -7270,7 +6864,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000042141/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042145/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042147/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042151/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000042157/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042159/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042172/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042180/gof_metrics.csv
@@ -7285,7 +6878,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000042215/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042221/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042231/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042232/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000042233/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042236/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042245/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042249/gof_metrics.csv
@@ -7311,12 +6903,10 @@ results/120_hpf/Rep_V/all/ENSDARG00000042338/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042341/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042344/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042345/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000042350/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042357/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042368/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042379/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042383/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000042387/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042390/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042396/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042401/gof_metrics.csv
@@ -7371,7 +6961,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000042577/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042590/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042608/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042613/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000042616/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042620/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042623/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042627/gof_metrics.csv
@@ -7389,8 +6978,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000042660/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042667/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042670/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042671/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000042677/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000042683/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042684/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042688/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042689/gof_metrics.csv
@@ -7400,7 +6987,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000042703/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042707/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042708/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042717/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000042722/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042723/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042724/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042725/gof_metrics.csv
@@ -7421,10 +7007,8 @@ results/120_hpf/Rep_V/all/ENSDARG00000042791/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042793/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042796/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042799/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000042803/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042807/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042811/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000042815/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042816/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042821/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042823/gof_metrics.csv
@@ -7432,7 +7016,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000042824/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042825/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042826/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042827/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000042829/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042833/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042835/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042837/gof_metrics.csv
@@ -7485,7 +7068,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000042961/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042962/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042969/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042970/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000042974/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042975/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042977/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000042978/gof_metrics.csv
@@ -7518,7 +7100,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000043079/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043081/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043084/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043085/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000043089/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043093/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043094/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043095/gof_metrics.csv
@@ -7527,7 +7108,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000043105/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043126/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043128/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043130/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000043131/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043133/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043134/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043135/gof_metrics.csv
@@ -7547,12 +7127,9 @@ results/120_hpf/Rep_V/all/ENSDARG00000043182/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043185/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043198/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043209/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000043210/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043211/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043213/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000043220/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043226/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000043232/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043236/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043238/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043241/gof_metrics.csv
@@ -7598,7 +7175,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000043402/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043403/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043404/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043406/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000043410/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043416/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043417/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043431/gof_metrics.csv
@@ -7620,7 +7196,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000043482/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043483/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043484/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043485/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000043492/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043493/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043497/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043502/gof_metrics.csv
@@ -7643,7 +7218,6 @@ results/120_hpf/Rep_V/all/ENSDARG00000043562/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043566/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043571/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043581/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000043586/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043587/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043593/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000043608/gof_metrics.csv
@@ -23851,4 +23425,3 @@ results/120_hpf/Rep_V/all/ENSDARG00000117812/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000117815/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000117816/gof_metrics.csv
 results/120_hpf/Rep_V/all/ENSDARG00000117822/gof_metrics.csv
-results/120_hpf/Rep_V/all/ENSDARG00000117824/gof_metrics.csv

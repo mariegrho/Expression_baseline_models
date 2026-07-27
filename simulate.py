@@ -1,6 +1,7 @@
 import os
 import click
 import xarray as xr
+import arviz as az
 
 from model.initialise import *
 from model.models import *
@@ -51,9 +52,20 @@ def gof_evaluation(idata, gene_id, model, out_path):
         obs = ds.observed_data.y.sel(time=non_nan_times).values
         pred = idata.posterior_model_fits.y.mean(dim=("chain","draw","source")).sel(time=non_nan_times).values
 
-        metrics = pd.DataFrame(columns=["gene_id", "model", "BIC", "rho", "NRMSE", "MASE"])
+        ll = idata.log_likelihood["y"]  # dims: (chain, draw, time, source)
+        grouped_ll = ll.sum(dim="source")   # -> dims: (chain, draw, time)
+
+        # Wrap into a fresh InferenceData for WAIC/LOO
+        idata_grouped = az.InferenceData(
+            posterior=idata.posterior,          # reuse original posterior
+            log_likelihood=xr.Dataset({"y": grouped_ll}),
+        )
+
+        waic = az.waic(idata_grouped, pointwise=True).elpd_waic
+        loo = az.loo(idata_grouped, pointwise=True).elpd_loo
 
         rho = spearman_correlation(obs, pred)
+        pearsonr = pearson_correlation(obs, pred)
         nrmse = calc_nrmse(obs, pred)[0]         # by Range
         accepted = (rho > 0.7) & (nrmse < 0.2)
 
@@ -62,7 +74,11 @@ def gof_evaluation(idata, gene_id, model, out_path):
             "model":model,
             "source": src,
             "BIC": calc_bic(ds),
+            "AIC": calc_AIC(ds),
+            "WAIC": waic,
+            "LOO": loo,
             "rho": rho,
+            "pearsonr": pearsonr,
             "NRMSE": nrmse, 
             "MASE": calc_mase(obs, pred),
             "accepted": accepted,
@@ -180,7 +196,7 @@ def main(gene_id, model_version, kernel="nuts", t_end=120, plot=True, smooth=Fal
     sim.config.save(force=True)
 
     # evaluation of results
-    gof_evaluation(sim.inferer.idata, gene_id, model_version, out_path=gene_output_dir)
+    #gof_evaluation(sim.inferer.idata, gene_id, model_version, out_path=gene_output_dir)
 
     if smooth:
         sim.coordinates["time"]= np.linspace(0, t_end, 1000)

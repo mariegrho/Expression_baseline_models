@@ -1,6 +1,12 @@
 import numpy as np
 import pandas as pd
-from scipy.stats import spearmanr
+import arviz as az
+from scipy.stats import spearmanr, pearsonr
+import xarray as xr
+from concurrent.futures import ProcessPoolExecutor, as_completed
+import os
+
+# ========== Metric ===================
 
 def _local_variance(residuals: np.ndarray):
     """This uses aggregated data residuals[id,time].mean(id).
@@ -24,6 +30,11 @@ def _autocorrelation(residuals, lag=1):
 def spearman_correlation(obs, pred):
     '''pattern accuracy'''
     corr = spearmanr(obs, pred)[0]
+    return float(corr)
+
+def pearson_correlation(obs, pred):
+    '''pattern accuracy'''
+    corr = pearsonr(obs, pred)[0]
     return float(corr)
 
 def calc_nrmse(obs, pred):
@@ -73,37 +84,95 @@ def calc_bic(idata):
     bic =  k * np.log(n) - 2 * LL
     return float(bic)
 
+def calc_AIC(idata):
+    '''
+    k = free parameters
+    LL = max. Log-Likelihood (sum)
+    '''
+    k = len(idata.posterior.data_vars)
+    LL = idata.log_likelihood.y.mean(dim=("chain", "draw")).sum().item()
+    aic = - 2 * LL + 2*k
+    return float(aic)
 
-import xarray as xr
-from concurrent.futures import ProcessPoolExecutor, as_completed
-import os
+
+
+# ======== Post fit metric calculation ===================
+import logging
 
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.dirname(SCRIPT_DIR)
 
-def _compute_rho(model, gid):
+def _init_worker_logger(model):
+    """Runs once per worker process when the pool starts it up."""
+    log_dir = os.path.join(PROJECT_ROOT, "logs", "gof_worker_logs", model)
+    os.makedirs(log_dir, exist_ok=True)
+    pid = os.getpid()
+    log_path = os.path.join(log_dir, f"worker_{pid}.log")
+    logging.basicConfig(
+        filename=log_path,
+        level=logging.INFO,
+        format="%(asctime)s [%(process)d] %(levelname)s %(message)s",
+    )
+    
+
+def _compute_stats(model, gid):
     """Runs in a worker process: load one gene's dataset and compute rho."""
     path = os.path.join(PROJECT_ROOT, "results", "120_hpf", model, "all", gid, "numpyro_posterior.nc")
+
     try:
-        obs_ds = xr.open_dataset(path, group="observed_data")
-        pred_ds = xr.open_dataset(path, group="posterior_model_fits")
+        idata = az.from_netcdf(path)
+        obs = idata.observed_data.y.mean("source")
+        pred = idata.posterior_model_fits.y.mean(dim=("draw", "chain", "source"))
 
-        obs = obs_ds["y"].mean("source")
-        pred = pred_ds["y"].mean(dim=("draw", "chain", "source"))
-        rho = spearmanr(obs.values, pred.values).correlation
+        ll = idata.log_likelihood["y"]  # dims: (chain, draw, time, source)
+        grouped_ll = ll.sum(dim="source")   # -> dims: (chain, draw, time)
 
-        obs_ds.close()
-        pred_ds.close()
+        # Wrap into a fresh InferenceData for WAIC/LOO
+        idata_grouped = az.InferenceData(
+            posterior=idata.posterior,          # reuse original posterior
+            log_likelihood=xr.Dataset({"y": grouped_ll}),
+        )
+        
     except Exception as e:
-        print(f"⚠️ Failed on {gid}: {e}")
+        logging.error(f"Failed to load {gid}: {e}")
+        return gid, np.nan, np.nan, np.nan, np.nan
+
+    try:
+        # Watanabe–Akaike information criterion
+        waic = az.waic(idata_grouped, pointwise=True).elpd_waic
+    except Exception as e:
+        logging.warning(f"WAIC failed on {gid}: {e}")
+        waic = np.nan
+
+    try:
+        loo = az.loo(idata_grouped, pointwise=True).elpd_loo
+    except Exception as e:
+        logging.warning(f"LOO failed on {gid}: {e}")
+        loo = np.nan
+    finally:
+        idata.close()
+
+    try:
+        rho = spearmanr(obs.values, pred.values).correlation
+    except Exception as e:
+        logging.warning(f"spearmanr failed on {gid}: {e}")
         rho = np.nan
-    return gid, rho
+    
+    try:
+        pearson = pearsonr(obs.values, pred.values).correlation
+    except Exception as e:
+        logging.warning(f"pearsonr failed on {gid}: {e}")
+        pearson = np.nan
+
+    return gid, rho, pearson, waic, loo
 
 def calc_rho_full_ds(model, max_workers=None, limit=None):
 
-    csv_path = os.path.join(PROJECT_ROOT, "results_summary", model, "goodness_of_fit_summary.csv")
+    csv_path = os.path.join(PROJECT_ROOT, "results/results_summary", model, "goodness_of_fit_summary.csv")
     df = pd.read_csv(csv_path)
     df = df.set_index("gene_id", drop=False)
+
+    assert df.index.is_unique, "Duplicate gene_id values in CSV"
 
     genes = df.index.tolist()
     if limit:
@@ -113,15 +182,30 @@ def calc_rho_full_ds(model, max_workers=None, limit=None):
         max_workers = int(os.environ.get("SLURM_CPUS_PER_TASK", os.cpu_count()))
 
     from functools import partial
-    worker = partial(_compute_rho, model)
+    worker = partial(_compute_stats, model)
 
-    results = {}
+    results_r = {}
+    results_p = {}
+    results_w = {}
+    results_l = {}
     chunksize = max(1, len(genes) // (max_workers * 4))
-    with ProcessPoolExecutor(max_workers=max_workers) as ex:
-        for gid, rho in ex.map(worker, genes, chunksize=chunksize):
-            results[gid] = rho
+    with ProcessPoolExecutor(max_workers=max_workers, initializer=_init_worker_logger, initargs=(model,),) as ex:
+        for gid, rho, pearson, waic, loo in ex.map(worker, genes, chunksize=chunksize):
+            results_r[gid] = rho
+            results_p[gid] = pearson
+            results_w[gid] = waic
+            results_l[gid] = loo
 
-    df["rho"] = df.index.map(results)
+    df["rho"] = df.index.map(results_r)
+    df["pearsonr"] = df.index.map(results_p)
+    df["WAIC"] = df.index.map(results_w)
+    df["LOO"] = df.index.map(results_l)
+
+    print(f"NaN counts — rho: {sum(pd.isna(v) for v in results_r.values())}, "
+      f"pearson: {sum(pd.isna(v) for v in results_p.values())}, "
+      f"WAIC: {sum(pd.isna(v) for v in results_w.values())}, "
+      f"LOO: {sum(pd.isna(v) for v in results_l.values())}")
+
     df.to_csv(csv_path, index=False)
     print(f"Saved gof file under {csv_path}")
 
@@ -134,4 +218,6 @@ if __name__ == "__main__":
 
     globals()[func_name](model, max_workers=max_workers)
 
-    
+
+# grep -l ERROR logs/gof_worker_logs/*.log
+# grep -c WARNING logs/gof_worker_logs/*.log

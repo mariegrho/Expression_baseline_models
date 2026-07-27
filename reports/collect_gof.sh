@@ -2,31 +2,57 @@
 #SBATCH --job-name=0gof
 #SBATCH --output=results/logs/%x_%A_%a.out
 #SBATCH --error=results/logs/%x_%A_%a.err
-#SBATCH --time=00:30:00
-#SBATCH --mem=500MB
+#SBATCH --time=02:00:00
+#SBATCH --mem=2GB
 #SBATCH --cpus-per-task=1
 
-for MODEL in Rep_M Rep_Z; do
+GENE_LIST="data/genes.txt"
+
+TMPDIR_LOCAL="results/tmp"
+mkdir -p "$TMPDIR_LOCAL"
+export TMPDIR="$TMPDIR_LOCAL"
+
+for MODEL in Basic Rep_M Rep_Z Rep_V; do
 
     BASE_DIR="results/120_hpf/$MODEL/all"
     OUT_FILE="results/results_summary/$MODEL/goodness_of_fit_summary.csv"
     FILELIST="$(mktemp)"
     DONE_GENES="$(mktemp)"
 
-    mkdir -p "$(dirname "$OUT_FILE")"
+mkdir -p "$(dirname "$OUT_FILE")"
 
-    echo "Start gof summary with HDIs for model $MODEL"
+    echo "[$(date)] Start gof summary with HDIs for model $MODEL"
 
     # Header if starting fresh
     if [ ! -s "$OUT_FILE" ]; then
         echo "gene_id,NRMSE,NRMSE_lower,NRMSE_upper,LogLik,LogLik_lower,LogLik_upper,BIC,BIC_lower,BIC_upper" > "$OUT_FILE"
+    else
+        # Drop any existing rows for genes that are no longer in GENE_LIST
+        awk -F',' -v genelist="$GENE_LIST" '
+        BEGIN {
+            while ((getline g < genelist) > 0) {
+                gsub(/\r$/, "", g); gsub(/^[ \t]+|[ \t]+$/, "", g)
+                if (g != "") want[g] = 1
+            }
+            close(genelist)
+        }
+        NR==1 { print; next }
+        ($1 in want) { print }
+        ' "$OUT_FILE" > "${OUT_FILE}.filtered" && mv "${OUT_FILE}.filtered" "$OUT_FILE"
     fi
 
     # Genes already done (O(1) lookups instead of grep -q per file)
     awk -F',' 'NR>1{print $1}' "$OUT_FILE" > "$DONE_GENES"
 
     # Build file list once 
-    find "$BASE_DIR" -maxdepth 2 -type f -name goodness_of_fit.csv > "$FILELIST"
+    #find "$BASE_DIR" -maxdepth 2 -type f -name goodness_of_fit.csv > "$FILELIST"
+
+    # Build file list only for genes in GENE_LIST
+    while IFS= read -r gene; do
+        [ -z "$gene" ] && continue
+        f="$BASE_DIR/$gene/goodness_of_fit.csv"
+        [ -f "$f" ] && echo "$f" >> "$FILELIST"
+    done < "$GENE_LIST"
 
     awk -F',' -v done_file="$DONE_GENES" -v filelist="$FILELIST" '
     BEGIN {
@@ -67,10 +93,14 @@ for MODEL in Rep_M Rep_Z; do
     } > "${OUT_FILE}.sorted" && mv "${OUT_FILE}.sorted" "$OUT_FILE"
 
     rm -f "$FILELIST" "$DONE_GENES"
-    echo "✅ Summary with HDIs written to: $OUT_FILE"
+    echo "Summary with HDIs written to: $OUT_FILE"
 done
 echo "[$(date)] Finished all."
 
 #chmod +x reports/collect_gof.sh
 #./collect_gof.sh
 # sbatch reports/collect_gof.sh
+
+# sbatch --array=0-3 reports/report.sh
+
+

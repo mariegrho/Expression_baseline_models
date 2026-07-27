@@ -4,28 +4,41 @@
 #SBATCH --error=results/logs/%x_%A_%a.err
 #SBATCH --time=01:00:00
 #SBATCH --cpus-per-task=1
-#SBATCH --mem=2G
+#SBATCH --mem=2GB
 
 set -euo pipefail
+GENE_LIST="data/genes.txt"
 
-for MODEL in Rep_Z; do
+TMPDIR_LOCAL="results/tmp"
+mkdir -p "$TMPDIR_LOCAL"
+export TMPDIR="$TMPDIR_LOCAL"
+
+for MODEL in Basic Rep_M Rep_Z Rep_V; do
 
     BASE_DIR="results/120_hpf/$MODEL/all"
     OUT_FILE="results/results_summary/$MODEL/parameter_fit_summary.csv"
 
     mkdir -p "$(dirname "$OUT_FILE")"
 
-    tmpdir=$(mktemp -d)          
+    tmpdir=$(mktemp -d)
     trap 'rm -rf "$tmpdir"' EXIT
 
-    echo "Scanning directories under: $BASE_DIR"
-    find "$BASE_DIR" -type f -name "report_table_parameter_estimates.csv" > "$tmpdir/files.txt"
-    total_files=$(wc -l < "$tmpdir/files.txt" | tr -d ' ')
-    echo "Found $total_files CSV files."
+    echo "[$(date)] Start: Building file list from gene list ..."
+
+    # Build file list only for genes in GENE_LIST — avoids scanning the whole tree
+    while IFS= read -r gene; do
+        [ -z "$gene" ] && continue
+        f="$BASE_DIR/$gene/report_table_parameter_estimates.csv"
+        [ -f "$f" ] && echo "$f" >> "$tmpdir/files.txt"
+    done < "$GENE_LIST"
+
+    total_files=$(wc -l < "$tmpdir/files.txt" 2>/dev/null | tr -d ' ')
+    total_files=${total_files:-0}
+    echo "Found $total_files CSV files matching gene list."
 
     if [ "$total_files" -eq 0 ]; then
-    echo "No CSV files found."
-    exit 0
+        echo "No CSV files found."
+        continue
     fi
 
     echo "Processing files in a single awk pass ..."
@@ -39,14 +52,13 @@ for MODEL in Rep_Z; do
         close(filelist)
     }
     FNR == 1 {
-        # extract ENSDARG gene id from path, once per file
         if (match(FILENAME, /ENSDARG[0-9]+/)) {
             gene = substr(FILENAME, RSTART, RLENGTH)
         } else {
             gene = ""
         }
         genes[gene] = 1
-        next   # skip header row ",mean ± std"
+        next
     }
     gene == "" { next }
     {
@@ -68,10 +80,9 @@ for MODEL in Rep_Z; do
         if (!(param in pseen)) { pseen[param] = 1; params[++pn] = param }
     }
     END {
-        # sort parameter names for stable column order
-        asort_params_n = pn
+        n2 = pn
         for (i = 1; i <= pn; i++) sorted_params[i] = params[i]
-        n2 = asort(sorted_params)   # gawk builtin: sorts array in place, returns count
+        n2 = asort(sorted_params)
 
         printf "gene_id"
         for (i = 1; i <= n2; i++) printf ",%s_mean", sorted_params[i]
@@ -96,7 +107,9 @@ for MODEL in Rep_Z; do
     ' /dev/null > "$OUT_FILE"
 
     echo "Combined summary written to: $OUT_FILE"
+    rm -rf "$tmpdir"
+    trap - EXIT
 done
 echo "[$(date)] Finished all."
 
-# sbatch reports/run_param_summary.sh "Rep_M"
+# sbatch reports/run_param_summary.sh
