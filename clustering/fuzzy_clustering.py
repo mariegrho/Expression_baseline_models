@@ -32,6 +32,8 @@ MAX_ITER = 300
 ERROR = 1e-5
 N_CLUSTER = None
 
+RNG_SEED = 1
+
 rng = np.random.default_rng(seed=1)
 
 # =====================================================
@@ -48,6 +50,8 @@ def run_fuzzy_cmeans(data, k, seed=None):
         m=FUZZINESS, error=ERROR, maxiter=MAX_ITER, 
         init=None,seed=seed)
     return cntr, u, fpc
+
+
 
 # =====================================================
 # Select optimal K 
@@ -102,14 +106,12 @@ def stability_score(data, k, n_runs=20, sample_frac=0.8):
 
         scores.append(adjusted_rand_score(labels1, labels2))
 
-    return {
-                "mean": np.mean(scores),
-                "std": np.std(scores),
-                "scores": scores
-            }
+    return {"mean": np.mean(scores),
+            "std": np.std(scores),
+            "scores": scores}
 
 
-def select_best_k_stability(data, k_range):
+def select_best_k_stability(data, k_range, dataset_name):
     best_k = None
     best_score = -np.inf
 
@@ -133,7 +135,7 @@ def select_best_k_stability(data, k_range):
     plt.ylabel("Stability Score")
     plt.title("Fuzzy clustering model selection")
     plt.tight_layout()
-    plt.savefig(f"figs/k_selection_stability")
+    plt.savefig(f"figs/k_selection_stability_{dataset_name}.png")
     #plt.show()
     plt.close()
 
@@ -212,7 +214,7 @@ def select_best_k_fpc(data, k_range):
 # Run final clustering
 # =====================================================
 
-def fuzzy_cmeans_clustering(da, k_range=K_RANGE):
+def fuzzy_cmeans_clustering(da, dataset_name, k_range=K_RANGE):
 
     data = da.values.T
 
@@ -220,7 +222,7 @@ def fuzzy_cmeans_clustering(da, k_range=K_RANGE):
         print("Selecting best K...")
         #best_k = select_best_k_XB(data, k_range)
         #best_k = select_best_k_fpc(data, k_range)
-        best_k = select_best_k_stability(data, k_range)
+        best_k = select_best_k_stability(data, k_range, dataset_name)
     else:
         best_k = N_CLUSTER
     print(f"Number of Clusters: {best_k}")
@@ -289,9 +291,12 @@ def plot_clusters(centers_da, cluster):
     plt.close()
 
 
-def cluster_dataset(da, output_prefix, k_range=K_RANGE):
+def cluster_dataset(da, output_prefix, dataset_name, k_range=K_RANGE):
 
-    membership, labels, centers, best_k, fpc = fuzzy_cmeans_clustering(da, k_range)
+    os.makedirs("figs", exist_ok=True)
+    os.makedirs("results", exist_ok=True)
+
+    membership, labels, centers, best_k, fpc = fuzzy_cmeans_clustering(da, dataset_name, k_range)
 
     membership.to_netcdf(f"{output_prefix}_membership.nc")
     labels.to_netcdf(f"{output_prefix}_labels.nc")
@@ -301,18 +306,3 @@ def cluster_dataset(da, output_prefix, k_range=K_RANGE):
 
     return membership, labels, centers
 
-
-# =====================================================
-# MAIN
-# =====================================================
-
-if __name__ == "__main__":
-
-    os.makedirs("figs", exist_ok=True)
-    os.makedirs("results", exist_ok=True)
-
-    t_end = 12
-    da = xr.load_dataarray(f"results/normalized_trajectories_{t_end}.nc")
-    membership, labels, centers = cluster_dataset(da, f"results/{t_end}hpf", k_range=K_RANGE)
-
-    plot_clusters(centers, "All")

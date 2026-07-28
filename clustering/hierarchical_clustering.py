@@ -18,7 +18,7 @@ import xarray as xr
 import numpy as np
 import pandas as pd
 from glob import glob
-import fuzzy_clustering as fc
+import fuzzy_clustering1 as fc
 
 NORMALISATION = "minmax"
 
@@ -33,7 +33,7 @@ DATA = ["all", 'White', "Pauli", "BK", "JN"]
 source = DATA[0]
 
 traj120 = xr.load_dataarray(f"results/{source}_normalized_trajectories_120_{NORMALISATION}.nc")
-membership120, labels120, centers120 = fc.cluster_dataset(traj120, f"results/{source}_superclusters", k_range=range(3, 8))
+membership120, labels120, centers120 = fc.cluster_dataset(traj120, f"results/{source}_superclusters", dataset_name="supercluster", k_range=range(3, 10))
 
 # --- reindex superclusters by increasing peak time ---
 peak_times = np.argmax(centers120.values, axis=1)      # peak time index per (old) cluster
@@ -58,7 +58,7 @@ labels120 = labels120.sel(ensembl_gene_id=common_genes)
 for sc in np.unique(labels120.values):
     genes = labels120.ensembl_gene_id.where(labels120 == sc,drop=True)
     subtraj = traj_sub.sel(ensembl_gene_id=genes)
-    membership, labels, centers =fc.cluster_dataset(subtraj,f"results/{source}_supercluster_{sc}", k_range=range(2, 6))
+    membership, labels, centers =fc.cluster_dataset(subtraj,f"results/{source}_supercluster_{sc}", dataset_name=f"subcluster_{sc}", k_range=range(2, 10))
     fc.plot_clusters(centers, cluster=f"Supercluster {sc}")
 
 ### DataSet

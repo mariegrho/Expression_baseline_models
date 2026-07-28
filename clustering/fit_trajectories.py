@@ -37,13 +37,12 @@ from tqdm.auto import tqdm
 
 N_SPLINES = 15
 N_JOBS = -1
-GOF_THRESHOLD = 0.2
 
 DATA_WEIGHT = {
     'BK': 2, 
     'JN': 1, 
     'Pauli': 1, 
-    'White': 3,
+    'White': 2,
 }
 
 # ----------------------------------------------------------
@@ -141,6 +140,8 @@ def fit_all_genes(ds):
 
 def gof_trajectories(ds, trajectories, t_end):
 
+    from scipy.stats import spearmanr, pearsonr
+
     """
     Compute goodness-of-fit metrics for every gene
     """
@@ -150,7 +151,7 @@ def gof_trajectories(ds, trajectories, t_end):
     rows = []
 
     for src in sources:
-        gof = []
+        gof = {"nrmse": [], "pearson":[], "spearman":[]}
         accept = []
         data = ds.sel(source=src, drop=True)
 
@@ -175,13 +176,21 @@ def gof_trajectories(ds, trajectories, t_end):
             y_pred = y_pred[mask]
             
             rmse = np.sqrt(np.mean((y_true.values - y_pred)**2))
+            pearson = pearsonr(y_true.values, y_pred)[0]
+            spearman = spearmanr(y_true.values, y_pred)[0]
+
             n_range = y_true.max("time").item() - y_true.min("time").item()  # range
             nrmse = rmse / n_range if n_range > 0 else np.nan
 
-            gof.append(nrmse)
-            accept.append(bool(nrmse < GOF_THRESHOLD) if np.isfinite(nrmse) else False)
+            gof["nrmse"].append(nrmse)
+            gof["pearson"].append(pearson)
+            gof["spearman"].append(spearman)
 
-        rows.append(pd.DataFrame({"ensembl_gene_id": genes, "source": src, "nrmse": gof, "accepted": accept, }))
+            accept.append(bool((nrmse < 0.3) and (pearson > 0.5) and (spearman > 0.5)) if np.isfinite(nrmse) else False)
+
+        rows.append(pd.DataFrame({"ensembl_gene_id": genes, "source": src, 
+                                  "nrmse": gof["nrmse"], "pearson": gof["pearson"], "spearman": gof["spearman"],
+                                  "accepted": accept, }))
 
     df = pd.concat(rows, ignore_index=True)
     df.to_csv(f"results/gof_trajectories_{t_end}.csv", index=False)
@@ -198,12 +207,20 @@ if __name__ == "__main__":
     ds = xr.load_dataset("../data/genes_tpms_white_pauli_JN_BK_mean.nc")
     ds_clean = ds.dropna(dim="time", how="all", subset=["tpm"])
 
-    mask = (ds_clean.tpm.max(dim="time", skipna=True) >= 1).all(dim="source") # Keep only relevantly expressed genes
+    # Remove low expressed genes -> too noisy, no effective pattern
+    mask = (ds_clean.tpm.max(dim="time", skipna=True) >= 1).all(dim="source") 
     ds_clean = ds_clean.sel(ensembl_gene_id=mask)
-    ds_clean["tpm"] = np.log2(ds_clean.tpm + 1) # Reduce variance by log scaling
+
+    # Reduce variance by log scaling
+    ds_clean["tpm"] = np.log2(ds_clean.tpm + 1) 
+
+    # z-score
+    mean = ds_clean.tpm.mean(dim=("time", "source"))
+    std = ds_clean.tpm.std(dim=("time", "source"))
+    ds_clean["tpm"] = (ds_clean.tpm - mean) / std
 
     print(len(ds_clean.ensembl_gene_id))
-    for T_END in [16, 120]:
+    for T_END in [120]:
         print(f"fitting over t={T_END} hpf")
 
         ds_filtered = ds_clean.sel(time=slice(0, T_END))
@@ -211,4 +228,5 @@ if __name__ == "__main__":
         trajectories.to_netcdf(f"results/{DATA[0]}_gene_trajectories_{T_END}.nc")
 
         print(f"Calculating goodness of fit...")
+        #trajectories = xr.load_dataset(f"results/{DATA[0]}_gene_trajectories_{T_END}.nc").trajectory
         gof_trajectories(ds_filtered, trajectories, T_END)
