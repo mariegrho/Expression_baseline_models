@@ -160,9 +160,9 @@ class Repression_Z():
 
         dM_dt = - R_t * delta_m * M
 
-        #t_rep = t_zga + dt_rep
+        t_reg = t_zga + t_rep
         on = jax.nn.sigmoid(s * (t - t_zga))
-        off =  jax.nn.sigmoid(s * (t - t_rep))
+        off =  jax.nn.sigmoid(s * (t - t_reg))
         beta_on = alpha * on * (1 - off) + beta * off
 
         dZ_dt = beta_on - delta_z * Z
@@ -209,9 +209,9 @@ class Repression_M():
 
         dM_dt = - delta_m * M
 
-        #t_rep = t_zga + dt_rep
+        t_reg = t_zga + t_rep
         on = jax.nn.sigmoid(s * (t - t_zga))
-        off =  jax.nn.sigmoid(s * (t - t_rep))
+        off =  jax.nn.sigmoid(s * (t - t_reg))
 
         beta_on = alpha * on * (1 - off) + beta * off
         dZ_dt = beta_on - delta_z * Z
@@ -259,7 +259,7 @@ class Repression_V():
         switch = jax.nn.sigmoid(s * (t - t_deg))
         dM_dt = - switch * delta_m * M
 
-        #t_rep = t_zga + dt_rep
+        #t2 = t_zga + t_rep
         on = jax.nn.sigmoid(s * (t - t_zga))
         off =  jax.nn.sigmoid(s * (t - t_rep))
         beta_on = alpha * on * (1 - off) + beta * off

@@ -27,7 +27,7 @@ echo "[$(date)] Starting task $SLURM_ARRAY_TASK_ID: $GENE_ID"
 datasets_120hpf=("White" "Pauli" "BK" "JN")
 #datasets_8hpf=("Medina_Munoz_polyA" "Medina_Munoz_ribo")
 
-model_versions=("Basic" "Rep_M" "Rep_Z" "Rep_V") #"ZGA_M" "ZGA_Z")
+model_versions=("Basic" "Rep_M" "Rep_Z" ) #"Rep_V") #"ZGA_M" "ZGA_Z")
 
 srun python reports/compute_gof_src.py --gene_id "$GENE_ID" --model ${model_versions[0]} --t_end 120
 #for dataset in "${datasets_120hpf[@]}"; do
@@ -42,6 +42,6 @@ srun python reports/compute_gof_src.py --gene_id "$GENE_ID" --model ${model_vers
 echo "[$(date)] Finished task $SLURM_ARRAY_TASK_ID: $GENE_ID"
 
 # sbatch --array=1-1 run_array_job_loop.sh
-# sbatch --array=1-23428%50 run_array_job_loop.sh
+# sbatch --array=1-22530%50 run_array_job_loop.sh
 # watch squeue --me
 # sed -i 's/\r$//' data/genes_clustered_white.txt

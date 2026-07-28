@@ -15,6 +15,7 @@ genes.sort()
 
 labels = xr.load_dataset("data/all_gene_cluster_annotation_minmax.nc")
 genes = labels.ensembl_gene_id.values
+genes.sort()
 
 print(len(genes))
 

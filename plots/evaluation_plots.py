@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 FIG_PATH = "./figures"
 
-NRMSE_thres = 0.2
+NRMSE_thres = 0.3
 RHO_thres = 0.7
 
 cluster = xr.load_dataset("data/all_gene_cluster_annotation_minmax.nc")
@@ -21,7 +21,7 @@ col_c = sns.color_palette("Set1", n_colors=4)
 cluster_color_dict = {"SD": col_c[0], "DSD": col_c[1], "SU": col_c[2], "DSU": col_c[3], }
 
 col_m = sns.color_palette("Dark2")  
-mod_color_dict = {"Basic": col_m[7],"Rep_M": col_m[1], "Rep_Z": col_m[3], "Rep_V": col_m[4]} 
+mod_color_dict = {"Basic": col_m[7],"Rep_M": col_m[1], "Rep_Z": col_m[4], "Rep_V": col_m[2]} 
 model_order = ["Basic", "Rep_M", "Rep_Z"]
 
 col_s = sns.color_palette("twilight_shifted")  
@@ -253,7 +253,7 @@ def plot_accepted_heatmap(gof_src, hue_key="source"):
         sources = merged.source.unique()
 
         # Load original data
-        accepted = merged[(merged["rho"] > RHO_thres) & (merged["NRMSE"] < NRMSE_thres) & (merged["MASE"] < 1.0)]
+        accepted = merged[(merged["rho"] > RHO_thres) & (merged["NRMSE"] < NRMSE_thres) ]
 
         count_model = accepted[hue_key].value_counts()
         count_cluster = accepted.groupby("supercluster")["gene_id"].nunique()
@@ -261,6 +261,7 @@ def plot_accepted_heatmap(gof_src, hue_key="source"):
         merged_counts = merged.groupby([hue_key, "supercluster"]).size().reset_index(name="merged")
         accepted_counts = accepted.groupby([hue_key, "supercluster"]).size().reset_index(name="accepted")
         result = pd.merge(merged_counts, accepted_counts, how="left", on=[hue_key, "supercluster"])
+
         result["accepted"] = result["accepted"].fillna(0).astype(int)
         result["ratio"] = result["accepted"] / result["merged"] * 100
 
@@ -295,11 +296,11 @@ def plot_params_cluster_model(ds_params, model_name):
 
     params_dict = {
                 "Basic": (["delta_mean", "beta_mean"], [r"$\delta$",r"$\beta$"]),
-                "Rep_M": (["delta_m_mean", "delta_z_mean", "alpha_mean", "beta_mean", "t_zga_mean", "t_rep_mean"], 
+                "Rep_M": (["delta_m_mean", "delta_z_mean", "alpha_mean", "beta_mean", "t_zga", "t_reg"], 
                    [ r"$\delta_m$", r"$\delta_z$", r"$\alpha$", r"$\beta$", r"$t_{zga}$", r"$t_{reg}$"]),
-                "Rep_Z": (["delta_m_mean", "delta_z_mean", "alpha_mean", "beta_mean", "t_zga_mean", "t_rep_mean"], 
+                "Rep_Z": (["delta_m_mean", "delta_z_mean", "alpha_mean", "beta_mean", "t_zga", "t_reg"], 
                    [ r"$\delta_m$", r"$\delta_z$", r"$\alpha$", r"$\beta$", r"$t_{zga}$", r"$t_{reg}$"]),
-                "Rep_V": (["delta_m_mean", "delta_z_mean", "alpha_mean", "beta_mean", "t_zga_mean", "t_rep_mean", "t_deg_mean"], 
+                "Rep_V": (["delta_m_mean", "delta_z_mean", "alpha_mean", "beta_mean", "t_zga", "t_reg", "t_deg_mean"], 
                    [ r"$\delta_m$", r"$\delta_z$", r"$\alpha$", r"$\beta$", r"$t_{zga}$", r"$t_{reg}$", r"$t_{deg}$"]) 
                    }
     
@@ -312,6 +313,10 @@ def plot_params_cluster_model(ds_params, model_name):
 
     if "beta_mean" in params:
         data = ds_params[ds_params["beta_mean"] > 0.0]
+    if "t_zga" in params:
+        ds_params["t_zga"] = np.minimum(ds_params["t_zga_mean"],  ds_params["t_rep_mean"])
+        ds_params["t_reg"] = np.maximum(ds_params["t_zga_mean"],  ds_params["t_rep_mean"])
+        data = ds_params[ds_params["t_reg"] < 120.0]
     else:
         data = ds_params
 
@@ -336,16 +341,20 @@ def plot_rep_params_violin(ds_params):
 
     print("plot params violin plot for Rep-Models")
 
-    params = ["t_zga_mean", "t_rep_mean"]
+    params = ["t_zga", "t_reg"]
     title = ["$t_{zga}$", "$t_{reg}$"]
+
     df = ds_params[ds_params["model"] != "Basic" ].copy()
-    colors = sns.color_palette("Set2", n_colors=2)
+
+    df["t_zga"] = np.minimum(df["t_zga_mean"],  df["t_rep_mean"])
+    df["t_reg"] = np.maximum(df["t_zga_mean"],  df["t_rep_mean"])
+    df = df[df["t_reg"] < 120.0]
     
     fig, ax = plt.subplots(1, len(params), figsize = (10, 4.5), sharey=True, sharex=True)
 
     for i, param in enumerate(params):
         sns.violinplot(data=df, x=param, y="supercluster", log_scale=True, hue="model", 
-                        split=True, inner="quart",palette=colors, order=cluster_order,
+                        split=True, inner="quart",palette=mod_color_dict, order=cluster_order,
                         legend= True if i == len(params)-1 else False, ax=ax[i])
         
         ax[i].set(title=title[i], xlabel=title[i])
@@ -378,6 +387,7 @@ def plot_regulation_direction(ds_params):
 
         sns.stripplot( data=sub, x="r", y="supercluster", log_scale=True, hue="subcluster_no", order=cluster_order,
                         dodge=True, size=3, alpha=0.7, palette=palette, ax=ax, legend=(i == 1), zorder=1)
+
         # ---- overlay median tick marks per supercluster ----
         sns.pointplot(data=sub, x="r", y="supercluster", markers="|", markersize=40, linestyles="", hue="supercluster",
                         estimator="median", palette=cluster_color_dict, ax=ax, legend=False, zorder=3)
@@ -391,6 +401,102 @@ def plot_regulation_direction(ds_params):
     plt.tight_layout()
     plt.savefig(f"{FIG_PATH}/regulation_indicator.png", dpi=150, bbox_inches="tight")
     plt.close()
+
+
+
+def plot_regulation_direction_2(ds_params):
+
+    print("Plot regulation indicator r ...")
+
+    df = ds_params[ds_params["model"] != "Basic" ].sort_values("supercluster_no")
+    df["r"] = df["beta_mean"] / df["alpha_mean"]
+    df = df[np.isfinite(df["r"]) & (df["r"] > 1e-5)]
+
+    palette_m = sns.color_palette("Oranges") 
+    palette_z = sns.color_palette("Greens_r") 
+
+    panels = ["Repression M-decay", "Repression Z-decay",]
+    models = ["Rep_M", "Rep_Z",]
+
+    marker_dict = ["o", "x", "^"]
+
+    fig, ax = plt.subplots(1, 1, figsize=(7, 3.5), sharey=True, sharex=True)
+    sns.violinplot( data=df, x="r", y="supercluster", log_scale=True, hue="model", palette=mod_color_dict,
+                        split=True, inner = "quart", alpha=0.7, legend=True, zorder=1)
+    # ---- overlay median tick marks per supercluster ----
+
+    sub_m = df[df["model"] == "Rep_M"].copy()
+    sub_z = df[df["model"] == "Rep_Z"].copy()
+    sns.pointplot(data=sub_m, x="r", y="supercluster", markers=marker_dict, markersize=3, linestyles="", hue="subcluster_no",
+                estimator="median", palette=palette_m, ax=ax, legend=True, zorder=3)
+    sns.pointplot(data=sub_z, x="r", y="supercluster", markers=marker_dict, markersize=3, linestyles="", hue="subcluster_no",
+                estimator="median", palette=palette_z, ax=ax, legend=True, zorder=3)
+
+    ax.axvline(1, color="black", linestyle="--", linewidth=1, zorder=2)
+    ax.set(title="Regulation indicator r", xlabel = "$r = \\beta / \\alpha$", ylabel="Subcluster")
+
+    # shared legend on the right
+    sns.move_legend(ax, loc=(1.02, 0.3), frameon=False, title="Subcluster")
+
+    plt.tight_layout()
+    plt.savefig(f"{FIG_PATH}/regulation_indicator_2.png", dpi=150, bbox_inches="tight")
+    plt.close()
+
+
+def plot_t_params(ds_params):
+
+    df = ds_params[ds_params["model"] != "Basic" ].sort_values("supercluster_no")
+
+    params = ["t_zga", "t_reg"]
+    title = ["$t_{zga}$", "$t_{reg}$"]
+
+    df["t_zga"] = np.minimum(df["t_zga_mean"],  df["t_rep_mean"])
+    df["t_reg"] = np.maximum(df["t_zga_mean"],  df["t_rep_mean"])
+    df = df[df["t_reg"] < 120.0]
+    
+    palette_m = sns.color_palette("Oranges") 
+    palette_z = sns.color_palette("Greens_r") 
+
+    marker_dict = ["o", "x", "^"]
+
+    panels = ["Repression M-decay", "Repression Z-decay",]
+    models = ["Rep_M", "Rep_Z",]
+
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 3.5), sharey=True, sharex=True)
+
+    sns.violinplot( data=df, x="t_zga", y="supercluster", log_scale=True, hue="model", palette=mod_color_dict,
+                        split=True, inner = "quart", alpha=0.7, legend=False, zorder=1, ax=ax1)
+    sns.violinplot( data=df, x="t_reg", y="supercluster", log_scale=True, hue="model", palette=mod_color_dict,
+                        split=True, inner = "quart", alpha=0.7, legend=True, zorder=1, ax=ax2)
+    # ---- overlay median tick marks per supercluster ----
+
+    sub_m = df[df["model"] == "Rep_M"].copy()
+    sub_z = df[df["model"] == "Rep_Z"].copy()
+
+    # ZGA
+    sns.pointplot(data=sub_m, x="t_zga", y="supercluster", markers=marker_dict, markersize=3, linestyles="", hue="subcluster_no",
+                       estimator="median", palette=palette_m, ax=ax1, legend=False, zorder=3)
+    sns.pointplot(data=sub_z, x="t_zga", y="supercluster", markers=marker_dict, markersize=3, linestyles="", hue="subcluster_no",
+                    estimator="median", palette=palette_z, ax=ax1, legend=False, zorder=3)
+    # REP
+    sns.pointplot(data=sub_m, x="t_reg", y="supercluster", markers=marker_dict, markersize=3, linestyles="", hue="subcluster_no",
+                estimator="median", palette=palette_m, ax=ax2, legend=True, zorder=3)
+    sns.pointplot(data=sub_z, x="t_reg", y="supercluster", markers=marker_dict, markersize=3, linestyles="", hue="subcluster_no",
+                    estimator="median", palette=palette_z, ax=ax2, legend=True, zorder=3)
+
+    ax1.axvline(3, color="black", linestyle="--", linewidth=1, zorder=2, label="ZGA")
+    ax1.set(title=title[0], xlabel = "time (hpf)", ylabel="")
+
+    ax2.axvline(3, color="black", linestyle="--", linewidth=1, zorder=2, label="ZGA")
+    ax2.set(title=title[1], xlabel = "time (hpf)", ylabel="")
+
+    # shared legend on the right
+    sns.move_legend(ax2, loc=(1.02, 0.2), frameon=False, title="Subcluster")
+
+    plt.tight_layout()
+    plt.savefig(f"{FIG_PATH}/t_params_violin_cluster.png", dpi=300)
+    plt.show()
+
 
 
 def barplot_accepted(gof_all):
@@ -436,15 +542,19 @@ def plot_params_cluster(params_all):
     df["r"] = df["beta_mean"] / df["alpha_mean"]
     df = df[(df["r"] > 1e-5) & (df["t_zga_mean"] < 120)]
 
+    df["t_zga"] = np.minimum(df["t_zga_mean"],  df["t_rep_mean"])
+    df["t_reg"] = np.maximum(df["t_zga_mean"],  df["t_rep_mean"])
+    df = df[df["t_reg"] < 120.0]
+
     df_z = df[df["model"] == "Rep_Z"].copy()
     df_m = df[df["model"] == "Rep_M"].copy()
 
     fig, (ax1, ax2) = plt.subplots(1,2, figsize=(12, 6), sharex=True, sharey=True)
-    sns.scatterplot(df_m, x="r", y="t_zga_mean", ax=ax1,  hue="supercluster", size=1, palette=cluster_color_dict, alpha=0.3, legend=False)
-    sns.scatterplot(df_z, x="r", y="t_zga_mean", ax=ax2, hue="supercluster", size=1, palette=cluster_color_dict, alpha=0.3, legend=False)
+    sns.scatterplot(df_m, x="r", y="t_zga", ax=ax1,  hue="supercluster", size=1, palette=cluster_color_dict, alpha=0.3, legend=False)
+    sns.scatterplot(df_z, x="r", y="t_zga", ax=ax2, hue="supercluster", size=1, palette=cluster_color_dict, alpha=0.3, legend=False)
 
-    sns.kdeplot(df_m, x="r", y="t_zga_mean",  hue="supercluster", ax=ax1, palette=cluster_color_dict, legend=False, log_scale=True, fill=False, levels=4)
-    sns.kdeplot(df_z, x="r",  y="t_zga_mean", hue="supercluster", ax=ax2, palette=cluster_color_dict, legend=True, log_scale=True, fill=False, levels=4)
+    sns.kdeplot(df_m, x="r", y="t_zga",  hue="supercluster", ax=ax1, palette=cluster_color_dict, legend=False, log_scale=True, fill=False, levels=4)
+    sns.kdeplot(df_z, x="r",  y="t_zga", hue="supercluster", ax=ax2, palette=cluster_color_dict, legend=True, log_scale=True, fill=False, levels=4)
 
     ax1.set(xlabel= "$r = \\beta / \\alpha$", ylabel="$t_{zga}$", title="M-decay", xscale="log", yscale="log", xlim=(1e-6, 1e2), )
     ax2.set(xlabel="$r = \\beta / \\alpha$", ylabel="$t_{zga}$", title="Z-decay", xscale="log", yscale="log", xlim=(1e-6, 1e2), )
@@ -471,21 +581,24 @@ def plot_params_cluster(params_all):
 
 '''-- GOF Metrics plots --'''
 
-#point_plot_metrics_all(pd.read_csv("results/results_summary/gof_all_combined.csv",))
-# plot_metrics_distribution_all(pd.read_csv("results/results_summary/gof_all_combined.csv",), hue_key = "model")
-# plot_metrics_distribution_src(pd.read_csv("results/results_summary/gof_src_combined.csv",), hue_key="source")
-# plot_accepted_heatmap(pd.read_csv("results/results_summary/gof_src_combined.csv",), hue_key="source")
-# barplot_accepted(pd.read_csv("results/results_summary/gof_all_combined.csv",))
+point_plot_metrics_all(pd.read_csv("results/results_summary/gof_all_combined.csv",))
+plot_metrics_distribution_all(pd.read_csv("results/results_summary/gof_all_combined.csv",), hue_key = "model")
+plot_metrics_distribution_src(pd.read_csv("results/results_summary/gof_src_combined.csv",), hue_key="source")
+plot_accepted_heatmap(pd.read_csv("results/results_summary/gof_src_combined.csv",), hue_key="source")
+barplot_accepted(pd.read_csv("results/results_summary/gof_all_combined.csv",))
 
 '''-- Parameter plots --'''
-# for model in model_order:
-#     plot_params_cluster_model(pd.read_csv("results/results_summary/params_combined.csv",), model)
-# plot_rep_params_violin(pd.read_csv("results/results_summary/params_combined.csv",))
-plot_regulation_direction(pd.read_csv("results/results_summary/params_combined.csv",))
+for model in model_order:
+    plot_params_cluster_model(pd.read_csv("results/results_summary/params_combined.csv",), model)
+plot_rep_params_violin(pd.read_csv("results/results_summary/params_combined.csv",))
 
-# plot_params_cluster(pd.read_csv("results/results_summary/params_combined.csv",))
+plot_regulation_direction(pd.read_csv("results/results_summary/params_combined.csv",))
+plot_regulation_direction_2(pd.read_csv("results/results_summary/params_combined.csv",))
+plot_t_params(pd.read_csv("results/results_summary/params_combined.csv",))
+
+plot_params_cluster(pd.read_csv("results/results_summary/params_combined.csv",))
 
 '''-- Peak time --'''
-#plot_peak_expression()
+plot_peak_expression()
 
 # sbatch plots/plot.sh

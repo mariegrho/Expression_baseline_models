@@ -41,7 +41,6 @@ def gof_evaluation(idata, gene_id, model, out_path):
 
         rho = spearman_correlation(obs, pred)
         nrmse = calc_nrmse(obs, pred)[0]         # by Range
-        accepted = (rho > 0.7) & (nrmse < 0.2)
 
         row.append({
             "gene_id":gene_id,
@@ -51,7 +50,6 @@ def gof_evaluation(idata, gene_id, model, out_path):
             "rho": rho,
             "NRMSE": nrmse, 
             "MASE": calc_mase(obs, pred),
-            "accepted": accepted,
         })
 
     pd.DataFrame(row).to_csv(os.path.join(out_path, "gof_metrics.csv"), index=False)

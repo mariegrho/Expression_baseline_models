@@ -36,7 +36,7 @@ def plot_model_results(results, gene_id, model_version, path=None, show=False):
             ax.scatter(x=t_deg_fit, y=0, color="crimson", marker="^", label="$t_{deg}$"+f" = {t_deg_fit:.1f}")
 
     if model_version in ["Rep_Z", "Rep_M", "Rep_V"]:
-        t_reg_fit = results.posterior.mean(dim=["draw", "chain",]).t_rep
+        t_reg_fit = results.posterior.mean(dim=["draw", "chain",]).t_reg
         if t_reg_fit <= obs.time.max():
             ax.scatter(x=t_reg_fit, y=0, color="steelblue", marker="^", label="$t_{reg}$"+f" = {t_reg_fit:.1f}")
 

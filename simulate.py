@@ -67,7 +67,6 @@ def gof_evaluation(idata, gene_id, model, out_path):
         rho = spearman_correlation(obs, pred)
         pearsonr = pearson_correlation(obs, pred)
         nrmse = calc_nrmse(obs, pred)[0]         # by Range
-        accepted = (rho > 0.7) & (nrmse < 0.2)
 
         row.append({
             "gene_id":gene_id,
@@ -81,7 +80,6 @@ def gof_evaluation(idata, gene_id, model, out_path):
             "pearsonr": pearsonr,
             "NRMSE": nrmse, 
             "MASE": calc_mase(obs, pred),
-            "accepted": accepted,
         })
 
     pd.DataFrame(row).to_csv(os.path.join(out_path, "gof_metrics.csv"), index=False)
@@ -190,19 +188,24 @@ def main(gene_id, model_version, kernel="nuts", t_end=120, plot=True, smooth=Fal
             f.write(f"{sim.config.case_study.name}, {gene_id}, {e}\n")
         return
 
-    sim.inferer.store_results()
-    sim.posterior_predictive_checks(pred_mode="mean+hdi", pred_hdi_style={"color": "#7034b1", "alpha": .15})
-    sim.report()
-    sim.config.save(force=True)
-
-    # evaluation of results
-    #gof_evaluation(sim.inferer.idata, gene_id, model_version, out_path=gene_output_dir)
-
     if smooth:
         sim.coordinates["time"]= np.linspace(0, t_end, 1000)
         sim.dispatch_constructor()
         p_pred = sim.inferer.posterior_predictions(n=1000, seed=10)
         p_pred.to_netcdf(f"{gene_output_dir}/posterior_predictive.nc")
+
+    sim.config.model_parameters.t_reg = Param(value=13, free=True, prior=f"lognorm(scale=13, s=1.0)")
+    idata = sim.inferer.idata
+    sim.inferer.idata.posterior["t_reg"] = idata.posterior["t_zga"] + idata.posterior["t_rep"]
+
+    sim.inferer.store_results()
+    sim.posterior_predictive_checks(pred_mode="mean+hdi", pred_hdi_style={"color": "#7034b1", "alpha": .15})
+
+    sim.report()
+    sim.config.save(force=True)
+
+    # evaluation of results
+    gof_evaluation(sim.inferer.idata, gene_id, model_version, out_path=gene_output_dir)
 
     if plot:
         from model.plots import plot_model_results
