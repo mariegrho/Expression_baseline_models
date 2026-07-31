@@ -114,6 +114,7 @@ if __name__ == "__main__":
     gof = pd.read_csv("results/gof_trajectories_120.csv")
     gene_sums = gof.groupby("ensembl_gene_id").sum("accepted")
     accepted_genes = gene_sums[gene_sums["accepted"] > 0].index.to_list()
+    print(len(accepted_genes))
 
     for t_end in [120]:
         print(f"Normalise dataset -> {t_end} hpf")
