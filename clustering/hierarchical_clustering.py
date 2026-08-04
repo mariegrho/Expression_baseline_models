@@ -20,7 +20,7 @@ import pandas as pd
 from glob import glob
 import fuzzy_clustering1 as fc
 
-NORMALISATION = "minmax"
+NORMALISATION = "meanmax"
 
 # options:
 #   "none"
@@ -31,6 +31,8 @@ NORMALISATION = "minmax"
 
 DATA = ["all", 'White', "Pauli", "BK", "JN"]
 source = DATA[0]
+
+print(f"[Info] Starting hierarchical clustering for dataset: {source}, normalization: {NORMALISATION}")
 
 traj120 = xr.load_dataarray(f"results/{source}_normalized_trajectories_120_{NORMALISATION}.nc")
 membership120, labels120, centers120 = fc.cluster_dataset(traj120, f"results/{source}_superclusters", dataset_name="supercluster", k_range=range(3, 10))
@@ -53,6 +55,7 @@ fc.plot_clusters(centers120, "Superclusters")
 traj_sub = xr.load_dataarray(f"results/{source}_normalized_trajectories_120_{NORMALISATION}.nc")
 
 common_genes = list(set(traj120.ensembl_gene_id.values) & set(traj_sub.ensembl_gene_id.values))
+print(f"[Info] Number of common genes: {len(common_genes)}")
 labels120 = labels120.sel(ensembl_gene_id=common_genes)
  
 for sc in np.unique(labels120.values):

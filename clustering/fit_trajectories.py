@@ -220,7 +220,7 @@ if __name__ == "__main__":
     ds_clean["tpm"] = (ds_clean.tpm - mean) / std
 
     print(len(ds_clean.ensembl_gene_id))
-    for T_END in [120]:
+    for T_END in [12]:
         print(f"fitting over t={T_END} hpf")
 
         ds_filtered = ds_clean.sel(time=slice(0, T_END))

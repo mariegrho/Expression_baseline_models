@@ -79,7 +79,7 @@ def plot_cluster_with_variance(trajectories_da, labels, n_clusters=None):
     plt.legend()
     plt.tight_layout()
     plt.savefig(f"figs/cluster_with_variance.png")
-    plt.show()
+    #plt.show()
     plt.close()
 
 
@@ -202,7 +202,7 @@ def plot_super_subcluster_grid1(trajectories_da, super_labels, sub_labels, max_s
     fig.suptitle("Supercluster → Subcluster trajectories", fontsize=12)
     plt.tight_layout()
     plt.savefig("figs/super_subcluster_grid.png", dpi=300)
-    plt.show()
+    #plt.show()
     plt.close()
 
 def plot_super_subcluster_grid(trajectories_da,super_labels,sub_labels,
@@ -277,6 +277,8 @@ if __name__ == "__main__":
     #data = "White"
     data = "all"
 
+    print(f"[Info] Plotting clusters for dataset: {data}, normalization: {NORMALISATION}, t_end: {t_end}")
+
     labels = xr.load_dataset(f"results/{data}_gene_cluster_annotation_{NORMALISATION}.nc")
     super_labels = labels.supercluster.values
     sub_labels = labels.subcluster.values
@@ -287,14 +289,20 @@ if __name__ == "__main__":
     trajectories_sub = xr.load_dataarray(f"results/{data}_normalized_trajectories_{t_end}_{NORMALISATION}.nc")
     trajectories_sub = trajectories_sub.sel(ensembl_gene_id=labels.ensembl_gene_id)
 
+    print("[Info] Plotting supercluster x subcluster grid...")
+
     # Plot super × sub cluster grid
     plot_super_subcluster_grid1(trajectories_sub, super_labels, sub_labels)
+
+    print("[Info] Plotting supercluster centers...")
     
     plot_cluster_centers(xr.load_dataarray(f"results/{data}_superclusters_centers.nc"))
     plot_cluster_with_variance(trajectories_da, super_labels,n_clusters=None)
 
     for cluster_id in np.unique(super_labels):
         plot_representative_genes(trajectories_da, super_labels, cluster_id, top_n=50)
+
+    print("[Info] Plotting fuzzy cluster membership...")
     
     membership_da = xr.load_dataarray(f"results/{data}_superclusters_membership.nc")
     plot_membership_heatmap(membership_da, "All", max_genes=500)

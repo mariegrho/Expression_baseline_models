@@ -22,13 +22,14 @@ import pandas as pd
 # Configuration
 # =====================================================
 
-NORMALIZATION = "minmax"
+NORMALIZATION = "meanmax"
 
 # options:
 #   "none"
 #   "center"
 #   "zscore"
 #   "minmax"
+#   "meanmax"
 
 REMOVE_LOW_VARIANCE = True
 VARIANCE_THRESHOLD = 0.01
@@ -117,9 +118,9 @@ if __name__ == "__main__":
     print(len(accepted_genes))
 
     for t_end in [120]:
-        print(f"Normalise dataset -> {t_end} hpf")
+        print(f"[Info] Normalise dataset -> {t_end} hpf")
         da = xr.load_dataarray(f"results/{source}_gene_trajectories_{t_end}.nc")
         da = da.sel(ensembl_gene_id = accepted_genes)
         normalized = normalize_dataset(da)
         normalized.to_netcdf(f"results/{source}_normalized_trajectories_{t_end}_{NORMALIZATION}.nc")
-        print(f"Saved under: ./results/{source}_normalized_trajectories_{t_end}_{NORMALIZATION}.nc")
+        print(f"[Info] Saved under: ./results/{source}_normalized_trajectories_{t_end}_{NORMALIZATION}.nc")
