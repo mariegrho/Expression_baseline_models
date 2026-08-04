@@ -40,7 +40,7 @@ def gof_evaluation(idata, gene_id, model, out_path):
         metrics = pd.DataFrame(columns=["gene_id", "model", "BIC", "rho", "NRMSE", "MASE"])
 
         rho = spearman_correlation(obs, pred)
-        nrmse = calc_nrmse(obs, pred)[0]         # by Range
+        nrmse = calc_nrmse(obs, pred, norm="mean")
 
         row.append({
             "gene_id":gene_id,

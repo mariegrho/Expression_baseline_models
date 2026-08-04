@@ -37,18 +37,20 @@ def pearson_correlation(obs, pred):
     corr = pearsonr(obs, pred)[0]
     return float(corr)
 
-def calc_nrmse(obs, pred):
+def calc_nrmse(obs, pred, norm="mean"):
     '''Normalized Root Mean Square Error'''
-    rmse = np.sqrt(np.mean((obs - pred)**2))
+    rmse = np.sqrt(((obs - pred)**2).mean(dim="time"))
 
     # by range
-    nrmse_range = rmse / (obs.max() - obs.min())
+    if norm == "range":
+        return rmse / (obs.max(dim="time") - obs.min(dim="time"))
     # by mean
-    nrmse_mean = rmse / obs.mean()
-    # by std
-    nrmse_std = rmse / obs.std()
-
-    return [nrmse_range, nrmse_mean, nrmse_std]
+    elif norm == "mean":
+        return rmse / obs.mean(dim="time")
+    elif norm == "std":
+        return rmse / obs.std(dim="time")
+    else: 
+        raise ValueError(f"Unknown normalization method: {norm}")
 
 
 def calc_log_rmse(obs, pred):
@@ -56,7 +58,7 @@ def calc_log_rmse(obs, pred):
 
     obs = np.log2(obs +1)
     pred = np.log2(pred +1)
-    rmse = np.sqrt(np.mean((obs - pred)**2))
+    rmse = np.sqrt(((obs - pred)**2).mean(dim="time"))
 
     return rmse.item()
 
@@ -138,6 +140,12 @@ def _compute_stats(model, gid):
         return gid, np.nan, np.nan, np.nan, np.nan
 
     try:
+        nrmse = calc_nrmse(obs.values, pred.values, norm="mean").mean()
+    except Exception as e:
+        logging.warning(f"NRMSE failed on {gid}: {e}")
+        nrmse = np.nan
+
+    try:
         # Watanabe–Akaike information criterion
         waic = az.waic(idata_grouped, pointwise=True).elpd_waic
     except Exception as e:
@@ -164,7 +172,7 @@ def _compute_stats(model, gid):
         logging.warning(f"pearsonr failed on {gid}: {e}")
         pearson = np.nan
 
-    return gid, rho, pearson, waic, loo
+    return gid, rho, pearson, waic, loo, nrmse
 
 def calc_rho_full_ds(model, max_workers=None, limit=None):
 
@@ -188,23 +196,27 @@ def calc_rho_full_ds(model, max_workers=None, limit=None):
     results_p = {}
     results_w = {}
     results_l = {}
+    results_n = {}
     chunksize = max(1, len(genes) // (max_workers * 4))
     with ProcessPoolExecutor(max_workers=max_workers, initializer=_init_worker_logger, initargs=(model,),) as ex:
-        for gid, rho, pearson, waic, loo in ex.map(worker, genes, chunksize=chunksize):
+        for gid, rho, pearson, waic, loo, nrmse in ex.map(worker, genes, chunksize=chunksize):
             results_r[gid] = rho
             results_p[gid] = pearson
             results_w[gid] = waic
             results_l[gid] = loo
+            results_n[gid] = nrmse
 
     df["rho"] = df.index.map(results_r)
     df["pearsonr"] = df.index.map(results_p)
     df["WAIC"] = df.index.map(results_w)
     df["LOO"] = df.index.map(results_l)
+    df["NRMSE"] = df.index.map(results_n)
 
     print(f"NaN counts — rho: {sum(pd.isna(v) for v in results_r.values())}, "
       f"pearson: {sum(pd.isna(v) for v in results_p.values())}, "
       f"WAIC: {sum(pd.isna(v) for v in results_w.values())}, "
-      f"LOO: {sum(pd.isna(v) for v in results_l.values())}")
+      f"LOO: {sum(pd.isna(v) for v in results_l.values())}, "
+      f"NRMSE: {sum(pd.isna(v) for v in results_n.values())}")
 
     df.to_csv(csv_path, index=False)
     print(f"Saved gof file under {csv_path}")

@@ -12,7 +12,7 @@ TMPDIR_LOCAL="results/tmp"
 mkdir -p "$TMPDIR_LOCAL"
 export TMPDIR="$TMPDIR_LOCAL"
 
-for MODEL in Basic Rep_M Rep_Z Rep_V; do
+for MODEL in Rep_M Rep_Z; do
 
     BASE_DIR="results/120_hpf/$MODEL/all"
     OUT_FILE="results/results_summary/$MODEL/goodness_of_fit_summary.csv"

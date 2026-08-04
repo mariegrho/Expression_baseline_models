@@ -1,12 +1,12 @@
 #!/bin/bash
-#SBATCH --job-name="gof"
+#SBATCH --job-name="fit"
 #SBATCH --output=results/logs/%x_%A_%a.out
 #SBATCH --error=results/logs/%x_%A_%a.err
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=1
-#SBATCH --mem=500MB
-#SBATCH --time=00:10:00
+#SBATCH --cpus-per-task=4
+#SBATCH --mem=2G
+#SBATCH --time=02:00:00
 #SBATCH --mail-type=END,FAIL
 
 # --mail-user=maryberry890@gmail.com
@@ -27,17 +27,17 @@ echo "[$(date)] Starting task $SLURM_ARRAY_TASK_ID: $GENE_ID"
 datasets_120hpf=("White" "Pauli" "BK" "JN")
 #datasets_8hpf=("Medina_Munoz_polyA" "Medina_Munoz_ribo")
 
-model_versions=("Basic" "Rep_M" "Rep_Z" ) #"Rep_V") #"ZGA_M" "ZGA_Z")
+model_versions=("ZGA_M" "ZGA_Z") #"Rep_V") #"Rep_M" "Rep_Z")
 
-srun python reports/compute_gof_src.py --gene_id "$GENE_ID" --model ${model_versions[0]} --t_end 120
+#srun python reports/compute_gof_src.py --gene_id "$GENE_ID" --model ${model_versions[0]} --t_end 120
 #for dataset in "${datasets_120hpf[@]}"; do
     #srun python basic_model.py --gene_id "$GENE_ID" --dataset "$dataset" --plot --t_end 120 --skip_duplicates
 
-#for model_version in "${model_versions[@]}"; do
-    #srun python simulate.py --gene_id "$GENE_ID" --model_version "$model_version" --plot --t_end 120 --skip_duplicates --seed 5
+for model_version in "${model_versions[@]}"; do
+    srun python simulate.py --gene_id "$GENE_ID" --model_version "$model_version" --plot --t_end 120 --seed 3
     #srun python reports/compute_gof_src.py --gene_id "$GENE_ID" --model "$model_version" --t_end 120
     #done
-#done
+done
 
 echo "[$(date)] Finished task $SLURM_ARRAY_TASK_ID: $GENE_ID"
 

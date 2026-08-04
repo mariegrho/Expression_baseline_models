@@ -66,7 +66,7 @@ def gof_evaluation(idata, gene_id, model, out_path):
 
         rho = spearman_correlation(obs, pred)
         pearsonr = pearson_correlation(obs, pred)
-        nrmse = calc_nrmse(obs, pred)[0]         # by Range
+        nrmse = calc_nrmse(obs, pred, norm="mean")
 
         row.append({
             "gene_id":gene_id,
@@ -196,7 +196,8 @@ def main(gene_id, model_version, kernel="nuts", t_end=120, plot=True, smooth=Fal
 
     sim.config.model_parameters.t_reg = Param(value=13, free=True, prior=f"lognorm(scale=13, s=1.0)")
     idata = sim.inferer.idata
-    sim.inferer.idata.posterior["t_reg"] = idata.posterior["t_zga"] + idata.posterior["t_rep"]
+    if model_version in ["Reg_M", "Reg_Z", "Reg_V"]:
+        sim.inferer.idata.posterior["t_reg"] = idata.posterior["t_zga"] + idata.posterior["t_rep"]
 
     sim.inferer.store_results()
     sim.posterior_predictive_checks(pred_mode="mean+hdi", pred_hdi_style={"color": "#7034b1", "alpha": .15})

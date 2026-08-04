@@ -19,10 +19,10 @@ genes.sort()
 
 print(len(genes))
 
-with open('data/genes.txt', 'w+') as f:
-    f.write("\n".join(genes)) 
+#with open('data/genes.txt', 'w+') as f:
+#    f.write("\n".join(genes)) 
 
-model="Rep_V"
+model="Rep_M"
 base_dir = f"results/results_summary/120_hpf/{model}/all"
 #files = list(Path(base_dir).rglob("gof_metrics.csv"))
 #genes_fitted = {f.parent.name for f in files}
