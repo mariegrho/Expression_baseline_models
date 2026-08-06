@@ -52,7 +52,7 @@ K_RANGE = range(3, 8)
 FUZZINESS = 1.8   # m parameter (1.5-2.5 typical)
 MAX_ITER = 300
 ERROR = 1e-5
-N_CLUSTER = 4
+N_CLUSTER = None
 RNG_SEED = 1 
 
 # =====================================================
@@ -78,6 +78,12 @@ def build_feature_matrix(ds, features=FEATURES, log_features=LOG_FEATURES):
     raw = np.empty((n_genes, n_features), dtype=np.float64)
     for j, feat in enumerate(features):
         vals = ds[feat].values.astype(np.float64)
+
+        n_nonfinite = int(np.sum(~np.isfinite(vals)))
+        if n_nonfinite > 0:
+            bad_genes = genes[~np.isfinite(vals)]
+            raise ValueError(f"Parameter '{feat}' has {n_nonfinite} non-finite values (NaN/inf) ")
+
         if feat in log_features:
             if np.any(vals <= 0):
                 n_bad = int(np.sum(vals <= 0))
@@ -173,11 +179,9 @@ def stability_score(data, k, seed_seq, n_runs=15, sample_frac=0.8):
         fit_seed = int(local_rng.integers(0, 1_000_000))
         resample_seed = int(local_rng.integers(0, 1_000_000))
 
-        idx = resample(
-            np.arange(n_genes), replace=True,
-            n_samples=int(n_genes * sample_frac),
-            random_state=resample_seed)
-
+        idx = local_rng.choice(n_genes, size=int(n_genes), replace=True) # Bootstrap sampling -> with replacement
+        #idx = local_rng.choice(n_genes, size=int(n_genes*sample_frac), replace=False) # subsampling  -> without replacement, only fraction
+        
         cntr, _, fpc = run_fuzzy_cmeans(data[:, idx], k, seed=fit_seed)
         fpcs.append(fpc)
         labels_per_run.append(_project_full(data, cntr, seed=fit_seed))
@@ -233,11 +237,8 @@ def _plot_k_selection(ks, means, stds, null_means, fpc_scores, xb_scores,
     plt.close(fig)
 
 
-def select_best_k_stability(data, k_range, dataset_name,
-                             n_runs=15, sample_frac=0.8,
-                             use_one_se_rule=True,
-                             compute_null=True,
-                             n_jobs=1, master_seed=RNG_SEED):
+def select_best_k_stability(data, k_range, dataset_name, n_runs=15, sample_frac=0.8,
+                             use_one_se_rule=True, compute_null=True, n_jobs=1, master_seed=RNG_SEED):
     """
     Choose K via bootstrap clustering stability.
 
@@ -260,8 +261,7 @@ def select_best_k_stability(data, k_range, dataset_name,
         if compute_null:
             perm_seq, null_fit_seq = null_seq.spawn(2)
             null_data = _permute_features(data, perm_seq)
-            null = stability_score(null_data, k, null_fit_seq,
-                                    n_runs=n_runs, sample_frac=sample_frac)
+            null = stability_score(null_data, k, null_fit_seq, n_runs=n_runs, sample_frac=sample_frac)
 
         fit_seed = int(seed_seq.generate_state(1)[0])
         cntr, u, fpc_full = run_fuzzy_cmeans(data, k, seed=fit_seed)
@@ -297,7 +297,12 @@ def select_best_k_stability(data, k_range, dataset_name,
         chosen_idx = min(candidates)  # smallest K within 1 SE of the best -> simplest adequate model
     else:
         chosen_idx = best_idx
+
+    chosen_idx = np.argmin(xb_scores)
     best_k = ks[chosen_idx]
+
+    print("best by stability score :", ks[chosen_idx])
+    print("best by XB index:", ks[np.argmin(xb_scores)]) # best k by XB index
 
     _plot_k_selection(ks, means, stds, null_means, fpc_scores, xb_scores, best_k, dataset_name)
 
@@ -306,11 +311,13 @@ def select_best_k_stability(data, k_range, dataset_name,
 
 def xie_beni_index(X, cntr, u, m):
     """
-    XB Index
+    XB Index: S = J / (n * d_min²) 
+    with d_min² = spearation, n = no. samples, J_2 = compactness
+
     The optimal number of clusters k is is such that the index takes the minimum value
-    ---------
+
     X: Data (features, samples)
-    cntr: (clusters, features)
+    cntr: Cluster centers (clusters, features)
     u: Membership Degree (clusters, samples)
     """
     n_samples = X.shape[1]
@@ -318,15 +325,15 @@ def xie_beni_index(X, cntr, u, m):
     diff = cntr[:, :, None] - X[None, :, :]   # (k, features, n_samples)
     dist = np.sum(diff ** 2, axis=1)          # (k, n_samples)
 
-    # fuzzy weighted compactness
-    numerator = np.sum((u ** m) * dist)
+    compactness = np.sum((u ** m) * dist)
     # cluster separation
     center_dist = np.linalg.norm(cntr[:, None, :] - cntr[None, :, :], axis=2) ** 2
-
     np.fill_diagonal(center_dist, np.inf)
     min_dist = np.min(center_dist)
 
-    return numerator / (n_samples * min_dist)
+    xb = compactness / (n_samples * min_dist)
+
+    return xb
 
 
 # =====================================================
@@ -460,10 +467,22 @@ if __name__ == "__main__":
     os.makedirs("results", exist_ok=True)
 
     models = ["Rep_M", "Rep_Z"]
+    models = ["Rep_Z"]
     for model in models:
-        print(model)
+        print("[Info] Start parameter clustering for ", model)
         input_file = (f"../results/results_summary/{model}/params_results.nc")
+
+        ## TODO: Filter parameters for resonable ranges before clusterin
+        ## e.g. t_zga, t_rep < 120
+        ## alpha, beta < 1e6  or cap min. values to -10
+        ## delta_m, delta_z < 100 
+
         ds = xr.load_dataset(input_file)
+
+        ds["beta"] = ds.beta.clip(min=1e-5)
+        ds["alpha"] = ds.alpha.clip(min=1e-5)
+        ds["t_zga"] = ds.t_zga.clip(max=120)
+        ds["t_reg"] = ds.t_reg.clip(max=120)
 
         membership, labels, centers_std, centers_orig = cluster_dataset(
             ds, f"results/{model}_model_params", dataset_name=model, k_range=K_RANGE)

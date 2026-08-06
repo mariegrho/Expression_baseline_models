@@ -20,7 +20,7 @@ import pandas as pd
 from glob import glob
 import fuzzy_clustering1 as fc
 
-NORMALISATION = "meanmax"
+NORMALISATION = "minmax"
 
 # options:
 #   "none"
@@ -28,6 +28,7 @@ NORMALISATION = "meanmax"
 #   "zscore"
 #   "minmax"
 #   "percentile"
+#   "meanmax"
 
 DATA = ["all", 'White', "Pauli", "BK", "JN"]
 source = DATA[0]

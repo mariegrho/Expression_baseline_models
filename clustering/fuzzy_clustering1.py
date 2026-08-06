@@ -37,7 +37,7 @@ except ImportError:
 # CONFIG
 # =====================================================
 
-K_RANGE = range(2, 5)
+K_RANGE = range(2, 10)
 FUZZINESS = 1.8   # m parameter (1.5-2.5 typical)
 MAX_ITER = 300
 ERROR = 1e-5
@@ -80,8 +80,8 @@ def _shuffle_trajectories(data, seed_seq):
     local_rng = np.random.default_rng(seed_seq)
     shuffled = data.copy()
     n_time, n_genes = data.shape
-    for g in range(n_genes):
-        shuffled[:, g] = data[local_rng.permutation(n_time), g]
+    for t in range(n_time):
+        shuffled[t, :] = data[t, local_rng.permutation(n_genes)]
     return shuffled
 
 
@@ -106,10 +106,8 @@ def stability_score(data, k, seed_seq, n_runs=15, sample_frac=0.8):
         fit_seed = int(local_rng.integers(0, 1_000_000))
         resample_seed = int(local_rng.integers(0, 1_000_000))
 
-        idx = resample(
-            np.arange(n_genes), replace=True,
-            n_samples=int(n_genes * sample_frac),
-            random_state=resample_seed)
+        idx = local_rng.choice(n_genes, size=int(n_genes), replace=True) # Bootstrap sampling -> with replacement
+        #idx = local_rng.choice(n_genes, size=int(n_genes*sample_frac), replace=False) # subsampling  -> without replacement, only fraction
 
         cntr, _, fpc = run_fuzzy_cmeans(data[:, idx], k, seed=fit_seed)
         fpcs.append(fpc)
@@ -166,12 +164,8 @@ def _plot_k_selection(ks, means, stds, null_means, fpc_scores, xb_scores,
     plt.close(fig)
 
 
-def select_best_k_stability(data, k_range, dataset_name,
-                             n_runs=15, sample_frac=0.8,
-                             use_one_se_rule=True,
-                             compute_null=True,
-                             n_jobs=1,
-                             master_seed=RNG_SEED):
+def select_best_k_stability(data, k_range, dataset_name, n_runs=15, sample_frac=0.8,
+                             use_one_se_rule=False, compute_null=True, n_jobs=1, master_seed=RNG_SEED):
     """
     Choose K via bootstrap clustering stability.
 
@@ -218,8 +212,7 @@ def select_best_k_stability(data, k_range, dataset_name,
     for k, real, null, xb, fpc_full in results:
         diagnostics[k] = {"stability": real, "null": null, "fpc": fpc_full, "xb": xb}
         null_str = f", null={null['mean']:.4f}" if null is not None else ""
-        print(f"K={k} | stability={real['mean']:.4f} +/- {real['std']:.4f}"
-              f"{null_str} | FPC={fpc_full:.4f} | XB={xb:.4f}")
+        print(f"K={k} | stability={real['mean']:.4f} +/- {real['std']:.4f}, {null_str} | FPC={fpc_full:.4f} | XB={xb:.4f}")
 
     best_idx = int(np.argmax(means))
     if use_one_se_rule:
@@ -229,7 +222,12 @@ def select_best_k_stability(data, k_range, dataset_name,
         chosen_idx = min(candidates)  # smallest K within 1 SE of the best -> simplest adequate model
     else:
         chosen_idx = best_idx
+
     best_k = ks[chosen_idx]
+    #best_k = xb_scores[np.argmin(xb_scores)]
+
+    print("best by stability score :", ks[chosen_idx])
+    print("best by XB index:", ks[np.argmin(xb_scores)]) # best k by XB index
 
     _plot_k_selection(ks, means, stds, null_means, fpc_scores, xb_scores,
                        best_k, dataset_name)
