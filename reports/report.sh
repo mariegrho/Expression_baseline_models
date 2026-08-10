@@ -23,4 +23,4 @@ echo "[$(date)] Finished $MODEL."
 # sbatch reports/join.sh
 # sbatch reports/collect_gof.sh
 # sbatch reports/run_param_summary.sh
-# sbatch --array=0-2 reports/report.sh
+# sbatch --array=1-2 reports/report.sh

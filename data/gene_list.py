@@ -17,19 +17,24 @@ labels = xr.load_dataset("data/all_gene_cluster_annotation_minmax.nc")
 genes = labels.ensembl_gene_id.values
 genes.sort()
 
-print(len(genes))
+with open("/home/student/m/mgrosseholth/projects/Expression_baseline_models/results/ensdarg_folders.txt") as f:
+    fitted = [line.strip() for line in f]
+
+genes_fitted = set(fitted)
+
+print(len(genes_fitted))
 
 #with open('data/genes.txt', 'w+') as f:
 #    f.write("\n".join(genes)) 
 
-model="Rep_M"
-base_dir = f"results/results_summary/120_hpf/{model}/all"
+model="Rep_Z"
+#base_dir = f"results/results_summary/120_hpf/{model}/all"
 #files = list(Path(base_dir).rglob("gof_metrics.csv"))
 #genes_fitted = {f.parent.name for f in files}
 
-fitted = pd.read_csv(f"results/results_summary/{model}/goodness_of_fit_summary.csv")
+#fitted = pd.read_csv(f"results/results_summary/{model}/goodness_of_fit_summary.csv")
 #fitted = pd.read_csv(f"results/results_summary/{model}/gof_by_source_joined.csv", on_bad_lines="skip")
-genes_fitted = set(fitted.gene_id.unique())
+#genes_fitted = set(fitted.gene_id.unique())
 
 missing_genes = sorted(set(genes) - genes_fitted)
 print(f"{len(missing_genes)} genes missing")
@@ -41,3 +46,5 @@ print("File written successfully.")
 # chmod +x data/gene_list.py
 # conda activate thesis
 # python data/gene_list.py
+
+#find 120_hpf/Rep_Z/full/*/numpyro_posterior.nc -maxdepth 0 2>/dev/null | sed -E 's|.*/(ENSDARG[0-9]+)/numpyro_posterior.nc|\1|' | sort > ensdarg_folders.txt

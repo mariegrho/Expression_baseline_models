@@ -2,8 +2,8 @@
 #SBATCH --job-name=0gof
 #SBATCH --output=results/logs/%x_%A_%a.out
 #SBATCH --error=results/logs/%x_%A_%a.err
-#SBATCH --time=02:00:00
-#SBATCH --mem=2GB
+#SBATCH --time=03:00:00
+#SBATCH --mem=4GB
 #SBATCH --cpus-per-task=1
 
 GENE_LIST="data/genes.txt"
@@ -14,7 +14,7 @@ export TMPDIR="$TMPDIR_LOCAL"
 
 for MODEL in Rep_M Rep_Z; do
 
-    BASE_DIR="results/120_hpf/$MODEL/all"
+    BASE_DIR="results/120_hpf/$MODEL/full"
     OUT_FILE="results/results_summary/$MODEL/goodness_of_fit_summary.csv"
     FILELIST="$(mktemp)"
     DONE_GENES="$(mktemp)"
@@ -101,6 +101,5 @@ echo "[$(date)] Finished all."
 #./collect_gof.sh
 # sbatch reports/collect_gof.sh
 
-# sbatch --array=0-3 reports/report.sh
 
 

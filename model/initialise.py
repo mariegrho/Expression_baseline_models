@@ -6,6 +6,8 @@ from pymob.sim.config import DataVariable
 from pymob.sim.parameters import Param
 from pymob.solvers.diffrax import JaxSolver
 
+s_fixed = 3.0
+
 def init_Basic(sim):
 
     # --- Parameterize ---
@@ -56,8 +58,8 @@ def init_ZGA_M(sim, model):
     sim.config.model_parameters.beta =    Param(value=beta0, free=True,        prior=f"lognorm(scale={beta0}, s=0.5)")
 
     sim.config.model_parameters.t_zga =   Param(value=t1, free=True,      prior=f"lognorm(scale={t1}, s=1.0)")
-    sim.config.model_parameters.delta_m = Param(value=delta_m, free=True,    prior=f"lognorm(scale={delta_m}, s=1.0)")
-    sim.config.model_parameters.s =   Param(value=5, free=False)
+    sim.config.model_parameters.delta_m = Param(value=delta_m, free=False,    prior=f"lognorm(scale={delta_m}, s=1.0)")
+    sim.config.model_parameters.s =   Param(value=s_fixed, free=False)
 
     # Error Model
     sim.config.model_parameters.sigma_y = Param(value=0.3,  free=True, prior="lognorm(scale=0.5, s=0.5)")
@@ -70,11 +72,11 @@ def init_ZGA_M(sim, model):
 
 def init_ZGA_Z(sim, model):
     # --- Initialize parameters ---
-    sim.config.data_structure.M = DataVariable(dimensions=("time",), observed=False)
-    sim.config.data_structure.Z = DataVariable(dimensions=("time",), observed=False)
+    sim.config.data_structure.M = DataVariable(dimensions=("time","source"), observed=False)
+    sim.config.data_structure.Z = DataVariable(dimensions=("time","source"), observed=False)
 
     # inital condiion
-    M0 =  sim.observations.y[0].item()
+    M0 =  sim.observations.y[0].mean().item()
     model.state_variables["M"]["y0"] = M0
     model.state_variables["Z"]["y0"] = 0.0
 
@@ -94,11 +96,11 @@ def init_ZGA_Z(sim, model):
     delta_z0 = 0.1 # t12 = 6h
     beta0    = Z_ss0 * delta_z0 + 1e-8
    
-    sim.config.model_parameters.delta_z = Param(value=delta_z0, free=True,     prior=f"lognorm(scale={delta_z0}, s=1.0)")
+    sim.config.model_parameters.delta_z = Param(value=delta_z0, free=False,     prior=f"lognorm(scale={delta_z0}, s=1.0)")
     sim.config.model_parameters.beta =    Param(value=beta0, free=True,        prior=f"lognorm(scale={beta0}, s=0.5)")
 
     sim.config.model_parameters.t_zga =   Param(value=t1, free=True,      prior=f"lognorm(scale={t1}, s=1.0)")
-    sim.config.model_parameters.s =   Param(value=5, free=False)
+    sim.config.model_parameters.s =   Param(value=s_fixed, free=False)
     sim.config.model_parameters.delta_m = Param(value=delta_r0, free=True, prior=f"lognorm(scale={delta_r0}, s=0.5)")
 
     # Error Model
@@ -130,7 +132,7 @@ def init_Rep_M(sim, model):
 
     delta_m = 0.35 # t1/2 = 3h
     t1 = 3.0
-    t2 = 10.0
+    t2 = 20.0
     delta_z0 = 0.1 # t12 = 6h
     alpha0    = Z_max0 * delta_z0 + 1e-8  # first rate
     beta0    = Z_ss0 * delta_z0 + 1e-8  # final rate
@@ -138,12 +140,12 @@ def init_Rep_M(sim, model):
     sim.config.model_parameters.alpha = Param(value=alpha0, free=True, prior=f"lognorm(scale={alpha0}, s=0.5)"    )
     sim.config.model_parameters.beta = Param(value=beta0, free=True, prior=f"lognorm(scale={beta0}, s=0.5)"    )
 
-    sim.config.model_parameters.delta_z = Param(value=delta_z0, free=True, prior=f"lognorm(scale={delta_z0}, s=1.0)"    )
-    sim.config.model_parameters.delta_m = Param(value=delta_m, free=True,    prior=f"lognorm(scale={delta_m}, s=1.0)")
+    sim.config.model_parameters.delta_z = Param(value=delta_z0, free=False, prior=f"lognorm(scale={delta_z0}, s=1.0)"    )
+    sim.config.model_parameters.delta_m = Param(value=delta_m, free=True,    prior=f"lognorm(scale={delta_m}, s=0.5)")
 
-    sim.config.model_parameters.t_zga =   Param(value=t1, free=True,      prior=f"lognorm(scale={t1}, s=1.0)")
+    sim.config.model_parameters.t_zga =   Param(value=t1, free=True,      prior=f"lognorm(scale={t1}, s=0.5)")
     sim.config.model_parameters.t_rep =   Param(value=t2,  free=True,      prior=f"lognorm(scale={t2}, s=1.0)")
-    sim.config.model_parameters.s =   Param(value=5, free=False)
+    sim.config.model_parameters.s =   Param(value=s_fixed, free=False)
 
     # Error Model
     sim.config.model_parameters.sigma_y = Param(value=0.3,  free=True, prior="lognorm(scale=0.5, s=0.5)")
@@ -180,7 +182,7 @@ def init_Rep_Z(sim, model):
     delta_r = 1.4  # t12 = 30 min
 
     t1 = 3.0
-    t2 = 10.0
+    t2 = 20.0
     delta_z0 = 0.1 # t12 = 6h
     alpha0   = Z_max0 * delta_z0 + 1e-8 # first rate
     beta0    = Z_ss0 * delta_z0 + 1e-8 # final rate
@@ -188,12 +190,12 @@ def init_Rep_Z(sim, model):
     sim.config.model_parameters.alpha = Param(value=alpha0, free=True, prior=f"lognorm(scale={alpha0}, s=0.5)")
     sim.config.model_parameters.beta = Param(value=beta0, free=True, prior=f"lognorm(scale={beta0}, s=0.5)")
 
-    sim.config.model_parameters.delta_z = Param(value=delta_z0, free=True, prior=f"lognorm(scale={delta_z0}, s=1.0)")
+    sim.config.model_parameters.delta_z = Param(value=delta_z0, free=False, prior=f"lognorm(scale={delta_z0}, s=1.0)")
     sim.config.model_parameters.delta_m = Param(value=delta_r, free=True, prior=f"lognorm(scale={delta_r}, s=0.5)")
 
-    sim.config.model_parameters.t_zga =   Param(value=t1, free=True,      prior=f"lognorm(scale={t1}, s=1.0)")
+    sim.config.model_parameters.t_zga =   Param(value=t1, free=True,      prior=f"lognorm(scale={t1}, s=0.5)")
     sim.config.model_parameters.t_rep =   Param(value=t2,  free=True,      prior=f"lognorm(scale={t2}, s=1.0)")
-    sim.config.model_parameters.s =   Param(value=5, free=False)
+    sim.config.model_parameters.s =   Param(value=s_fixed, free=False)
 
     # Error Model
     sim.config.model_parameters.sigma_y = Param(value=0.3,  free=True, prior="lognorm(scale=0.5, s=0.5)")
@@ -225,7 +227,7 @@ def init_Rep_V(sim, model):
     delta_r = 1.4  # t12 = 30 min
 
     t1 = 3.0
-    t2 = 10.0
+    t2 = 20.0
     t3 = 2.0
     delta_z0 = 0.1 # t12 = 6h
     alpha0   = Z_max0 * delta_z0 + 1e-8 # first rate
@@ -234,13 +236,13 @@ def init_Rep_V(sim, model):
     sim.config.model_parameters.alpha = Param(value=alpha0, free=True, prior=f"lognorm(scale={alpha0}, s=0.5)")
     sim.config.model_parameters.beta = Param(value=beta0, free=True, prior=f"lognorm(scale={beta0}, s=0.5)")
 
-    sim.config.model_parameters.delta_z = Param(value=delta_z0, free=True, prior=f"lognorm(scale={delta_z0}, s=1.0)")
+    sim.config.model_parameters.delta_z = Param(value=delta_z0, free=False, prior=f"lognorm(scale={delta_z0}, s=1.0)")
     sim.config.model_parameters.delta_m = Param(value=delta_r, free=True, prior=f"lognorm(scale={delta_r}, s=0.5)")
 
     sim.config.model_parameters.t_zga =   Param(value=t1, free=True,      prior=f"lognorm(scale={t1}, s=1.0)")
     sim.config.model_parameters.t_rep =   Param(value=t2,  free=True,      prior=f"lognorm(scale={t2}, s=1.0)")
     sim.config.model_parameters.t_deg =   Param(value=t3,  free=True,      prior=f"lognorm(scale={t3}, s=1.0)")
-    sim.config.model_parameters.s =   Param(value=5, free=False)
+    sim.config.model_parameters.s =   Param(value=s_fixed, free=False)
 
     # Error Model
     sim.config.model_parameters.sigma_y = Param(value=0.3,  free=True, prior="lognorm(scale=0.5, s=0.5)")

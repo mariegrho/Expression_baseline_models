@@ -46,7 +46,7 @@ class ZGA_Model_Z(SimulationBase):
         # model parameters
         self.params_info = {
             "beta":    {"name": "beta",    "initial": 2.0,  "vary": True,   "prior": "lognorm(scale=2, s=1)"},
-            "delta_r": {"name": "delta_r", "initial": 1.4,  "vary": False,  },
+            "delta_m": {"name": "delta_m", "initial": 1.4,  "vary": False,  },
             "delta_z": {"name": "delta_z", "initial": 0.5,  "vary": True,   "prior": "lognorm(scale=0.5, s=1)"},
             "t_zga":   {"name": "t_zga",   "initial": 3.0,  "vary": True,   "prior": "lognorm(scale=3, s=0.2)"},
             "s": {"name": "s", "initial": 5, "vary": False,},
@@ -54,10 +54,10 @@ class ZGA_Model_Z(SimulationBase):
 
         # model states
         self.state_variables = {
-            "M":          {"dimensions": ["time",], "observed": False, "y0": 1.0},  # maternal
-            "Z":          {"dimensions": ["time",], "observed": False, "y0": 0.0},  # zygotic
-            "y":          {"dimensions": ["time",], "observed": True},              # M + Z
-            "repression": {"dimensions": ["time",], "observed": False},
+            "M":          {"dimensions": ["time","source"], "observed": False, "y0": 1.0},  # maternal
+            "Z":          {"dimensions": ["time","source"], "observed": False, "y0": 0.0},  # zygotic
+            "y":          {"dimensions": ["time","source"], "observed": True},              # M + Z
+            "repression": {"dimensions": ["time","source"], "observed": False},
         }
 
     # right-hand side ODE
@@ -93,7 +93,7 @@ class ZGA_Model_M(SimulationBase):
         # model parameters
         self.params_info = {
             "beta":    {"name": "beta",    "initial": 2.0,  "vary": True,   "prior": "lognorm(scale=2, s=1)"},
-            "delta_m": {"name": "delta_r", "initial": 0.28,  "vary": False,  },
+            "delta_m": {"name": "delta_m", "initial": 0.28,  "vary": False,  },
             "delta_z": {"name": "delta_z", "initial": 0.5,  "vary": True,   "prior": "lognorm(scale=0.5, s=1)"},
             "t_zga":   {"name": "t_zga",   "initial": 3.0,  "vary": True,   "prior": "lognorm(scale=3, s=0.2)"},
             "s": {"name": "s", "initial": 5, "vary": False,},
@@ -101,9 +101,9 @@ class ZGA_Model_M(SimulationBase):
 
         # model states
         self.state_variables = {
-            "M":          {"dimensions": ["time",], "observed": False, "y0": 1.0},  # maternal
-            "Z":          {"dimensions": ["time",], "observed": False, "y0": 0.0},  # zygotic
-            "y":          {"dimensions": ["time",], "observed": True},              # M + Z
+            "M":          {"dimensions": ["time","source"], "observed": False, "y0": 1.0},  # maternal
+            "Z":          {"dimensions": ["time","source"], "observed": False, "y0": 0.0},  # zygotic
+            "y":          {"dimensions": ["time","source"], "observed": True},              # M + Z
         }
 
     # right-hand side ODE
@@ -135,7 +135,7 @@ class Repression_Z():
             "beta":      {"name": "beta",  "initial": 3.0, "vary": True,   "prior": "lognorm(scale=3, s=2)"},
 
             "delta_z":   {"name": "delta_z", "initial": 0.126, "vary": True,   "prior": "lognorm(scale=0.1, s=1)"},
-            "delta_r":   {"name": "delta_r", "initial": 1.4, "vary": False,},
+            "delta_m":   {"name": "delta_m", "initial": 1.4, "vary": True,},
 
             "t_zga":    {"name": "t_zga",  "initial": 3.0, "vary": True,   "prior": "lognorm(scale=3, s=1)"},
             "t_rep":        {"name": "t_rep",   "min": 1.0,  "max": 50,  "initial": 15.0, "vary": True,   "prior": "lognorm(scale=15, s=1)"},
@@ -187,11 +187,11 @@ class Repression_M():
             "beta":      {"name": "beta",  "initial": 3.0, "vary": True,   "prior": "lognorm(scale=3, s=2)"},
 
             "delta_z":   {"name": "delta_z", "initial": 0.126, "vary": True,   "prior": "lognorm(scale=0.1, s=1)"},
-            "delta_m":   {"name": "delta_r", "initial": 0.7, "vary": False,},
+            "delta_m":   {"name": "delta_m", "initial": 0.7, "vary": True,},
 
             "t_zga":    {"name": "t_zga",  "initial": 3.0, "vary": True,   "prior": "lognorm(scale=3, s=1)"},
             "t_rep":    {"name": "t_rep",   "min": 1.0,  "max": 50,  "initial": 15.0, "vary": True,   "prior": "lognorm(scale=15, s=1)"},
-            "s": {"name": "s", "initial": 5, "vary": False,},
+            "s": {"name": "s", "initial": 4, "vary": False,},
         }
 
         # model states
@@ -235,7 +235,7 @@ class Repression_V():
             "beta":    {"name": "beta",  "initial": 3.0, "vary": True,   "prior": "lognorm(scale=3, s=2)"},
 
             "delta_z": {"name": "delta_z", "initial": 0.126, "vary": True,   "prior": "lognorm(scale=0.1, s=1)"},
-            "delta_r": {"name": "delta_r", "initial": 1.4, "vary": False,},
+            "delta_m": {"name": "delta_m", "initial": 1.4, "vary": False,},
 
             "t_deg":   {"name": "t_deg",   "min": 0.0,  "max": 10,  "initial": 3.0, "vary": True,   "prior": "lognorm(scale=3, s=1)"},
             "t_zga":   {"name": "t_zga",  "initial": 3.0, "vary": True,   "prior": "lognorm(scale=3, s=1)"},

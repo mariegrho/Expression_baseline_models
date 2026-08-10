@@ -79,9 +79,9 @@ def combine_ds(save_csv=False):
         gof_src_list.append(gof_src)
         params_list.append(params)
 
-    gof_all_combined = pd.concat(gof_all_list, ignore_index=True)
-    gof_src_combined = pd.concat(gof_src_list, ignore_index=True)
-    params_combined = pd.concat(params_list, ignore_index=True)
+    gof_all_combined = pd.concat(gof_all_list, ignore_index=True, join="outer",sort=False)
+    gof_src_combined = pd.concat(gof_src_list, ignore_index=True, join="outer",sort=False)
+    params_combined = pd.concat(params_list, ignore_index=True, join="outer",sort=False)
 
     if save_csv:
         gof_all_combined.to_csv("results/results_summary/gof_all_combined.csv", index=False)
@@ -297,12 +297,12 @@ def plot_params_cluster_model(ds_params, model_name):
 
     params_dict = {
                 "Basic": (["delta_mean", "beta_mean"], [r"$\delta$",r"$\beta$"]),
-                "Rep_M": (["delta_m_mean", "delta_z_mean", "alpha_mean", "beta_mean", "t_zga", "t_reg"], 
-                   [ r"$\delta_m$", r"$\delta_z$", r"$\alpha$", r"$\beta$", r"$t_{zga}$", r"$t_{reg}$"]),
-                "Rep_Z": (["delta_m_mean", "delta_z_mean", "alpha_mean", "beta_mean", "t_zga", "t_reg"], 
-                   [ r"$\delta_m$", r"$\delta_z$", r"$\alpha$", r"$\beta$", r"$t_{zga}$", r"$t_{reg}$"]),
-                "Rep_V": (["delta_m_mean", "delta_z_mean", "alpha_mean", "beta_mean", "t_zga", "t_reg", "t_deg_mean"], 
-                   [ r"$\delta_m$", r"$\delta_z$", r"$\alpha$", r"$\beta$", r"$t_{zga}$", r"$t_{reg}$", r"$t_{deg}$"]) 
+                "Rep_M": (["delta_m_mean","alpha_mean", "beta_mean", "t_zga", "t_reg"], 
+                   [ r"$\delta_m$", r"$\alpha$", r"$\beta$", r"$t_{zga}$", r"$t_{reg}$"]),
+                "Rep_Z": (["delta_m_mean","alpha_mean", "beta_mean", "t_zga", "t_reg"], 
+                   [ r"$\delta_m$", r"$\alpha$", r"$\beta$", r"$t_{zga}$", r"$t_{reg}$"]),
+                "Rep_V": (["delta_m_mean", "alpha_mean", "beta_mean", "t_zga", "t_reg", "t_deg_mean"], 
+                   [ r"$\delta_m$", r"$\alpha$", r"$\beta$", r"$t_{zga}$", r"$t_{reg}$", r"$t_{deg}$"]) 
                    }
     
     ds_params = ds_params[ds_params["model"] == model_name]
@@ -315,8 +315,8 @@ def plot_params_cluster_model(ds_params, model_name):
     if "beta_mean" in params:
         data = ds_params[ds_params["beta_mean"] > 0.0]
     if "t_zga" in params:
-        ds_params["t_zga"] = np.minimum(ds_params["t_zga_mean"],  ds_params["t_rep_mean"])
-        ds_params["t_reg"] = np.maximum(ds_params["t_zga_mean"],  ds_params["t_rep_mean"])
+        ds_params["t_zga"] = ds_params["t_zga_mean"]
+        ds_params["t_reg"] = ds_params["t_reg_mean"]
         data = ds_params[ds_params["t_reg"] < 120.0]
     else:
         data = ds_params
@@ -342,16 +342,19 @@ def plot_rep_params_violin(ds_params):
 
     print("plot params violin plot for Rep-Models")
 
-    params = ["t_zga", "t_reg"]
-    title = ["$t_{zga}$", "$t_{reg}$"]
+    params = ["t_zga", "t_reg", "r"]
+    title = ["$t_{zga}$", "$t_{reg}$", "$r$"]
 
     df = ds_params[ds_params["model"] != "Basic" ].copy()
 
-    df["t_zga"] = np.minimum(df["t_zga_mean"],  df["t_rep_mean"])
-    df["t_reg"] = np.maximum(df["t_zga_mean"],  df["t_rep_mean"])
-    df = df[df["t_reg"] < 120.0]
+    df["beta_mean"] = df["beta_mean"].clip(lower=1e-5)
+    df["t_reg_mean"] = df["t_reg_mean"].clip(upper=120)
+
+    df["t_zga"] = df["t_zga_mean"]
+    df["t_reg"] = df["t_reg_mean"]
+    df["r"] = df["beta_mean"] / df["alpha_mean"]
     
-    fig, ax = plt.subplots(1, len(params), figsize = (10, 4.5), sharey=True, sharex=True)
+    fig, ax = plt.subplots(1, len(params), figsize = (5*len(params), 4.5), sharey=True, sharex=False)
 
     for i, param in enumerate(params):
         sns.violinplot(data=df, x=param, y="supercluster", log_scale=True, hue="model", 
@@ -421,7 +424,7 @@ def plot_regulation_direction_2(ds_params):
 
     marker_dict = ["o", "x", "^"]
 
-    fig, ax = plt.subplots(1, 1, figsize=(7, 3.5), sharey=True, sharex=True)
+    fig, ax = plt.subplots(1, 1, figsize=(5, 3.5), sharey=True, sharex=True)
     sns.violinplot( data=df, x="r", y="supercluster", log_scale=True, hue="model", palette=mod_color_dict,
                         split=True, inner = "quart", alpha=0.7, legend=True, zorder=1)
     # ---- overlay median tick marks per supercluster ----
@@ -451,16 +454,15 @@ def plot_t_params(ds_params):
     params = ["t_zga_mean", "t_reg_mean"]
     title = ["$t_{zga}$", "$t_{reg}$"]
 
-    #df["t_zga"] = np.minimum(df["t_zga_mean"],  df["t_rep_mean"])
-    #df["t_reg"] = np.maximum(df["t_zga_mean"],  df["t_rep_mean"])
-    df = df[df["t_reg_mean"] < 120.0]
+    #df = df[df["t_reg_mean"] < 120.0]
+    df["t_reg_mean"] = df["t_reg_mean"].clip(upper=120)
     
     palette_m = sns.color_palette("Oranges") 
     palette_z = sns.color_palette("Greens_r") 
 
     marker_dict = ["o", "x", "^"]
 
-    panels = ["Repression M-decay", "Repression Z-decay",]
+    panels = ["M-decay", "Z-decay",]
     models = ["Rep_M", "Rep_Z",]
 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 3.5), sharey=True, sharex=True)
@@ -506,9 +508,10 @@ def plot_half_life(ds_params):
     title = ["$t_{m, 1/2}$", "$t_{z, 1/2}$"]
 
     df["t_m_half"] = np.log(2) / df["delta_m_mean"]
-    df["t_z_half"] = np.log(2) / df["delta_z_mean"]
+    df["t_z_half"] = np.log(2) / 0.1
 
-    df = df[df["t_reg_mean"] < 120.0]
+    #df = df[df["t_reg_mean"] < 120.0]
+    df["t_reg_mean"] = df["t_reg_mean"].clip(upper=120)
     
     palette_m = sns.color_palette("Oranges") 
     palette_z = sns.color_palette("Greens_r") 
@@ -556,7 +559,6 @@ def plot_half_life(ds_params):
 def barplot_accepted(gof_all):
 
     gof_all["accepted"] = (gof_all["rho"] > RHO_thres) & (gof_all["NRMSE"] < NRMSE_thres)
-
 
     plt.figure(figsize=(5, 2.5))
     sns.barplot(gof_all, x="model", y="accepted", estimator="mean", hue="model", palette=mod_color_dict)
@@ -607,8 +609,14 @@ def plot_peak_expression():
 def plot_params_cluster(params_all):
 
     df = params_all[params_all["model"] != "Basic"].copy()
+
+    df["beta_mean"] = df["beta_mean"].clip(lower=1e-5)
+    df["t_reg_mean"] = df["t_reg_mean"].clip(upper=120)
+
     df["r"] = df["beta_mean"] / df["alpha_mean"]
-    df = df[(df["r"] > 1e-5) & (df["t_zga_mean"] < 120)]
+    #df = df[(df["r"] > 1e-5) & (df["t_zga_mean"] < 120)]
+
+    df["t_zga_mean"] = df["t_zga_mean"].clip(upper=120)
 
     #df = df[df["t_reg_mean"] < 120.0]
 
@@ -622,8 +630,8 @@ def plot_params_cluster(params_all):
     sns.kdeplot(df_m, x="r", y="t_zga_mean",  hue="supercluster", ax=ax1, palette=cluster_color_dict, legend=False, log_scale=True, fill=False, levels=3)
     sns.kdeplot(df_z, x="r",  y="t_zga_mean", hue="supercluster", ax=ax2, palette=cluster_color_dict, legend=True, log_scale=True, fill=False, levels=3)
 
-    ax1.set(xlabel= "$r = \\beta / \\alpha$", ylabel="$t_{zga}$", title="M-decay", xscale="log", yscale="log", xlim=(1e-6, 1e2), ylim=(0, 120))
-    ax2.set(xlabel="$r = \\beta / \\alpha$", ylabel="$t_{zga}$", title="Z-decay", xscale="log", yscale="log", xlim=(1e-6, 1e2), ylim=(0, 120))
+    ax1.set(xlabel= "$r = \\beta / \\alpha$", ylabel="$t_{zga}$", title="M-decay", xscale="log", yscale="log", xlim=(1e-6, 1e2), )
+    ax2.set(xlabel="$r = \\beta / \\alpha$", ylabel="$t_{zga}$", title="Z-decay", xscale="log", yscale="log", xlim=(1e-6, 1e2), )
 
     ax1.axvline(1, c="k", ls="--")
     ax2.axvline(1, c="k", ls="--")
@@ -648,6 +656,56 @@ def plot_params_cluster(params_all):
     plt.close()
 
 
+def plot_params_cluster_treg(params_all):
+
+    df = params_all[params_all["model"] != "Basic"].copy()
+
+    df["beta_mean"] = df["beta_mean"].clip(lower=1e-5)
+    df["t_reg_mean"] = df["t_reg_mean"].clip(upper=120)
+
+    df["r"] = df["beta_mean"] / df["alpha_mean"]
+    #df = df[(df["r"] > 1e-5) & (df["t_zga_mean"] < 120)]
+
+    df["t_zga_mean"] = df["t_zga_mean"].clip(upper=120)
+
+    #df = df[df["t_reg_mean"] < 120.0]
+
+    df_z = df[df["model"] == "Rep_Z"].copy()
+    df_m = df[df["model"] == "Rep_M"].copy()
+
+    fig, (ax1, ax2) = plt.subplots(1,2, figsize=(12, 6), sharex=True, sharey=True)
+    sns.scatterplot(df_m, x="r", y="t_reg_mean", ax=ax1,  hue="supercluster", s=5, palette=cluster_color_dict, alpha=0.7, legend=False)
+    sns.scatterplot(df_z, x="r", y="t_reg_mean", ax=ax2, hue="supercluster", s=5, palette=cluster_color_dict, alpha=0.7, legend=True)
+
+    sns.kdeplot(df_m, x="r", y="t_reg_mean",  hue="supercluster", ax=ax1, palette=cluster_color_dict, legend=False, log_scale=True, fill=False, levels=3)
+    sns.kdeplot(df_z, x="r",  y="t_reg_mean", hue="supercluster", ax=ax2, palette=cluster_color_dict, legend=True, log_scale=True, fill=False, levels=3)
+
+    ax1.set(xlabel= "$r = \\beta / \\alpha$", ylabel="$t_{zga}$", title="M-decay", xscale="log", yscale="log", xlim=(1e-6, 1e2), )
+    ax2.set(xlabel="$r = \\beta / \\alpha$", ylabel="$t_{zga}$", title="Z-decay", xscale="log", yscale="log", xlim=(1e-6, 1e2), )
+
+    ax1.axvline(1, c="k", ls="--")
+    ax2.axvline(1, c="k", ls="--")
+
+    ax1.axhline(3, c="gray", ls="--", label="ZGA")
+    ax2.axhline(3, c="gray", ls="--", label="ZGA")
+
+    # Annotations
+    ax1.text(x=2e-6, y=7e1, s="DSD", bbox={"color":cluster_color_dict["DSD"], "alpha":0.5, "boxstyle":"round"})
+    ax1.text(x=2e-6, y=1e-1, s="SD", bbox={"color":cluster_color_dict["SD"], "alpha":0.5, "boxstyle":"round"})
+    ax1.text(x=2e1, y=7e1, s="DSU", bbox={"color":cluster_color_dict["DSU"], "alpha":0.5, "boxstyle":"round"})
+    ax1.text(x=2e1, y=1e-1, s="SU", bbox={"color":cluster_color_dict["SU"], "alpha":0.5, "boxstyle":"round"})
+
+    ax2.text(x=2e-6, y=7e1, s="DSD", bbox={"color":cluster_color_dict["DSD"], "alpha":0.5, "boxstyle":"round"})
+    ax2.text(x=2e-6, y=1e-1, s="SD", bbox={"color":cluster_color_dict["SD"], "alpha":0.5, "boxstyle":"round"})
+    ax2.text(x=2e1, y=7e1, s="DSU", bbox={"color":cluster_color_dict["DSU"], "alpha":0.5, "boxstyle":"round"})
+    ax2.text(x=2e1, y=1e-1, s="SU", bbox={"color":cluster_color_dict["SU"], "alpha":0.5, "boxstyle":"round"})
+
+    plt.legend(title="Cluster", frameon=False, loc=(1.01, 0.3))
+    plt.tight_layout()
+    plt.savefig(f"{FIG_PATH}/scatterplot_params_cluster_treg.png")
+    plt.close()
+
+
 ## Upset plot
 
 '''-----------------------
@@ -658,26 +716,27 @@ gof_all_combined, gof_src_combined, params_combined = combine_ds(save_csv=True)
 
 '''-- GOF Metrics plots --'''
 
-point_plot_metrics_all(pd.read_csv("results/results_summary/gof_all_combined.csv",))
-plot_metrics_distribution_all(pd.read_csv("results/results_summary/gof_all_combined.csv",), hue_key = "model")
-plot_metrics_distribution_src(pd.read_csv("results/results_summary/gof_src_combined.csv",), hue_key="source")
-plot_accepted_heatmap(pd.read_csv("results/results_summary/gof_src_combined.csv",), hue_key="source")
-barplot_accepted(pd.read_csv("results/results_summary/gof_all_combined.csv",))
-barplot_accepted_subcluster(pd.read_csv("results/results_summary/gof_all_combined.csv",))
+# point_plot_metrics_all(pd.read_csv("results/results_summary/gof_all_combined.csv",))
+# plot_metrics_distribution_all(pd.read_csv("results/results_summary/gof_all_combined.csv",), hue_key = "model")
+# plot_metrics_distribution_src(pd.read_csv("results/results_summary/gof_src_combined.csv",), hue_key="source")
+# plot_accepted_heatmap(pd.read_csv("results/results_summary/gof_src_combined.csv",), hue_key="source")
+# barplot_accepted(pd.read_csv("results/results_summary/gof_all_combined.csv",))
+# barplot_accepted_subcluster(pd.read_csv("results/results_summary/gof_all_combined.csv",))
 
-'''-- Parameter plots --'''
-for model in model_order:
-    plot_params_cluster_model(pd.read_csv("results/results_summary/params_combined.csv",), model)
-plot_rep_params_violin(pd.read_csv("results/results_summary/params_combined.csv",))
+# '''-- Parameter plots --'''
+# for model in model_order:
+#     plot_params_cluster_model(pd.read_csv("results/results_summary/params_combined.csv",), model)
+# plot_rep_params_violin(pd.read_csv("results/results_summary/params_combined.csv",))
 
-plot_regulation_direction(pd.read_csv("results/results_summary/params_combined.csv",))
-plot_regulation_direction_2(pd.read_csv("results/results_summary/params_combined.csv",))
-plot_t_params(pd.read_csv("results/results_summary/params_combined.csv",))
-plot_half_life(pd.read_csv("results/results_summary/params_combined.csv",))
+# plot_regulation_direction(pd.read_csv("results/results_summary/params_combined.csv",))
+# plot_regulation_direction_2(pd.read_csv("results/results_summary/params_combined.csv",))
+# plot_t_params(pd.read_csv("results/results_summary/params_combined.csv",))
+# plot_half_life(pd.read_csv("results/results_summary/params_combined.csv",))
 
-plot_params_cluster(pd.read_csv("results/results_summary/params_combined.csv",))
+# plot_params_cluster(pd.read_csv("results/results_summary/params_combined.csv",))
+# plot_params_cluster_treg(pd.read_csv("results/results_summary/params_combined.csv",))
 
-'''-- Peak time --'''
-plot_peak_expression()
+# '''-- Peak time --'''
+# plot_peak_expression()
 
 # sbatch plots/plot.sh

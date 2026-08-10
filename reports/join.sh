@@ -14,8 +14,8 @@ TMPDIR_LOCAL="results/tmp"
 mkdir -p "$TMPDIR_LOCAL"
 export TMPDIR="$TMPDIR_LOCAL"
 
-for MODEL in Rep_M Rep_Z; do
-    BASE_DIR="results/120_hpf/$MODEL/all"
+for MODEL in Rep_M Rep_Z ; do
+    BASE_DIR="results/120_hpf/$MODEL/full"
     OUT_FILE="results/results_summary/$MODEL/gof_by_source_joined.csv"
 
     mkdir -p "$(dirname "$OUT_FILE")"

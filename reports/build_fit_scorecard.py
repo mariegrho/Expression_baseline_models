@@ -17,12 +17,36 @@ Requires: arviz, numpy, pandas
 import numpy as np
 import pandas as pd
 import arviz as az
+import xarray as xr
 import os
+from tqdm import tqdm
+
+
+SCORECARD_COLUMNS = [
+    "gene",
+    "rhat_max", "ess_bulk_min", "ess_tail_min", "convergence_error",
+    "n_divergences", "frac_divergences",
+    "loo", "loo_se", "p_loo", "max_pareto_k", "frac_pareto_k_high", "loo_error",
+    "waic", "waic_se",
+    "rmse", "mae", "nrmse_range", "nrmse_mean", "r2",
+    "coverage_50", "coverage_90", "fit_error",
+    "resid_autocorr_lag1",
+    "load_error",
+]
 
 def score_gene(gene_id: str, idata: az.InferenceData, obs_var: str = "y") -> dict:
     """Compute one row of fit-quality metrics for a single gene's InferenceData."""
 
     row = {"gene": gene_id}
+
+    ll = idata.log_likelihood["y"]  # dims: (chain, draw, time, source)
+    grouped_ll = ll.sum(dim="source")   # -> dims: (chain, draw, time)
+
+    # Wrap into a fresh InferenceData for WAIC/LOO
+    idata_grouped = az.InferenceData(
+        posterior=idata.posterior,      
+        log_likelihood=xr.Dataset({"y": grouped_ll}),
+    )
 
     # ---- 1. Convergence diagnostics (posterior + sample_stats) --------
     try:
@@ -46,7 +70,7 @@ def score_gene(gene_id: str, idata: az.InferenceData, obs_var: str = "y") -> dic
 
     # ---- 2. PSIS-LOO and WAIC (log_likelihood) -------------------------
     try:
-        loo_res = az.loo(idata, pointwise=True)
+        loo_res = az.loo(idata_grouped, pointwise=True)
         row["loo"] = loo_res.elpd_loo
         row["loo_se"] = loo_res.se
         row["p_loo"] = loo_res.p_loo
@@ -59,7 +83,7 @@ def score_gene(gene_id: str, idata: az.InferenceData, obs_var: str = "y") -> dic
         row["loo_error"] = str(e)
 
     try:
-        waic_res = az.waic(idata)
+        waic_res = az.waic(idata_grouped)
         row["waic"] = waic_res.elpd_waic
         row["waic_se"] = waic_res.se
     except Exception:
@@ -67,36 +91,37 @@ def score_gene(gene_id: str, idata: az.InferenceData, obs_var: str = "y") -> dic
 
     # ---- 3. Point-estimate fit quality (posterior_predictive vs obs) --
     try:
-        obs = idata.observed_data[obs_var].values.astype(float)  # (time,)
-
+        obs = idata.observed_data[obs_var] 
         model_fit = idata.posterior_model_fits[obs_var]
-        fit_mean = model_fit.mean(dim=("chain", "draw")).values
+        pred = model_fit.mean(dim=("chain", "draw"))
 
-        mask = ~np.isnan(obs)
-        resid = obs[mask] - fit_mean[mask]
+        mae = np.abs(obs - pred).mean()
 
-        rmse = np.sqrt(np.mean(resid ** 2))
-        mae = np.mean(np.abs(resid))
-        obs_range = obs[mask].max() - obs[mask].min()
-        obs_mean = obs[mask].mean()
+        ss_res = ((obs - pred) ** 2).sum()
+        ss_tot = ((obs - obs.mean()) ** 2).sum()
+        r2_per_source = 1 - ss_res / ss_tot
+        r2 = r2_per_source.where(ss_tot > 0)
 
-        ss_res = np.sum(resid ** 2)
-        ss_tot = np.sum((obs[mask] - obs_mean) ** 2)
-        r2 = 1 - ss_res / ss_tot if ss_tot > 0 else np.nan
+        rmse = np.sqrt(((obs - pred)**2).mean())
+        obs_range = obs.max() - obs.min()
+        obs_mean =  obs.mean()
+        nrmse_range = (rmse / obs_range).where(obs_range > 0)
+        nrmse_mean = (rmse / np.abs(obs_mean)).where(obs_mean > 0)
 
-        row["rmse"] = rmse
-        row["mae"] = mae
-        row["nrmse_range"] = rmse / obs_range if obs_range > 0 else np.nan
-        row["nrmse_mean"] = rmse / obs_mean if obs_mean != 0 else np.nan
-        row["r2"] = r2
+        row["rmse"] = rmse.mean().item()
+        row["mae"] = mae.mean().item()
+        row["nrmse_range"] = nrmse_range.mean().item()
+        row["nrmse_mean"] = nrmse_mean.mean().item()
+        row["r2"] = r2.mean().item()
 
-        # ---- 4. Posterior predictive coverage --------------------------
-        pp = idata.posterior_predictive[obs_var]  # posterior_predictive dims: (chain, draw, time)
-        for cred, (lo_q, hi_q) in {"50": (0.25, 0.75), "90": (0.05, 0.95)}.items():
-            lo = pp.quantile(lo_q, dim=("chain", "draw")).values
-            hi = pp.quantile(hi_q, dim=("chain", "draw")).values
-            inside = (obs[mask] >= lo[mask]) & (obs[mask] <= hi[mask])
-            row[f"coverage_{cred}"] = float(np.mean(inside))
+    # ---- 4. Posterior predictive coverage --------------------------
+        pp = idata.posterior_predictive[obs_var]  # posterior_predictive dims: (chain, draw, time, source)
+        mask = obs.notnull()
+        for cred, (lo_q, hi_q) in { "50": (0.25, 0.75), "90": (0.05, 0.95),}.items():
+            lo = pp.quantile( lo_q, dim=("chain", "draw"))
+            hi = pp.quantile(hi_q, dim=("chain", "draw"))
+            inside = ((obs >= lo) & (obs <= hi) & mask )
+            row[f"coverage_{cred}"] = (inside.sum() / mask.sum()).item()
 
     except Exception as e:
         row["rmse"] = np.nan
@@ -104,15 +129,24 @@ def score_gene(gene_id: str, idata: az.InferenceData, obs_var: str = "y") -> dic
         row["fit_error"] = str(e)
 
     # ---- 5. Residual autocorrelation (using precomputed posterior_residuals) ----
-    # A quick lag-1 autocorrelation of the mean residual trace flags
-    # systematic (non-white-noise) misfit, which flat R2/RMSE can hide.
     try:
-        resid_da = idata.posterior_residuals[obs_var] 
-        resid_mean = resid_da.mean(dim=("chain", "draw")).values
-        resid_mean = resid_mean[~np.isnan(resid_mean)]
-        if len(resid_mean) > 2:
-            r_lag1 = np.corrcoef(resid_mean[:-1], resid_mean[1:])[0, 1]
-            row["resid_autocorr_lag1"] = r_lag1
+        resid_da = idata.posterior_residuals[obs_var]
+        resid_mean = resid_da.mean(dim=("chain", "draw"))
+
+        if "source" in resid_mean.dims:
+            acf_per_source = []
+
+            for source in resid_mean.source:
+                x = resid_mean.sel(source=source).values
+                x = x[~np.isnan(x)]
+
+                if len(x) > 2:
+                    acf_per_source.append( np.corrcoef(x[:-1], x[1:])[0, 1] )
+            row["resid_autocorr_lag1"] = (float(np.nanmean(acf_per_source)) if acf_per_source else np.nan )
+        else:
+            x = resid_mean.values
+            x = x[~np.isnan(x)]
+            row["resid_autocorr_lag1"] = ( np.corrcoef(x[:-1], x[1:])[0, 1] if len(x) > 2 else np.nan )
     except Exception:
         row["resid_autocorr_lag1"] = np.nan
 
@@ -147,15 +181,12 @@ def _score_one_file(args):
     return row
 
 
-def build_scorecard_from_files(paths: dict, obs_var: str = "y",
-                                out_csv: str = "fit_scorecard.csv",
-                                n_workers: int = 4,
-                                checkpoint_every: int = 200) -> pd.DataFrame:
+def build_scorecard_from_files(paths: dict, obs_var: str = "y", out_csv: str = "fit_scorecard.csv",
+                                n_workers: int = 4, checkpoint_every: int = 200) -> pd.DataFrame:
     """
     paths: {gene_id: path_to_netcdf_file}
     Streams and scores one InferenceData at a time (parallelized across
-    n_workers processes), writing to out_csv incrementally so a crash
-    partway through doesn't lose completed work. 
+    n_workers processes), writing to out_csv. 
     Re-running will skip genes already present in out_csv.
     """
     import os
@@ -184,14 +215,17 @@ def build_scorecard_from_files(paths: dict, obs_var: str = "y",
     buffer = []
 
     with mp.Pool(n_workers) as pool:
+        #pbar = tqdm(pool.imap_unordered(_score_one_file, todo), total=len(todo), desc="Scoring genes", mininterval=30)
         for i, row in enumerate(pool.imap_unordered(_score_one_file, todo), start=1):
+        #for i, row in enumerate(pbar, start=1):
             buffer.append(row)
             if i % checkpoint_every == 0 or i == len(todo):
-                df_chunk = pd.DataFrame(buffer)
+                df_chunk = pd.DataFrame(buffer).reindex(columns=SCORECARD_COLUMNS)
                 df_chunk.to_csv(out_csv, mode="a", header=write_header, index=False)
                 write_header = False
                 buffer = []
-                print(f"  scored {i}/{len(todo)} genes")
+                #pbar.set_postfix_str(f"checkpoint @ {i}")
+                print(f"  scored {i}/{len(todo)} genes", flush=True)
 
     return pd.read_csv(out_csv, index_col="gene")
 
@@ -201,19 +235,22 @@ def flag_genes(scorecard: pd.DataFrame,
                ess_thresh: float = 400,
                pareto_k_thresh: float = 0.7,
                r2_thresh: float = 0.7,
-               coverage90_bounds=(0.80, 0.98)) -> pd.DataFrame:
+               nrmse_thresh: float = 0.2,
+               coverage90_bounds=(0.80, 1.0)) -> pd.DataFrame:
     """
     Add boolean triage columns to the scorecard for quick filtering.
     Thresholds are starting points -- inspect the metric distributions
     (histograms/ECDFs) first and adjust to your data before trusting these.
     """
     sc = scorecard.copy()
+
     sc["converged"] = (
         (sc["rhat_max"] <= rhat_thresh) &
         (sc["ess_bulk_min"] >= ess_thresh) &
         (sc["n_divergences"] == 0)
     )
-    sc["good_fit"] = sc["r2"] >= r2_thresh
+    sc["good_fit_r2"] = sc["r2"] >= r2_thresh
+    sc["good_fit"] = sc["nrmse_range"] <= nrmse_thresh
     sc["reliable_loo"] = sc["max_pareto_k"] < pareto_k_thresh
     lo, hi = coverage90_bounds
     sc["well_calibrated"] = sc["coverage_90"].between(lo, hi)
@@ -226,8 +263,7 @@ def flag_genes(scorecard: pd.DataFrame,
     return sc
 
 
-def discover_gene_paths(results_root: str = "results/120_hpf/Rep_M/all",
-                         filename: str = "numpyro_posterior.nc") -> dict:
+def discover_gene_paths(results_root: str, filename: str = "numpyro_posterior.nc") -> dict:
     """
     Walk the fixed directory structure:
         results/120_hpf/Rep_M/all/<ENSDARG...>/numpyro_posterior.nc
@@ -242,8 +278,7 @@ def discover_gene_paths(results_root: str = "results/120_hpf/Rep_M/all",
     if not os.path.isdir(results_root):
         print(f"WARNING: results_root does not exist as a directory: {root_abs}")
         print(f"  Current working directory is: {os.getcwd()}")
-        print(f"  Pass an absolute path, or run the script from the directory "
-              f"where 'results/...' is relative to.")
+        print(f"  Pass an absolute path, or run the script from the directory where 'results/...' is relative to.")
         return {}
 
     paths = {}
@@ -271,30 +306,21 @@ if __name__ == "__main__":
     import click
  
     @click.command()
-    @click.option("--results-root", type=click.Path(), required=True,
-        help="Directory containing <gene_id>/numpyro_posterior.nc subfolders, "
-             "e.g. results/120_hpf/Rep_M/all",)
-    @click.option("--filename", type=str, default="numpyro_posterior.nc", show_default=True,
-        help="NetCDF filename inside each gene subfolder.",)
-    @click.option("--obs-var", type=str, default="y", show_default=True,
-        help="Name of the observed variable in observed_data/posterior_predictive.",)
-    @click.option("--out-csv", type=click.Path(), default="fit_scorecard.csv", show_default=True,
-        help="Path to write/resume the scorecard CSV.",)
-    @click.option("--n-workers", type=int, default=4, show_default=True,
-        help="Number of parallel worker processes.",)
-    @click.option("--checkpoint-every", type=int, default=200, show_default=True,
-        help="Write to out_csv every N scored genes.",)
+    @click.option("--results-root", type=click.Path(), required=True,help="Directory containing <gene_id>/numpyro_posterior.nc subfolders, ")
+    @click.option("--filename", type=str, default="numpyro_posterior.nc", show_default=True,help="NetCDF filename inside each gene subfolder.",)
+    @click.option("--obs-var", type=str, default="y", show_default=True, help="Name of the observed variable in observed_data/posterior_predictive.",)
+    @click.option("--out-csv", type=click.Path(), default="fit_scorecard.csv", show_default=True, help="Path to write the scorecard CSV.",)
+    @click.option("--n-workers", type=int, default=4, show_default=True, help="Number of parallel worker processes.",)
+    @click.option("--checkpoint-every", type=int, default=200, show_default=True, help="Write to out_csv every N scored genes.",)
     def main(results_root, filename, obs_var, out_csv, n_workers, checkpoint_every):
         """Build a per-gene fit-quality scorecard from ArviZ NetCDF results."""
         paths = discover_gene_paths(results_root, filename=filename)
  
-        scorecard = build_scorecard_from_files(
-            paths,
-            obs_var=obs_var,
-            out_csv=out_csv,
-            n_workers=n_workers,
-            checkpoint_every=checkpoint_every,
-        )
+        scorecard = build_scorecard_from_files(paths, obs_var=obs_var, out_csv=out_csv,
+            n_workers=n_workers, checkpoint_every=checkpoint_every, )
+
+        # create flagged csv from existing file
+        #scorecard = pd.read_csv(out_csv, index_col="gene")
  
         if not scorecard.empty:
             scorecard = flag_genes(scorecard)

@@ -21,13 +21,18 @@ def regulator_activity(t, t_on, t_off=4.0):
     return np.where(t <= t_on, 0.0, np.where(t <= t_off, slope * (t - t_on), 1.0))
 
 
-def prepare_dataset(gene_id, model_version, t_end):
+def prepare_dataset(gene_id, model_version, t_end, scale="tpm"):
 
     try:
         transcript_data = xr.load_dataset("data/genes_tpms_white_pauli_JN_BK_mean.nc").sel(time=slice(0, t_end))
         obs = transcript_data.sel(ensembl_gene_id=gene_id).tpm.to_dataset(name="y") 
     except Exception as e:
         raise ValueError(f"gene id {gene_id} not found in dataset.\n {e}") 
+
+    if scale == "log2":
+        obs = np.log2(obs)
+        cond = (obs["y"] >= -3) | obs["y"].isnull()
+        obs["y"] = obs["y"].where(cond, -3)
 
     t = np.linspace(0, t_end, 1001)
     r = regulator_activity(t, t_on=3, t_off=4.0)
@@ -49,8 +54,8 @@ def gof_evaluation(idata, gene_id, model, out_path):
     for src in idata.observed_data.source.values:
         ds = idata.sel(source=src)
         non_nan_times = ds.observed_data.y.time.values[np.isfinite(ds.observed_data.y.values)]
-        obs = ds.observed_data.y.sel(time=non_nan_times).values
-        pred = idata.posterior_model_fits.y.mean(dim=("chain","draw","source")).sel(time=non_nan_times).values
+        obs = ds.observed_data.y.sel(time=non_nan_times)
+        pred = idata.posterior_model_fits.y.mean(dim=("chain","draw","source")).sel(time=non_nan_times)
 
         ll = idata.log_likelihood["y"]  # dims: (chain, draw, time, source)
         grouped_ll = ll.sum(dim="source")   # -> dims: (chain, draw, time)
@@ -107,7 +112,9 @@ def main(gene_id, model_version, kernel="nuts", t_end=120, plot=True, smooth=Fal
     sim.model = model._rhs_jax
 
     # simulation setup
-    sim.config.case_study.name = f"{t_end}_hpf/{model.name}/all"
+    #sim.config.case_study.name = f"{t_end}_hpf/{model.name}/all"
+    sim.config.case_study.name = f"{t_end}_hpf/{model.name}/full"
+
     sim.config.case_study.scenario = f"{gene_id}"
 
     # output directories
@@ -131,14 +138,18 @@ def main(gene_id, model_version, kernel="nuts", t_end=120, plot=True, smooth=Fal
     sim.config.simulation.x_dimension = "time"
     sim.config.simulation.seed = seed
     sim.config.report.goodness_of_fit_use_predictions = True
+
+    jax.config.update("jax_enable_x64", True)
     
     sim.solver = JaxSolver
     sim.config.jaxsolver.throw_exception = False
-    sim.config.jaxsolver.diffrax_solver = "Tsit5"
+    sim.config.jaxsolver.diffrax_solver = "Dopri5" # Tsit5
     sim.config.jaxsolver.pcoeff = 0.2
     sim.config.jaxsolver.icoeff = 0.4
-    sim.config.jaxsolver.rtol = 1e-04
-    sim.config.jaxsolver.atol = 1e-06
+    sim.config.jaxsolver.icoeff = 0.1
+    sim.config.jaxsolver.rtol = 1e-08
+    sim.config.jaxsolver.atol = 1e-10
+    sim.config.jaxsolver.max_steps = int(1e6)
     sim.solver_post_processing = model._solver_post_processing
     
     # --- Report settings ---
@@ -162,13 +173,13 @@ def main(gene_id, model_version, kernel="nuts", t_end=120, plot=True, smooth=Fal
     sim.dispatch_constructor()
     sim.set_inferer("numpyro")
     sim.config.inference_numpyro.kernel = kernel
-    sim.config.inference_numpyro.init_strategy= "init_to_median"
+    sim.config.inference_numpyro.init_strategy= "init_to_value"
 
     sim.config.inference_numpyro.svi_iterations = 20000
     sim.config.inference_numpyro.svi_learning_rate = 0.001
     sim.config.inference_numpyro.gaussian_base_distribution = True
 
-    sim.config.inference_numpyro.warmup = 1000
+    sim.config.inference_numpyro.warmup = 1500
     sim.config.inference_numpyro.draws = 2000
     sim.config.inference_numpyro.chains = 4
     sim.config.inference_numpyro.nuts_step_size = 0.1
@@ -194,9 +205,9 @@ def main(gene_id, model_version, kernel="nuts", t_end=120, plot=True, smooth=Fal
         p_pred = sim.inferer.posterior_predictions(n=1000, seed=10)
         p_pred.to_netcdf(f"{gene_output_dir}/posterior_predictive.nc")
 
-    sim.config.model_parameters.t_reg = Param(value=13, free=True, prior=f"lognorm(scale=13, s=1.0)")
     idata = sim.inferer.idata
-    if model_version in ["Reg_M", "Reg_Z", "Reg_V"]:
+    if model_version in ["Rep_M", "Rep_Z", "Rep_V"]:
+        sim.config.model_parameters.t_reg = Param(value=20, free=True, prior=f"lognorm(scale=20, s=1.0)")
         sim.inferer.idata.posterior["t_reg"] = idata.posterior["t_zga"] + idata.posterior["t_rep"]
 
     sim.inferer.store_results()
