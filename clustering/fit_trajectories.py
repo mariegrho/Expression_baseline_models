@@ -30,6 +30,7 @@ import matplotlib.pyplot as plt
 from pygam import LinearGAM, s, f, te
 from joblib import Parallel, delayed
 from tqdm.auto import tqdm
+from sklearn.preprocessing import StandardScaler, MinMaxScaler, MaxAbsScaler
 
 # ----------------------------------------------------------
 # configuration
@@ -43,6 +44,7 @@ DATA_WEIGHT = {
     'JN': 2, 
     'Pauli': 1, 
     'White': 3,
+    "avg":1,
 }
 
 # ----------------------------------------------------------
@@ -144,58 +146,69 @@ def gof_trajectories(ds, trajectories, t_end):
 
     """
     Compute goodness-of-fit metrics for every gene
+    using all data points from all sources together.
+    Returns one row per gene with aggregated metrics.
     """
 
     genes = trajectories.ensembl_gene_id.values
-    sources = ds.source.to_series().unique()
+    sources = ds.source.values
     rows = []
 
-    for src in sources:
-        gof = {"nrmse": [], "pearson":[], "spearman":[]}
-        accept = []
-        data = ds.sel(source=src, drop=True)
+    for gene in tqdm(genes):
 
-        for gene in tqdm(genes):
+        # Collect all data points from all sources for this gene
+        y_true_all = []
+        y_pred_all = []
 
+        for source in sources:
             try:
-                y_true = data.sel(ensembl_gene_id=gene, drop=True).tpm
+                y_true = ds.sel(ensembl_gene_id=gene, source=source, drop=True).tpm.values
                 y_pred = trajectories.sel(ensembl_gene_id=gene, drop=True).values
+                
+                # Match timepoints between observed data and predictions
+                if len(y_true) == len(y_pred):
+                    mask = np.isfinite(y_true) & np.isfinite(y_pred)
+                    if mask.sum() >= 2:
+                        y_true_all.extend(y_true[mask])
+                        y_pred_all.extend(y_pred[mask])
             except Exception:
-                gof.append(np.nan)
-                accept.append(False)
                 continue
 
-            mask = np.isfinite(y_true) & np.isfinite(y_pred)
+        # Convert to numpy arrays
+        y_true_all = np.asarray(y_true_all)
+        y_pred_all = np.asarray(y_pred_all)
 
-            if mask.sum() < 2:
-                gof.append(np.nan)
-                accept.append(False)
-                continue
+        # Calculate metrics using all data points together
+        if len(y_true_all) >= 2:
+            rmse = np.sqrt(np.mean((y_true_all - y_pred_all)**2))
+            pearson = pearsonr(y_true_all, y_pred_all)[0]
+            spearman = spearmanr(y_true_all, y_pred_all)[0]
 
-            y_true = y_true[mask]
-            y_pred = y_pred[mask]
-            
-            rmse = np.sqrt(np.mean((y_true.values - y_pred)**2))
-            pearson = pearsonr(y_true.values, y_pred)[0]
-            spearman = spearmanr(y_true.values, y_pred)[0]
-
-            n_range = y_true.max("time").item() - y_true.min("time").item()  # range
+            # Calculate NRMSE using the overall range of the gene's expression
+            n_range = np.max(y_true_all) - np.min(y_true_all)
             nrmse = rmse / n_range if n_range > 0 else np.nan
 
-            gof["nrmse"].append(nrmse)
-            gof["pearson"].append(pearson)
-            gof["spearman"].append(spearman)
+            accept = bool((nrmse < 0.2) and (spearman > 0.4)) if np.isfinite(nrmse) else False
+        else:
+            rmse = np.nan
+            pearson = np.nan
+            spearman = np.nan
+            nrmse = np.nan
+            accept = False
 
-            accept.append(bool((nrmse < 0.3) and (pearson > 0.5) and (spearman > 0.5)) if np.isfinite(nrmse) else False)
+        rows.append({
+            "ensembl_gene_id": gene,
+            "nrmse": nrmse,
+            "pearson": pearson,
+            "spearman": spearman,
+            "accepted": accept
+        })
 
-        rows.append(pd.DataFrame({"ensembl_gene_id": genes, "source": src, 
-                                  "nrmse": gof["nrmse"], "pearson": gof["pearson"], "spearman": gof["spearman"],
-                                  "accepted": accept, }))
-
-    df = pd.concat(rows, ignore_index=True)
+    df = pd.DataFrame(rows)
     df.to_csv(f"results/gof_trajectories_{t_end}.csv", index=False)
 
     return df
+
 
 # ----------------------------------------------------------
 # main
@@ -203,13 +216,15 @@ def gof_trajectories(ds, trajectories, t_end):
 
 if __name__ == "__main__":
 
-    DATA = ["all", 'White', "Pauli", "BK", "JN"]
+    DATA = ["all", "avg", 'White', "Pauli", "BK", "JN"]
     ds = xr.load_dataset("../data/genes_tpms_white_pauli_JN_BK_mean.nc")
     ds_clean = ds.dropna(dim="time", how="all", subset=["tpm"])
 
     # Remove low expressed genes -> too noisy, no effective pattern
     mask = (ds_clean.tpm.max(dim="time", skipna=True) >= 1).all(dim="source") 
     ds_clean = ds_clean.sel(ensembl_gene_id=mask)
+
+    #ds_clean = ds_clean.mean(dim="source").expand_dims({"source":["avg"]}) # for average fitting
 
     # Reduce variance by log scaling
     ds_clean["tpm"] = np.log2(ds_clean.tpm + 1) 
@@ -220,13 +235,13 @@ if __name__ == "__main__":
     ds_clean["tpm"] = (ds_clean.tpm - mean) / std
 
     print(len(ds_clean.ensembl_gene_id))
-    for T_END in [12]:
-        print(f"fitting over t={T_END} hpf")
+    for T_END in [120]:
 
         ds_filtered = ds_clean.sel(time=slice(0, T_END))
-        trajectories = fit_all_genes(ds_filtered)
-        trajectories.to_netcdf(f"results/{DATA[0]}_gene_trajectories_{T_END}.nc")
+        print(f"fitting over t={T_END} hpf")
+        #trajectories = fit_all_genes(ds_filtered)
+        #trajectories.to_netcdf(f"results/{DATA[0]}_gene_trajectories_{T_END}.nc")
 
         print(f"Calculating goodness of fit...")
-        #trajectories = xr.load_dataset(f"results/{DATA[0]}_gene_trajectories_{T_END}.nc").trajectory
+        trajectories = xr.load_dataset(f"results/{DATA[0]}_gene_trajectories_{T_END}.nc").trajectory
         gof_trajectories(ds_filtered, trajectories, T_END)

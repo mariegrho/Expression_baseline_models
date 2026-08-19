@@ -16,13 +16,13 @@ normalized_trajectories.nc
 import numpy as np
 import xarray as xr
 import pandas as pd
-
+from sklearn.preprocessing import StandardScaler, MinMaxScaler, MaxAbsScaler
 
 # =====================================================
 # Configuration
 # =====================================================
 
-NORMALIZATION = "meanmax"
+NORMALIZATION = "minmax"
 
 # options:
 #   "none"
@@ -109,7 +109,7 @@ def normalize_dataset(da):
 
 if __name__ == "__main__":
 
-    DATA = ["all", 'White', "Pauli", "BK", "JN"]
+    DATA = ["all", "avg", 'White', "Pauli", "BK", "JN"]
     source = DATA[0]
 
     gof = pd.read_csv("results/gof_trajectories_120.csv")

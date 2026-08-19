@@ -38,9 +38,9 @@ except ImportError:
 # =====================================================
 
 K_RANGE = range(2, 10)
-FUZZINESS = 1.8   # m parameter (1.5-2.5 typical)
-MAX_ITER = 300
-ERROR = 1e-5
+FUZZINESS = 1.5   # m parameter: higher -> fuzzier cluster (1.5-2.5 typical)
+MAX_ITER = 500
+ERROR = 1e-4
 N_CLUSTER = None
 
 RNG_SEED = 1  # top-level seed; all randomness below is derived from this,
@@ -89,7 +89,7 @@ def _shuffle_trajectories(data, seed_seq):
 # Select optimal K -- stability-based (improved)
 # =====================================================
 
-def stability_score(data, k, seed_seq, n_runs=15, sample_frac=0.8):
+def stability_score(data, k, seed_seq, n_runs=20, sample_frac=0.7):
     """
     Estimate clustering stability for a given K via bootstrap resampling.
     Also returns the Fuzzy Partition Coefficient (FPC) for each run as a
@@ -164,8 +164,8 @@ def _plot_k_selection(ks, means, stds, null_means, fpc_scores, xb_scores,
     plt.close(fig)
 
 
-def select_best_k_stability(data, k_range, dataset_name, n_runs=15, sample_frac=0.8,
-                             use_one_se_rule=False, compute_null=True, n_jobs=1, master_seed=RNG_SEED):
+def select_best_k_stability(data, k_range, dataset_name, n_runs=15, sample_frac=0.7,
+                             use_one_se_rule=False, compute_null=False, n_jobs=1, master_seed=RNG_SEED):
     """
     Choose K via bootstrap clustering stability.
 
@@ -223,10 +223,12 @@ def select_best_k_stability(data, k_range, dataset_name, n_runs=15, sample_frac=
     else:
         chosen_idx = best_idx
 
+    #select = 0.7 *(1-means) + 0.3 * xb_scores
+    #chosen_idx = np.argmin(select)
     best_k = ks[chosen_idx]
     #best_k = xb_scores[np.argmin(xb_scores)]
 
-    print("best by stability score :", ks[chosen_idx])
+    print("best by stability score :", ks[best_idx])
     print("best by XB index:", ks[np.argmin(xb_scores)]) # best k by XB index
 
     _plot_k_selection(ks, means, stds, null_means, fpc_scores, xb_scores,
@@ -237,9 +239,14 @@ def select_best_k_stability(data, k_range, dataset_name, n_runs=15, sample_frac=
 
 def xie_beni_index(X, cntr, u, m):
     """
-    X: (features, samples)
-    cntr: (clusters, features)
-    u: (clusters, samples)
+    XB Index: S = J / (n * d_min²) 
+    with d_min² = spearation, n = no. samples, J_2 = compactness
+
+    The optimal number of clusters k is is such that the index takes the minimum value
+
+    X: Data (features, samples)
+    cntr: Cluster centers (clusters, features)
+    u: Membership Degree (clusters, samples)
     """
     n_samples = X.shape[1]
 
@@ -284,27 +291,19 @@ def fuzzy_cmeans_clustering(da, dataset_name, k_range=K_RANGE):
     membership_da = xr.DataArray(
         membership.T,
         dims=("ensembl_gene_id", "cluster"),
-        coords={
-            "ensembl_gene_id": genes,
-            "cluster": np.arange(best_k)
-        },
+        coords={ "ensembl_gene_id": genes, "cluster": np.arange(best_k) },
         name="membership"
     )
 
     labels_da = xr.DataArray(
-        labels,
-        dims=("ensembl_gene_id",),
+        labels, dims=("ensembl_gene_id",),
         coords={"ensembl_gene_id": genes},
         name="cluster_label"
     )
 
     centers_da = xr.DataArray(
-        centers,
-        dims=("cluster", "time"),
-        coords={
-            "cluster": np.arange(best_k),
-            "time": da.time.values
-        },
+        centers, dims=("cluster", "time"),
+        coords={ "cluster": np.arange(best_k), "time": da.time.values }, 
         name="cluster_centers"
     )
     return membership_da, labels_da, centers_da, best_k, fpc
@@ -319,11 +318,8 @@ def plot_clusters(centers_da, cluster):
     plt.figure(figsize=(8, 4))
 
     for k in centers_da.cluster.values:
-        plt.plot(
-            centers_da.time.values,
-            centers_da.sel(cluster=k),
-            label=f"Cluster {k}"
-        )
+        plt.plot( centers_da.time.values,
+            centers_da.sel(cluster=k), label=f"Cluster {k}" )
 
     plt.xlabel("Time")
     plt.ylabel("Expression (normalized trajectory)")

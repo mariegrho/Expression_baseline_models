@@ -23,8 +23,9 @@ def format_label(label):
     return label.replace("_", " ").title()
 
 
+
 def plot_pass_rates(df: pd.DataFrame,
-                     criteria: list = ("converged", "good_fit", "reliable_loo", "well_calibrated"),
+                     criteria: list = ("converged", "good_fit", "pattern_reproduction", "reliable_loo", "well_calibrated"),
                      labels: dict = None, hue: str = None, ax=None, fig_path: str="figures", title: str = None):
     """
     Horizontal bar chart comparing the % of genes passing each boolean
@@ -83,12 +84,12 @@ def plot_pass_rates(df: pd.DataFrame,
         ax.set_title(f"Proportion of genes passing fit-quality criteria (n = {int(n_total):,} genes)")
     ax.spines[["top", "right"]].set_visible(False)
     plt.tight_layout()
-    plt.savefig(f"{fig_path}/model_fit_eval_pass_rates_{hue}.png", dpi=300)
+    plt.savefig(f"{fig_path}/model_fit_eval_pass_rates_{hue}_{title}.png", dpi=300)
 
     return ax
 
 
-def plot_status_breakdown(df: pd.DataFrame, status_col: str = "status",
+def plot_status_breakdown(df: pd.DataFrame, status_col: str = "status", status_dict: dict = None,
                            hue: str = None, ax=None, palette: dict = None, fig_path: str ="figures", title: str = None):
     """
     Horizontal, frequency-sorted bar chart of the mutually-exclusive
@@ -98,12 +99,20 @@ def plot_status_breakdown(df: pd.DataFrame, status_col: str = "status",
     actual fit quality, which isn't the comparison you want.
     """
 
+    def status_label(x):
+        return status_dict.get(x, x)
+
 
     if hue is not None:
         palette = {"model":mod_color_dict, "supercluster":cluster_color_dict}[hue]
 
         prop_df = (df.groupby(hue)[status_col].value_counts(normalize=True).rename("proportion").reset_index()) 
+
+        # Replace status codes with the human-readable labels from status_dict
+        prop_df[status_col] = prop_df[status_col].map(status_label)
+
         order = df[status_col].value_counts().sort_values().index.tolist()
+        order = [status_label(x) for x in order]
 
         if ax is None:
             n_hue_levels = df[hue].nunique()
@@ -112,35 +121,40 @@ def plot_status_breakdown(df: pd.DataFrame, status_col: str = "status",
         sns.barplot(data=prop_df, y=status_col, x="proportion", hue=hue, palette=palette, order=order, ax=ax, orient="h")
         for container in ax.containers:
             ax.bar_label(container, labels=[f"{v.get_width()*100:.1f}%" for v in container], padding=3, fontsize=8)
-        ax.legend(title=hue.replace("_", " ").title(), bbox_to_anchor=(1.02, 1), loc="upper left", frameon=False)
-        ax.set_yticklabels([format_label(t.get_text()) for t in ax.get_yticklabels()])        
+        ax.legend(title=hue.replace("_", " ").title(), loc="upper right", frameon=False)
+        #ax.set_yticklabels([format_label(t.get_text()) for t in ax.get_yticklabels()])        
         ax.set_xlabel("Proportion of genes")
         ax.set_xlim(0, 1.0)
 
         if title is not None:
-            ax.set_title(f"Status breakdown by {hue} (model = {title})")
+            ax.set_title(f"GOF summary by {hue} (model = {title})")
         else:
-            ax.set_title(f"Status breakdown by {hue}")
+            ax.set_title(f"GOF summary by {hue} (n = {int(len(df)/3):,} genes)") 
 
     else:
         counts = df[status_col].value_counts()
         pct = (counts / counts.sum() * 100)
         plot_df = pd.DataFrame({"count": counts, "pct": pct}).sort_values("count")
 
+        # map raw status codes to the descriptions in status_dict
+        plot_df.index = plot_df.index.map(status_label)
+
         default_palette = {
-            "good": "#55A868",
-            "non_converged": "#C44E52",
-            "converged_poor_fit": "#DD8452",
-            "outlier_influenced": "#CCB974",
-            "weakly_identified": "#8172B2",
+            status_dict["fully_accepted"]: "#55A868",
+            status_dict["non_con"]: "#C44E52",
+            status_dict["poor_fit"]: "#DD8452",
+            status_dict["pattern"]: "#CCB974",
+            status_dict["low_error"]: "#8172B2",
         }
+    
         palette = palette or default_palette
         colors = [palette.get(status, "#999999") for status in plot_df.index]
 
         if ax is None:
             fig, ax = plt.subplots(figsize=(7, 0.6 * len(plot_df) + 1.5))
 
-        bars = ax.barh([format_label(status) for status in plot_df.index], plot_df["count"], color=colors)
+        #bars = ax.barh([format_label(status) for status in plot_df.index], plot_df["count"], color=colors)
+        bars = ax.barh(plot_df.index, plot_df["count"], color=colors)
         for bar, (status, row) in zip(bars, plot_df.iterrows()):
             ax.text( bar.get_width() + counts.max() * 0.01, bar.get_y() + bar.get_height() / 2,
                 f"{row['count']:,}  ({row['pct']:.1f}%)", va="center", ha="left", fontsize=9, )
@@ -151,7 +165,7 @@ def plot_status_breakdown(df: pd.DataFrame, status_col: str = "status",
     ax.set_ylabel("")
     ax.spines[["top", "right"]].set_visible(False)
     plt.tight_layout()
-    plt.savefig(f"{fig_path}/model_fit_status_{hue}.png", dpi=300)
+    plt.savefig(f"{fig_path}/model_fit_status_{hue}_{title}.png", dpi=300)
 
     return ax
 

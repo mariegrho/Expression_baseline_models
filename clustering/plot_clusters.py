@@ -112,6 +112,45 @@ def plot_membership_heatmap(membership_da, sc, max_genes=1000):
     plt.close()
 
 
+
+def plot_mean_membership_heatmap(membership_da, sc):
+    membership = membership_da.values
+    n_clusters = membership.shape[1]
+
+    dominant_cluster = np.argmax(membership, axis=1)
+
+    mean_membership_matrix = np.zeros((n_clusters, n_clusters))
+    for k in range(n_clusters):
+        genes_in_k = membership[dominant_cluster == k]
+        if len(genes_in_k) > 0:
+            mean_membership_matrix[k] = genes_in_k.mean(axis=0)
+        else:
+            mean_membership_matrix[k] = np.nan
+
+    plt.figure(figsize=(6, 4))
+    plt.imshow(mean_membership_matrix, aspect="auto", cmap="viridis")
+    plt.colorbar(label="Mean membership strength")
+
+    plt.xticks(np.arange(n_clusters), labels=[f"Cluster {k}" for k in range(n_clusters)], rotation=45, ha="right")
+    plt.yticks(np.arange(n_clusters), labels=[f"Assigned to {k}" for k in range(n_clusters)])
+    plt.xlabel("Mean membership in cluster")
+    plt.ylabel("Dominant cluster")
+    plt.title(f"Mean fuzzy membership per assigned cluster, Supercluster {sc}")
+
+    # annotate cells with values
+    for i in range(n_clusters):
+        for j in range(n_clusters):
+            val = mean_membership_matrix[i, j]
+            if not np.isnan(val):
+                plt.text(j, i, f"{val:.2f}", ha="center", va="center",
+                          color="white" if val < mean_membership_matrix.max() / 2 else "black",
+                          fontsize=7)
+
+    plt.tight_layout()
+    plt.savefig(f"figs/mean_membership_heatmap_Supercluster_{sc}.png")
+    plt.close()
+
+
 # =====================================================
 # 4. Plot representative genes per cluster
 # =====================================================
@@ -274,7 +313,6 @@ if __name__ == "__main__":
 
     NORMALISATION = "minmax"
     t_end = 120
-    #data = "White"
     data = "all"
 
     print(f"[Info] Plotting clusters for dataset: {data}, normalization: {NORMALISATION}, t_end: {t_end}")
@@ -305,8 +343,10 @@ if __name__ == "__main__":
     print("[Info] Plotting fuzzy cluster membership...")
     
     membership_da = xr.load_dataarray(f"results/{data}_superclusters_membership.nc")
-    plot_membership_heatmap(membership_da, "All", max_genes=500)
+    #plot_membership_heatmap(membership_da, "All", max_genes=500)
+    plot_mean_membership_heatmap(membership_da, sc=data)
     
     for sc in np.unique(super_labels):
         membership_da = xr.load_dataarray(f"results/{data}_supercluster_{sc}_membership.nc")
-        plot_membership_heatmap(membership_da, sc, max_genes=500)
+        #plot_membership_heatmap(membership_da, sc, max_genes=500)
+        plot_mean_membership_heatmap(membership_da, sc)

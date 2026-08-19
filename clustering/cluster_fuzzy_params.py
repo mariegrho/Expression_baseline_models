@@ -28,7 +28,7 @@ import xarray as xr
 import skfuzzy as fuzz
 import matplotlib.pyplot as plt
 
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import StandardScaler, MinMaxScaler, MaxAbsScaler, RobustScaler,QuantileTransformer
 from sklearn.utils import resample
 from sklearn.metrics import adjusted_rand_score
 
@@ -43,21 +43,30 @@ except ImportError:
 # =====================================================
 
 # Parameters to cluster on
-FEATURES = ["alpha", "beta", "delta_m", "delta_z", "t_zga", "t_reg"]
+FEATURES = ["alpha", "beta", "maternal_half_life", "t_zga", "t_reg", "peak_time"]#"decay_mode"]
+#FEATURES = ["repression_ratio", "maternal_half_life", "t_zga", "t_reg", "peak_time",] #"decay_mode", ]
+
+# decay mode need to be outside z-scoring
+# tune: >1 to let mechanism choice drive clusters more, <1 to soften it
+feature_weights = {"decay_mode": 1.0,}
 
 # log transformed features
-LOG_FEATURES = ["alpha", "beta", "delta_m", "delta_z", "t_zga", "t_reg"]
+#LOG_FEATURES = ["repression_ratio", "maternal_half_life" ]
+LOG_FEATURES = ["alpha", "beta", "maternal_half_life" ]
 
-K_RANGE = range(3, 8)
-FUZZINESS = 1.8   # m parameter (1.5-2.5 typical)
-MAX_ITER = 300
-ERROR = 1e-5
+#LOG_FEATURES = []
+
+K_RANGE = range(3, 10)
+FUZZINESS = 1.5   # m parameter (1.5-2.5 typical)
+MAX_ITER = 500
+ERROR = 1e-4
 N_CLUSTER = None
 RNG_SEED = 1 
 
 # =====================================================
 # Build feature matrix from the parameter dataset
 # =====================================================
+
 
 def build_feature_matrix(ds, features=FEATURES, log_features=LOG_FEATURES):
     """
@@ -68,12 +77,16 @@ def build_feature_matrix(ds, features=FEATURES, log_features=LOG_FEATURES):
     -------
     X : (n_genes, n_features) standardized float array
     genes : (n_genes,) array of gene ids, in the same row order as X.
-    scaler : fitted sklearn StandardScaler (post-log) 
+    scaler : fitted sklearn StandardScaler (post-log)
     raw : (n_genes, n_features) array of the unstandardized, but log-transformed values
     """
     genes = ds.ensembl_gene_id.values
     n_genes = genes.shape[0]
     n_features = len(features)
+
+    # Check for empty dataset
+    if n_genes == 0:
+        raise ValueError(f"Cannot cluster empty dataset: {n_genes} samples, {n_features} features")
 
     raw = np.empty((n_genes, n_features), dtype=np.float64)
     for j, feat in enumerate(features):
@@ -91,18 +104,31 @@ def build_feature_matrix(ds, features=FEATURES, log_features=LOG_FEATURES):
                     f"Feature '{feat}' has {n_bad} non-positive value(s); "
                     "can't log-transform. Either filter those genes out "
                     "upstream or remove this feature from LOG_FEATURES.")
-            vals = np.log(vals)
+            vals = np.log(vals)  
+
+        if feat not in log_features and set(np.unique(vals)) <= {0.0, 1.0}:
+            p = float(np.mean(vals))
+            sep = np.inf if p in (0.0, 1.0) else 1.0 / np.sqrt(p * (1 - p))
+            w = feature_weights.get(feat, 1.0)
+            print(f"[Info] '{feat}' looks binary (p={p:.3f}); unweighted "
+                  f"z-scored class separation = {sep:.2f}; "
+                  f"applying weight={w} -> effective separation = {sep * w:.2f}")
+            
         raw[:, j] = vals
 
     # z-score data
-    scaler = StandardScaler()
+    #scaler = MinMaxScaler()
+    scaler = RobustScaler()
     X = scaler.fit_transform(raw)
 
-    return X, genes, scaler, raw
+    # apply explicit per-feature weights on top of the z-scored data
+    weights = np.array([feature_weights.get(feat, 1.0) for feat in features])
+    X = X * weights[None, :]
+
+    return X, genes, scaler, raw, weights
 
 
-def cluster_centers_to_original_units(cntr, scaler, features=FEATURES,
-                                       log_features=LOG_FEATURES):
+def cluster_centers_to_original_units(cntr, scaler, weights, features=FEATURES, log_features=LOG_FEATURES):
     """
     cntr: (k, n_features) cluster centers in standardized (z-scored,
           post-log) space, as returned by fuzz.cluster.cmeans.
@@ -110,7 +136,8 @@ def cluster_centers_to_original_units(cntr, scaler, features=FEATURES,
     Returns a (k, n_features) array back in the original parameter
     units (undoing z-score, then undoing log where applicable).
     """
-    centers_log = scaler.inverse_transform(cntr)
+    centers_unweighted = cntr / weights[None, :]
+    centers_log = scaler.inverse_transform(centers_unweighted)
     centers_orig = centers_log.copy()
     for j, feat in enumerate(features):
         if feat in log_features:
@@ -237,8 +264,8 @@ def _plot_k_selection(ks, means, stds, null_means, fpc_scores, xb_scores,
     plt.close(fig)
 
 
-def select_best_k_stability(data, k_range, dataset_name, n_runs=15, sample_frac=0.8,
-                             use_one_se_rule=True, compute_null=True, n_jobs=1, master_seed=RNG_SEED):
+def select_best_k_stability(data, k_range, dataset_name, n_runs=20, sample_frac=0.7,
+                             use_one_se_rule=False, compute_null=False, n_jobs=1, master_seed=RNG_SEED):
     """
     Choose K via bootstrap clustering stability.
 
@@ -298,10 +325,12 @@ def select_best_k_stability(data, k_range, dataset_name, n_runs=15, sample_frac=
     else:
         chosen_idx = best_idx
 
-    chosen_idx = np.argmin(xb_scores)
+    #select = 0.7 *(1-means) + 0.3 * xb_scores
+    #chosen_idx = np.argmin(select)
+    #chosen_idx = np.argmin(xb_scores)
     best_k = ks[chosen_idx]
 
-    print("best by stability score :", ks[chosen_idx])
+    print("best by stability score :", ks[best_idx])
     print("best by XB index:", ks[np.argmin(xb_scores)]) # best k by XB index
 
     _plot_k_selection(ks, means, stds, null_means, fpc_scores, xb_scores, best_k, dataset_name)
@@ -341,9 +370,21 @@ def xie_beni_index(X, cntr, u, m):
 # =====================================================
 
 def fuzzy_cmeans_clustering(ds, dataset_name, features=FEATURES,
-                             log_features=LOG_FEATURES, k_range=K_RANGE):
+                             log_features=LOG_FEATURES, k_range=K_RANGE,
+                             min_samples=5):
 
-    X, genes, scaler, raw = build_feature_matrix(ds, features, log_features)
+    # Check for empty or very small datasets early
+    n_genes = len(ds.ensembl_gene_id.values)
+    if n_genes < min_samples:
+        print(f"[Warning] Dataset '{dataset_name}' has only {n_genes} samples (minimum {min_samples} required). Skipping clustering.")
+        return None, None, None, None, None, None
+
+    try:
+        X, genes, scaler, raw, weights = build_feature_matrix(ds, features, log_features)
+    except ValueError as e:
+        print(f"[Warning] Failed to build feature matrix for '{dataset_name}': {e}")
+        return None, None, None, None, None, None
+
     data = X.T  # (n_features, n_genes), what skfuzzy expects
 
     if N_CLUSTER is None:
@@ -356,7 +397,7 @@ def fuzzy_cmeans_clustering(ds, dataset_name, features=FEATURES,
 
     labels = np.argmax(membership, axis=0)
     centers_orig = cluster_centers_to_original_units(
-        centers, scaler, features, log_features)
+        centers, scaler, weights, features, log_features)
 
     # -------------------------------------------------
     # package outputs
@@ -417,35 +458,43 @@ def plot_cluster_centers(centers_std_da, dataset_name):
     column per parameter. Replaces the trajectory line plot from the
     time-series version, since there's no time axis here.
     """
+
+    import seaborn as sns
+
+    da = centers_std_da["cluster_centers_standardized"]  # dims: (cluster, feature)
+
+    # Min-max: (x - min) / (max - min), computed along "cluster" for each feature
+    dmin = da.min(dim="cluster")
+    dmax = da.max(dim="cluster")
+    da_minmax = (da - dmin) / (dmax - dmin)
+
+    centers_std_da["cluster_centers_minmax"] = da_minmax
+
     k = centers_std_da.sizes["cluster"]
     features = centers_std_da.feature.values
-    mat = centers_std_da.values  # (k, n_features)
 
     fig, ax = plt.subplots(figsize=(1.1 * len(features) + 2, 0.6 * k + 2))
-    vmax = np.max(np.abs(mat))
-    im = ax.imshow(mat, cmap="RdBu_r", vmin=-vmax, vmax=vmax, aspect="auto")
+    sns.heatmap(data=centers_std_da.cluster_centers_minmax, cmap="RdBu_r", annot=True)
 
-    ax.set_xticks(range(len(features)))
     ax.set_xticklabels(features, rotation=45, ha="right")
-    ax.set_yticks(range(k))
-    ax.set_yticklabels([f"Cluster {c}" for c in range(k)])
+    ax.set_yticklabels([f"Cluster {c}" for c in range(k)], rotation=0)
 
-    for i in range(k):
-        for j in range(len(features)):
-            ax.text(j, i, f"{mat[i, j]:.2f}", ha="center", va="center", fontsize=8)
-
-    fig.colorbar(im, ax=ax, label="standardized value (log & z-score)")
-    ax.set_title(f"Fuzzy c-means cluster parameter profiles ({dataset_name})")
+    ax.set_title(f"Fuzzy c-means - parameter cluster ({dataset_name})")
     fig.tight_layout()
     fig.savefig(f"figs/FCM_param_cluster_center_{dataset_name}.png", dpi=300)
-    plt.close(fig)
+    plt.show(fig)
 
 
 def cluster_dataset(ds, output_prefix, dataset_name="dataset",
                      features=FEATURES, log_features=LOG_FEATURES,
-                     k_range=K_RANGE):
+                     k_range=K_RANGE, min_samples=5):
 
-    membership, labels, centers_std, centers_orig, best_k, fpc = fuzzy_cmeans_clustering(ds, dataset_name, features, log_features, k_range)
+    membership, labels, centers_std, centers_orig, best_k, fpc = fuzzy_cmeans_clustering(ds, dataset_name, features, log_features, k_range, min_samples)
+
+    # Check if clustering was successful
+    if membership is None:
+        print(f"[Warning] Clustering failed for {dataset_name}, skipping {output_prefix}")
+        return None, None, None, None
 
     membership.to_netcdf(f"{output_prefix}_membership.nc")
     labels.to_netcdf(f"{output_prefix}_labels.nc")
@@ -465,26 +514,35 @@ if __name__ == "__main__":
 
     os.makedirs("figs", exist_ok=True)
     os.makedirs("results", exist_ok=True)
+    input_file = ("joint_params_results.nc")
+    ds = xr.load_dataset(input_file)
 
-    models = ["Rep_M", "Rep_Z"]
-    models = ["Rep_Z"]
-    for model in models:
-        print("[Info] Start parameter clustering for ", model)
-        input_file = (f"../results/results_summary/{model}/params_results.nc")
+    ds["beta"] = ds.beta.clip(min=1e-5)
+    ds["alpha"] = ds.alpha.clip(min=1e-5)
+    ds["delta_m"] = ds.delta_m.clip(min=1e-5)
+    ds["t_zga"] = ds.t_zga.clip(max=120)
+    ds["t_reg"] = ds.t_reg.clip(max=120)
 
-        ## TODO: Filter parameters for resonable ranges before clusterin
-        ## e.g. t_zga, t_rep < 120
-        ## alpha, beta < 1e6  or cap min. values to -10
-        ## delta_m, delta_z < 100 
+    membership, labels, centers_std, centers_orig = cluster_dataset(
+        ds, f"results/joint_params_results", dataset_name="joint", k_range=K_RANGE)
 
-        ds = xr.load_dataset(input_file)
+    
+    # --- reindex superclusters by increasing peak time ---
+    cluster_peak_times = centers_std.sel(feature="t_zga").values  # peak_time value per cluster
+    new_order = np.argsort(cluster_peak_times)    # sort clusters by their peak_time values
+    rank = np.argsort(new_order)                  # rank[old_id] = new_id
 
-        ds["beta"] = ds.beta.clip(min=1e-5)
-        ds["alpha"] = ds.alpha.clip(min=1e-5)
-        ds["t_zga"] = ds.t_zga.clip(max=120)
-        ds["t_reg"] = ds.t_reg.clip(max=120)
+    # reorder centers
+    centers_std = centers_std.isel(cluster=new_order).assign_coords(cluster=np.arange(len(new_order)))
+    centers_std.to_netcdf(f"results/joint_params_superclusters_centers.nc")
 
-        membership, labels, centers_std, centers_orig = cluster_dataset(
-            ds, f"results/{model}_model_params", dataset_name=model, k_range=K_RANGE)
+    # reorder centers
+    centers_orig = centers_orig.isel(cluster=new_order).assign_coords(cluster=np.arange(len(new_order)))
+    centers_orig.to_netcdf(f"results/joint_params_superclusters_centers_orig.nc")
 
-        plot_cluster_centers(centers_std, model)
+    labels = labels.copy(data=rank[labels.values])  # remap gene labels to new ids
+    labels.to_netcdf(f"results/joint_params_superclusters_labels.nc")
+
+    #plot_cluster_centers(centers_std, "joint")
+
+

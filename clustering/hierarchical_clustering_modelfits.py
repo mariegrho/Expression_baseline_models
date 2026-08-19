@@ -18,9 +18,9 @@ import xarray as xr
 import numpy as np
 import pandas as pd
 from glob import glob
-import fuzzy_clustering1 as fc
+import cluster_fuzzy_params as fc
 
-NORMALISATION = "meanmax"
+NORMALISATION = "RobustScaler"
 
 # options:
 #   "none"
@@ -29,40 +29,56 @@ NORMALISATION = "meanmax"
 #   "minmax"
 #   "percentile"
 
-DATA = ["all", 'White', "Pauli", "BK", "JN"]
+DATA = ["avg", 'White', "Pauli", "BK", "JN"]
 source = DATA[0]
 
-print(f"[Info] Starting hierarchical clustering for dataset: {source}, normalization: {NORMALISATION}")
+print(f"[Info] Starting hierarchical parameter clustering for dataset: {source}, normalization: {NORMALISATION}")
 
-traj120 = xr.load_dataarray(f"results/{source}_normalized_trajectories_120_{NORMALISATION}.nc")
-membership120, labels120, centers120 = fc.cluster_dataset(traj120, f"results/{source}_superclusters", dataset_name="supercluster", k_range=range(3, 10))
+ds_params = xr.load_dataset("joint_params_results.nc")
+membership, labels, centers_std, centers_ori = fc.cluster_dataset(ds_params, f"results/{source}_superclusters", dataset_name="supercluster", k_range=range(3, 10))
 
 # --- reindex superclusters by increasing peak time ---
-peak_times = np.argmax(centers120.values, axis=1)      # peak time index per (old) cluster
-new_order = np.argsort(peak_times)              # old cluster ids, sorted by peak time
-rank = np.argsort(new_order)                    # rank[old_id] = new_id
+cluster_peak_times = centers_std.sel(feature="peak_time").values  # peak_time value per cluster
+new_order = np.argsort(cluster_peak_times)    # sort clusters by their peak_time values
+rank = np.argsort(new_order)                  # rank[old_id] = new_id
 
 # reorder centers
-centers120 = centers120.isel(cluster=new_order).assign_coords(cluster=np.arange(len(new_order)))
-centers120.to_netcdf(f"results/{source}_superclusters_centers.nc")
+centers_std = centers_std.isel(cluster=new_order).assign_coords(cluster=np.arange(len(new_order)))
+centers_std.to_netcdf(f"results/{source}_superclusters_centers.nc")
 
-labels120 = labels120.copy(data=rank[labels120.values])  # remap gene labels to new ids
-labels120.to_netcdf(f"results/{source}_superclusters_labels.nc")
-fc.plot_clusters(centers120, "Superclusters")
+labels = labels.copy(data=rank[labels.values])  # remap gene labels to new ids
+labels.to_netcdf(f"results/{source}_superclusters_labels.nc")
+fc.plot_cluster_centers(centers_std, "Superclusters")
 
 
 '''  ---- SUBCLUSTERING ---- '''
-traj_sub = xr.load_dataarray(f"results/{source}_normalized_trajectories_120_{NORMALISATION}.nc")
+ds_params_sub = xr.load_dataset("joint_params_results.nc")
 
-common_genes = list(set(traj120.ensembl_gene_id.values) & set(traj_sub.ensembl_gene_id.values))
+common_genes = list(set(ds_params.ensembl_gene_id.values) & set(ds_params_sub.ensembl_gene_id.values))
 print(f"[Info] Number of common genes: {len(common_genes)}")
-labels120 = labels120.sel(ensembl_gene_id=common_genes)
- 
-for sc in np.unique(labels120.values):
-    genes = labels120.ensembl_gene_id.where(labels120 == sc,drop=True)
-    subtraj = traj_sub.sel(ensembl_gene_id=genes)
-    membership, labels, centers =fc.cluster_dataset(subtraj,f"results/{source}_supercluster_{sc}", dataset_name=f"subcluster_{sc}", k_range=range(2, 10))
-    fc.plot_clusters(centers, cluster=f"Supercluster {sc}")
+labels = labels.sel(ensembl_gene_id=common_genes)
+
+# Minimum sample threshold for subclustering
+MIN_SAMPLES_FOR_SUBCLUSTERING = 10
+
+for sc in np.unique(labels.values):
+    genes = labels.ensembl_gene_id.where(labels == sc,drop=True)
+    subtraj = ds_params_sub.sel(ensembl_gene_id=genes)
+    
+    # Check if subcluster has enough samples before clustering
+    if len(subtraj.ensembl_gene_id) < MIN_SAMPLES_FOR_SUBCLUSTERING:
+        print(f"[Warning] Skipping supercluster {sc}: only {len(subtraj.ensembl_gene_id)} samples (minimum {MIN_SAMPLES_FOR_SUBCLUSTERING} required)")
+        continue
+    
+    membership, labels, centers_std, centers_ori = fc.cluster_dataset(
+        subtraj, f"results/{source}_supercluster_{sc}",
+        dataset_name=f"subcluster_{sc}", k_range=range(2, 10),
+        min_samples=MIN_SAMPLES_FOR_SUBCLUSTERING
+    )
+    
+    # Only plot if clustering was successful
+    if centers_std is not None:
+        fc.plot_cluster_centers(centers_std, dataset_name=f"Supercluster {sc}")
 
 ### DataSet
 super_labels = xr.load_dataarray(f"results/{source}_superclusters_labels.nc")
@@ -77,8 +93,13 @@ subcluster = xr.DataArray(
 )
 
 for sc in np.unique(super_labels.values):
-    labels = xr.load_dataarray(f"results/{source}_supercluster_{sc}_labels.nc")
-    subcluster.loc[dict(ensembl_gene_id=labels.ensembl_gene_id)] = labels
+    # Check if the subcluster file exists (might not exist if skipped)
+    labels_file = f"results/{source}_supercluster_{sc}_labels.nc"
+    try:
+        labels = xr.load_dataarray(labels_file)
+        subcluster.loc[dict(ensembl_gene_id=labels.ensembl_gene_id)] = labels
+    except FileNotFoundError:
+        print(f"[Warning] Subcluster file {labels_file} not found (likely skipped due to insufficient samples)")
 
 # load expression data, restricted to the relevant genes
 expr_data = xr.load_dataset("../data/genes_tpms_white_pauli_JN_BK_mean.nc")
@@ -91,4 +112,4 @@ annotation = expr_data.assign_coords(
 )
 
 #annotation.to_dataframe().reset_index().to_csv(f"results/{source}_gene_cluster_annotation_{NORMALISATION}.csv", index=False)
-annotation.to_netcdf(f"results/{source}_gene_cluster_annotation_{NORMALISATION}.nc")
+annotation.to_netcdf(f"results/{source}_gene_params_cluster_annotation.nc")

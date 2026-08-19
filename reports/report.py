@@ -113,3 +113,110 @@ def fpe(idata, residual_var="posterior_residuals", var_name="y"):
     fpe = sigma2_hat  * (n+p) / (n-p)
 
     return fpe
+
+import numpy as np
+import arviz as az
+import pandas as pd
+from typing import List, Dict, Optional, Callable
+from scipy.stats import spearmanr
+
+
+def spearmanr_from_idata(
+    idata: az.InferenceData,
+    data_vars: Optional[List[str]] = None,
+    use_predictions: bool = False,
+    obs_transform_funcs: Dict[str, Callable] = {},
+):
+    """
+    Calculate Spearman's rank correlation coefficient (rho) from InferenceData.
+    
+    Parameters
+    ----------
+    idata : az.InferenceData
+        ArviZ InferenceData object containing posterior samples and observed data
+    data_vars : Optional[List[str]], optional
+        List of data variables to compute correlation for. If None, uses all variables
+        in observed_data.
+    use_predictions : bool, optional
+        If True, uses posterior_predictive samples. If False, uses posterior_model_fits.
+        Default is True.
+    obs_transform_funcs : Dict[str, Callable], optional
+        Dictionary of transformation functions to apply to observed data for each variable.
+        Default is empty dict (no transformations).
+    
+    Returns
+    -------
+    pd.DataFrame
+        DataFrame containing Spearman's rho values for each data variable.
+        Each row represents a data variable, with columns for the correlation statistic.
+    """
+    if data_vars is None:
+        data_vars = list(idata.observed_data.data_vars.keys())
+
+    spearmanr_data_vars = {}
+    for dv in data_vars:
+        if use_predictions:
+            x_0 = idata.posterior_predictive[dv]
+            x = idata.observed_data[dv]
+        else:
+            x_0 = idata.posterior_model_fits[dv]
+            obs_transform_func = obs_transform_funcs.get(dv, lambda x: x)
+            x = obs_transform_func(idata.observed_data[dv])
+
+        # Calculate Spearman's rho for each chain/draw combination
+        # Flatten dimensions to get pairwise correlations
+        spearmanr_values = []
+        spearmanr_pvalues = []
+
+        # Reshape for correlation calculation
+        x_0_flat = x_0.values
+        x_flat = x.values
+
+        # Spearman's rho calculation - handle different array shapes
+        # For each chain and draw, compute correlation between predicted and observed
+        n_chains = x_0.coords.get('chain', {}).size if 'chain' in x_0.coords else 1
+        n_draws = x_0.coords.get('draw', {}).size if 'draw' in x_0.coords else 1
+
+        for chain in range(n_chains):
+            for draw in range(n_draws):
+                if n_chains > 1 and n_draws > 1:
+                    pred = x_0_flat[chain, draw]
+                elif n_chains > 1:
+                    pred = x_0_flat[chain]
+                elif n_draws > 1:
+                    pred = x_0_flat[draw]
+                else:
+                    pred = x_0_flat
+
+                # Flatten both arrays for correlation
+                pred_flat = pred.flatten()
+                obs_flat = x_flat.flatten()
+
+                # Calculate Spearman's rho
+                if len(pred_flat) > 0 and len(obs_flat) > 0:
+                    rho, pvalue = spearmanr(pred_flat, obs_flat, nan_policy="omit")
+                    spearmanr_values.append(rho)
+                    spearmanr_pvalues.append(pvalue)
+
+        spearmanr_array = np.array(spearmanr_values)
+        spearmanr_pvalues_array = np.array(spearmanr_pvalues)
+
+    return spearmanr_array.mean()
+"""
+        spearmanr_data_vars.update({dv: {
+            "Spearman's rho": spearmanr_array.mean(),
+            "Spearman's rho (std)": spearmanr_array.std(),
+            "P-value (mean)": spearmanr_pvalues_array.mean(),
+        }})
+
+        if len(spearmanr_values) > 1:
+            spearmanr_data_vars[dv].update({
+                "Spearman's rho (min)": spearmanr_array.min(),
+                "Spearman's rho (max)": spearmanr_array.max(),
+            })
+
+    spearmanr_data_vars["model"] = np.nan
+
+    return pd.DataFrame(spearmanr_data_vars).T
+    #return spearmanr_array
+"""

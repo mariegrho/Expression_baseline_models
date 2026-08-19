@@ -30,7 +30,7 @@ NORMALISATION = "minmax"
 #   "percentile"
 #   "meanmax"
 
-DATA = ["all", 'White', "Pauli", "BK", "JN"]
+DATA = ["all", "avg",'White', "Pauli", "BK", "JN"]
 source = DATA[0]
 
 print(f"[Info] Starting hierarchical clustering for dataset: {source}, normalization: {NORMALISATION}")
