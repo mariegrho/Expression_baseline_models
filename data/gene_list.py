@@ -7,34 +7,33 @@ from pathlib import Path
 
 data = xr.load_dataset("data/genes_tpms_white_pauli_JN_BK_mean.nc")
 #mask = data.tpm.max(dim=["time", "source"], skipna=True) >= 1   # relevant expression
-mask = (data.tpm.max(dim="time", skipna=True) >= 1).all(dim="source") # Keep only relevantly expressed genes
-data = data.sel(ensembl_gene_id=mask)
+#mask = (data.tpm.max(dim="time", skipna=True) >= 1).all(dim="source") # Keep only relevantly expressed genes
+#data = data.sel(ensembl_gene_id=mask)
 
 genes = data.ensembl_gene_id.values
 genes.sort()
 
-labels = xr.load_dataset("data/all_gene_cluster_annotation_minmax.nc")
-genes = labels.ensembl_gene_id.values
-genes.sort()
-
-with open("/home/student/m/mgrosseholth/projects/Expression_baseline_models/results/ensdarg_folders.txt") as f:
-    fitted = [line.strip() for line in f]
-
-genes_fitted = set(fitted)
-
-print(len(genes_fitted))
+# labels = xr.load_dataset("data/all_gene_cluster_annotation_minmax.nc")
+# genes = labels.ensembl_gene_id.values
+# genes.sort()
+print("total genes:", len(genes))
 
 #with open('data/genes.txt', 'w+') as f:
-#    f.write("\n".join(genes)) 
+#  f.write("\n".join(genes)) 
 
-model="Rep_Z"
+#with open("/home/student/m/mgrosseholth/projects/Expression_baseline_models/results/ensdarg_folders.txt") as f:
+#    fitted = [line.strip() for line in f]
+#genes_fitted = set(fitted)
+
 #base_dir = f"results/results_summary/120_hpf/{model}/all"
 #files = list(Path(base_dir).rglob("gof_metrics.csv"))
 #genes_fitted = {f.parent.name for f in files}
 
-#fitted = pd.read_csv(f"results/results_summary/{model}/goodness_of_fit_summary.csv")
+model="Rep_Z"
+fitted = pd.read_csv(f"results/results_summary/{model}/goodness_of_fit_summary.csv")
 #fitted = pd.read_csv(f"results/results_summary/{model}/gof_by_source_joined.csv", on_bad_lines="skip")
-#genes_fitted = set(fitted.gene_id.unique())
+genes_fitted = set(fitted.gene_id.unique())
+print("fitted genes:",len(genes_fitted))
 
 missing_genes = sorted(set(genes) - genes_fitted)
 print(f"{len(missing_genes)} genes missing")

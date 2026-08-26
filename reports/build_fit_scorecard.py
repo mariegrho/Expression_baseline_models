@@ -20,6 +20,7 @@ import arviz as az
 import xarray as xr
 import os
 from tqdm import tqdm
+from scipy.stats import spearmanr, pearsonr
 
 
 SCORECARD_COLUMNS = [
@@ -28,8 +29,8 @@ SCORECARD_COLUMNS = [
     "n_divergences", "frac_divergences",
     "loo", "loo_se", "p_loo", "max_pareto_k", "frac_pareto_k_high", "loo_error",
     "waic", "waic_se",
-    "rmse", "mae", "nrmse_range", "nrmse_mean", "r2",
-    "coverage_50", "coverage_90", "fit_error",
+    "r2", "spearman_rho", "pearson_r",
+    "pp_coverage_50", "pp_coverage_90", "pmf_coverage_95", "fit_error",
     "resid_autocorr_lag1",
     "load_error",
 ]
@@ -91,28 +92,18 @@ def score_gene(gene_id: str, idata: az.InferenceData, obs_var: str = "y") -> dic
 
     # ---- 3. Point-estimate fit quality (posterior_predictive vs obs) --
     try:
-        obs = idata.observed_data[obs_var] 
+        obs = idata.observed_data[obs_var]
         model_fit = idata.posterior_model_fits[obs_var]
-        pred = model_fit.mean(dim=("chain", "draw"))
+        pred = model_fit.mean(dim=("chain", "draw", "source"))
 
-        mae = np.abs(obs - pred).mean()
+        ss_res = ((obs.mean(dim=("source")) - pred) ** 2).sum(dim="time")
+        ss_tot = ((obs.mean(dim=("source")) - obs.mean(dim=("time", "source"))) ** 2).sum(dim="time")
+        r2_per_source = (1 - ss_res / ss_tot).where(ss_tot > 0)
+        r2_mean = r2_per_source.mean().item()
 
-        ss_res = ((obs - pred) ** 2).sum()
-        ss_tot = ((obs - obs.mean()) ** 2).sum()
-        r2_per_source = 1 - ss_res / ss_tot
-        r2 = r2_per_source.where(ss_tot > 0)
-
-        rmse = np.sqrt(((obs - pred)**2).mean())
-        obs_range = obs.max() - obs.min()
-        obs_mean =  obs.mean()
-        nrmse_range = (rmse / obs_range).where(obs_range > 0)
-        nrmse_mean = (rmse / np.abs(obs_mean)).where(obs_mean > 0)
-
-        row["rmse"] = rmse.mean().item()
-        row["mae"] = mae.mean().item()
-        row["nrmse_range"] = nrmse_range.mean().item()
-        row["nrmse_mean"] = nrmse_mean.mean().item()
-        row["r2"] = r2.mean().item()
+        row["r2"] = r2_mean
+        row["spearman_rho"] = spearmanr(obs.mean(dim=("source")), pred)[0]
+        row["pearson_r"] = pearsonr(obs.mean(dim=("source")), pred)[0]
 
     # ---- 4. Posterior predictive coverage --------------------------
         pp = idata.posterior_predictive[obs_var]  # posterior_predictive dims: (chain, draw, time, source)
@@ -121,11 +112,19 @@ def score_gene(gene_id: str, idata: az.InferenceData, obs_var: str = "y") -> dic
             lo = pp.quantile( lo_q, dim=("chain", "draw"))
             hi = pp.quantile(hi_q, dim=("chain", "draw"))
             inside = ((obs >= lo) & (obs <= hi) & mask )
-            row[f"coverage_{cred}"] = (inside.sum() / mask.sum()).item()
+            row[f"pp_coverage_{cred}"] = (inside.sum() / mask.sum()).item()
+
+        ## posterior-model-fit coverage
+        for cred, (lo_q, hi_q) in { "95": (0.025, 0.975),}.items():
+            lo = model_fit.quantile( lo_q, dim=("chain", "draw"))
+            hi = model_fit.quantile(hi_q, dim=("chain", "draw"))
+            inside = ((obs >= lo) & (obs <= hi) & mask )
+            row[f"pmf_coverage_{cred}"] = (inside.sum() / mask.sum()).item()
 
     except Exception as e:
-        row["rmse"] = np.nan
         row["r2"] = np.nan
+        row["spearman_rho"] = np.nan
+        row["pearson_r"] = np.nan
         row["fit_error"] = str(e)
 
     # ---- 5. Residual autocorrelation (using precomputed posterior_residuals) ----
@@ -231,12 +230,12 @@ def build_scorecard_from_files(paths: dict, obs_var: str = "y", out_csv: str = "
 
 
 def flag_genes(scorecard: pd.DataFrame,
-               rhat_thresh: float = 1.01,
+               rhat_thresh: float = 1.05,
                ess_thresh: float = 400,
                pareto_k_thresh: float = 0.7,
                r2_thresh: float = 0.7,
-               nrmse_thresh: float = 0.2,
-               coverage90_bounds=(0.80, 1.0)) -> pd.DataFrame:
+               spearman_thresh: float = 0.7,
+               coverage90_bounds=(0.80, 0.98)) -> pd.DataFrame:
     """
     Add boolean triage columns to the scorecard for quick filtering.
     Thresholds are starting points -- inspect the metric distributions
@@ -246,28 +245,33 @@ def flag_genes(scorecard: pd.DataFrame,
 
     sc["converged"] = (
         (sc["rhat_max"] <= rhat_thresh) &
-        (sc["ess_bulk_min"] >= ess_thresh) &
-        (sc["n_divergences"] == 0)
+        (sc["ess_bulk_min"] >= ess_thresh)
     )
+
     sc["good_fit_r2"] = sc["r2"] >= r2_thresh
-    sc["good_fit"] = sc["nrmse_range"] <= nrmse_thresh
+    sc["good_pattern"] = sc["spearman_rho"] >= spearman_thresh
+
     sc["reliable_loo"] = sc["max_pareto_k"] < pareto_k_thresh
     lo, hi = coverage90_bounds
-    sc["well_calibrated"] = sc["coverage_90"].between(lo, hi)
+    sc["well_calibrated"] = sc["pp_coverage_90"].between(lo, hi)
 
     sc["status"] = "good"
     sc.loc[~sc["converged"], "status"] = "non_converged"
-    sc.loc[sc["converged"] & ~sc["good_fit"], "status"] = "converged_poor_fit"
-    sc.loc[sc["converged"] & sc["good_fit"] & ~sc["reliable_loo"], "status"] = "outlier_influenced"
+    sc.loc[sc["converged"] & ~sc["good_fit_r2"] & ~sc["good_pattern"], "status"] = "converged_poor_fit"
+    sc.loc[sc["converged"] & sc["good_fit_r2"] & sc["good_pattern"] & ~sc["reliable_loo"], "status"] = "outlier_influenced"
 
     return sc
 
-
-def discover_gene_paths(results_root: str, filename: str = "numpyro_posterior.nc") -> dict:
+def discover_gene_paths(
+    results_root: str,
+    filename: str = "numpyro_posterior.nc",
+    gene_list_path: str = "data/genes.txt",
+) -> dict:
     """
     Walk the fixed directory structure:
         results/120_hpf/Rep_M/all/<ENSDARG...>/numpyro_posterior.nc
-    and return {gene_id: full_path} for every gene found.
+    and return {gene_id: full_path} for every gene found in results_root
+    that is also listed in gene_list_path.
     """
     import glob
     import os
@@ -281,24 +285,46 @@ def discover_gene_paths(results_root: str, filename: str = "numpyro_posterior.nc
         print(f"  Pass an absolute path, or run the script from the directory where 'results/...' is relative to.")
         return {}
 
+    # --- load the gene whitelist ---
+    if not os.path.isfile(gene_list_path):
+        print(f"WARNING: gene_list_path does not exist: {os.path.abspath(gene_list_path)}")
+        return {}
+
+    with open(gene_list_path) as f:
+        # handles genes separated by whitespace and/or newlines
+        wanted_genes = set(f.read().split())
+
+    print(f"Loaded {len(wanted_genes)} gene IDs from {gene_list_path}")
+
+    # --- walk results_root and keep only genes in the whitelist ---
     paths = {}
     for p in glob.glob(pattern):
         gene_id = os.path.basename(os.path.dirname(p))  # the ENSDARG... folder
-        paths[gene_id] = p
+        if gene_id in wanted_genes:
+            paths[gene_id] = p
 
     if not paths:
         # Diagnostic: show what's actually in results_root so it's obvious
-        # whether the mismatch is the filename, an extra nesting level, etc.
+        # whether the mismatch is the filename, an extra nesting level,
+        # or a whitelist/results_root mismatch.
         subdirs = [d for d in os.listdir(results_root)
                    if os.path.isdir(os.path.join(results_root, d))][:5]
-        print(f"WARNING: 0 files matched pattern: {os.path.abspath(pattern)}")
+        print(f"WARNING: 0 matching genes found under: {os.path.abspath(pattern)}")
         print(f"  results_root resolved to: {root_abs}")
         print(f"  First few subdirectories found there: {subdirs}")
         if subdirs:
             example_dir = os.path.join(results_root, subdirs[0])
             print(f"  Contents of {example_dir}: {os.listdir(example_dir)}")
+            if subdirs[0] not in wanted_genes:
+                print(f"  Note: '{subdirs[0]}' is NOT in the gene whitelist -- "
+                      f"check that gene_list_path and results_root match up.")
 
-    print(f"Found {len(paths)} gene fits under {results_root}")
+    missing = wanted_genes - paths.keys()
+    if missing:
+        print(f"WARNING: {len(missing)} genes from {gene_list_path} "
+              f"were not found under {results_root} (e.g. {sorted(missing)[:5]})")
+
+    print(f"Found {len(paths)} gene fits under {results_root} matching {gene_list_path}")
     return paths
 
  
@@ -314,10 +340,10 @@ if __name__ == "__main__":
     @click.option("--checkpoint-every", type=int, default=200, show_default=True, help="Write to out_csv every N scored genes.",)
     def main(results_root, filename, obs_var, out_csv, n_workers, checkpoint_every):
         """Build a per-gene fit-quality scorecard from ArviZ NetCDF results."""
+        
         paths = discover_gene_paths(results_root, filename=filename)
  
-        scorecard = build_scorecard_from_files(paths, obs_var=obs_var, out_csv=out_csv,
-            n_workers=n_workers, checkpoint_every=checkpoint_every, )
+        scorecard = build_scorecard_from_files(paths, obs_var=obs_var, out_csv=out_csv, n_workers=n_workers, checkpoint_every=checkpoint_every, )
 
         # create flagged csv from existing file
         #scorecard = pd.read_csv(out_csv, index_col="gene")

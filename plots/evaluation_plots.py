@@ -36,6 +36,7 @@ def combine_ds(save_csv=False):
     gof_all_list = []
     gof_src_list = []
     params_list = []
+    score_list = []
 
     """
     data = xr.load_dataset("data/genes_tpms_white_pauli_JN_BK_mean.nc")
@@ -52,10 +53,14 @@ def combine_ds(save_csv=False):
         gof_all = pd.read_csv(f"results/results_summary/{model}/goodness_of_fit_summary.csv")
         gof_src = pd.read_csv(f"results/results_summary/{model}/gof_by_source_joined.csv")
         params = pd.read_csv(f"results/results_summary/{model}/parameter_fit_summary.csv")
+        score = pd.read_csv(f"results/results_summary/{model}/fit_scorecard.csv")
+
+        score = score.rename(columns={"gene": "gene_id"})
 
         gof_all = gof_all[gof_all["gene_id"].isin(genes)]
         gof_src = gof_src[gof_src["gene_id"].isin(genes)]
         params = params[params["gene_id"].isin(genes)]
+        score = score[score["gene_id"].isin(genes)]
 
         if model == "Basic":
             gof_src = gof_src.drop(columns=["accepted"])
@@ -69,7 +74,7 @@ def combine_ds(save_csv=False):
         lookup["supercluster"]=lookup["supercluster_no"].map(cluster_names)
 
         # Map onto df by gene_id
-        for df in [gof_all, gof_src, params]:
+        for df in [gof_all, gof_src, params, score]:
             df["supercluster"] = df["gene_id"].map(lookup["supercluster"])
             df["supercluster_no"] = df["gene_id"].map(lookup["supercluster_no"])
             df["subcluster_no"] = df["gene_id"].map(lookup["subcluster_no"])
@@ -78,17 +83,21 @@ def combine_ds(save_csv=False):
         gof_all_list.append(gof_all)
         gof_src_list.append(gof_src)
         params_list.append(params)
+        score_list.append(score)
 
     gof_all_combined = pd.concat(gof_all_list, ignore_index=True, join="outer",sort=False)
     gof_src_combined = pd.concat(gof_src_list, ignore_index=True, join="outer",sort=False)
     params_combined = pd.concat(params_list, ignore_index=True, join="outer",sort=False)
+    scores_combined = pd.concat(score_list, ignore_index=True, join="outer",sort=False)
 
     if save_csv:
         gof_all_combined.to_csv("results/results_summary/gof_all_combined.csv", index=False)
         gof_src_combined.to_csv("results/results_summary/gof_src_combined.csv", index=False)
         params_combined.to_csv("results/results_summary/params_combined.csv", index=False)
+        scores_combined.to_csv("results/results_summary/scores_combined.csv", index=False)
 
-    return gof_all_combined, gof_src_combined, params_combined
+
+    return gof_all_combined, gof_src_combined, params_combined, scores_combined
 
 
 def point_plot_metrics_all(gof_all_combined):
@@ -99,9 +108,9 @@ def point_plot_metrics_all(gof_all_combined):
     df = gof_all_combined.sort_values("supercluster_no")
 
     supercluster = pd.unique(df["supercluster"].dropna())
-    metrics = ["BIC", "WAIC", "NRMSE", "rho", "pearsonr"]
+    metrics = ["BIC", "NRMSE", "spearman_rho", "pearson_r"]
 
-    df = df[df["WAIC"] > -100]
+    #df = df[df["WAIC"] > -100]
 
     fig, ax = plt.subplots(len(metrics), len(supercluster), figsize=(len(supercluster)*2, 1.5*len(metrics)), sharey="row", sharex="row")
 
@@ -608,6 +617,8 @@ def plot_peak_expression():
 
 def plot_params_cluster(params_all):
 
+    print("Plot plot_params_cluster ...")
+
     df = params_all[params_all["model"] != "Basic"].copy()
 
     df["beta_mean"] = df["beta_mean"].clip(lower=1e-5)
@@ -624,8 +635,8 @@ def plot_params_cluster(params_all):
     df_m = df[df["model"] == "Rep_M"].copy()
 
     fig, (ax1, ax2) = plt.subplots(1,2, figsize=(12, 6), sharex=True, sharey=True)
-    sns.scatterplot(df_m, x="r", y="t_zga_mean", ax=ax1,  hue="supercluster", s=5, palette=cluster_color_dict, alpha=0.7, legend=False)
-    sns.scatterplot(df_z, x="r", y="t_zga_mean", ax=ax2, hue="supercluster", s=5, palette=cluster_color_dict, alpha=0.7, legend=True)
+    sns.scatterplot(df_m, x="r", y="t_zga_mean", ax=ax1,  hue="supercluster", s=10, palette=cluster_color_dict, alpha=0.7, legend=False)
+    sns.scatterplot(df_z, x="r", y="t_zga_mean", ax=ax2, hue="supercluster", s=10, palette=cluster_color_dict, alpha=0.7, legend=True)
 
     sns.kdeplot(df_m, x="r", y="t_zga_mean",  hue="supercluster", ax=ax1, palette=cluster_color_dict, legend=False, log_scale=True, fill=False, levels=3)
     sns.kdeplot(df_z, x="r",  y="t_zga_mean", hue="supercluster", ax=ax2, palette=cluster_color_dict, legend=True, log_scale=True, fill=False, levels=3)
@@ -658,6 +669,8 @@ def plot_params_cluster(params_all):
 
 def plot_params_cluster_treg(params_all):
 
+    print("Plot plot_params_cluster_treg ...")
+
     df = params_all[params_all["model"] != "Basic"].copy()
 
     df["beta_mean"] = df["beta_mean"].clip(lower=1e-5)
@@ -674,8 +687,8 @@ def plot_params_cluster_treg(params_all):
     df_m = df[df["model"] == "Rep_M"].copy()
 
     fig, (ax1, ax2) = plt.subplots(1,2, figsize=(12, 6), sharex=True, sharey=True)
-    sns.scatterplot(df_m, x="r", y="t_reg_mean", ax=ax1,  hue="supercluster", s=5, palette=cluster_color_dict, alpha=0.7, legend=False)
-    sns.scatterplot(df_z, x="r", y="t_reg_mean", ax=ax2, hue="supercluster", s=5, palette=cluster_color_dict, alpha=0.7, legend=True)
+    sns.scatterplot(df_m, x="r", y="t_reg_mean", ax=ax1,  hue="supercluster", s=10, palette=cluster_color_dict, alpha=0.7, legend=False)
+    sns.scatterplot(df_z, x="r", y="t_reg_mean", ax=ax2, hue="supercluster", s=10, palette=cluster_color_dict, alpha=0.7, legend=True)
 
     sns.kdeplot(df_m, x="r", y="t_reg_mean",  hue="supercluster", ax=ax1, palette=cluster_color_dict, legend=False, log_scale=True, fill=False, levels=3)
     sns.kdeplot(df_z, x="r",  y="t_reg_mean", hue="supercluster", ax=ax2, palette=cluster_color_dict, legend=True, log_scale=True, fill=False, levels=3)
@@ -712,7 +725,7 @@ def plot_params_cluster_treg(params_all):
             PLOT 
 --------------------------'''
 
-gof_all_combined, gof_src_combined, params_combined = combine_ds(save_csv=True)
+gof_all_combined, gof_src_combined, params_combined, scores_combined = combine_ds(save_csv=True)
 
 '''-- GOF Metrics plots --'''
 
@@ -723,20 +736,20 @@ gof_all_combined, gof_src_combined, params_combined = combine_ds(save_csv=True)
 # barplot_accepted(pd.read_csv("results/results_summary/gof_all_combined.csv",))
 # barplot_accepted_subcluster(pd.read_csv("results/results_summary/gof_all_combined.csv",))
 
-# '''-- Parameter plots --'''
-# for model in model_order:
-#     plot_params_cluster_model(pd.read_csv("results/results_summary/params_combined.csv",), model)
-# plot_rep_params_violin(pd.read_csv("results/results_summary/params_combined.csv",))
+'''-- Parameter plots --'''
+for model in model_order:
+    plot_params_cluster_model(pd.read_csv("results/results_summary/params_combined.csv",), model)
+plot_rep_params_violin(pd.read_csv("results/results_summary/params_combined.csv",))
 
-# plot_regulation_direction(pd.read_csv("results/results_summary/params_combined.csv",))
-# plot_regulation_direction_2(pd.read_csv("results/results_summary/params_combined.csv",))
-# plot_t_params(pd.read_csv("results/results_summary/params_combined.csv",))
-# plot_half_life(pd.read_csv("results/results_summary/params_combined.csv",))
+plot_regulation_direction(pd.read_csv("results/results_summary/params_combined.csv",))
+plot_regulation_direction_2(pd.read_csv("results/results_summary/params_combined.csv",))
+plot_t_params(pd.read_csv("results/results_summary/params_combined.csv",))
+plot_half_life(pd.read_csv("results/results_summary/params_combined.csv",))
 
-# plot_params_cluster(pd.read_csv("results/results_summary/params_combined.csv",))
-# plot_params_cluster_treg(pd.read_csv("results/results_summary/params_combined.csv",))
+plot_params_cluster(pd.read_csv("results/results_summary/params_combined.csv",))
+plot_params_cluster_treg(pd.read_csv("results/results_summary/params_combined.csv",))
 
 # '''-- Peak time --'''
-# plot_peak_expression()
+plot_peak_expression()
 
 # sbatch plots/plot.sh

@@ -30,9 +30,9 @@ def prepare_dataset(gene_id, model_version, t_end, scale="tpm"):
         raise ValueError(f"gene id {gene_id} not found in dataset.\n {e}") 
 
     if scale == "log2":
-        obs = np.log2(obs)
-        cond = (obs["y"] >= -3) | obs["y"].isnull()
-        obs["y"] = obs["y"].where(cond, -3)
+        obs = np.log2(obs+1)
+        #cond = (obs["y"] >= -3) | obs["y"].isnull()
+        #obs["y"] = obs["y"].where(cond, -3)
 
     t = np.linspace(0, t_end, 1001)
     r = regulator_activity(t, t_on=3, t_off=4.0)
@@ -71,7 +71,7 @@ def gof_evaluation(idata, gene_id, model, out_path):
 
         rho = spearman_correlation(obs, pred)
         pearsonr = pearson_correlation(obs, pred)
-        nrmse = calc_nrmse(obs, pred, norm="mean")
+        nrmse = calc_nrmse(obs, pred, norm="range")
 
         row.append({
             "gene_id":gene_id,
@@ -112,8 +112,8 @@ def main(gene_id, model_version, kernel="nuts", t_end=120, plot=True, smooth=Fal
     sim.model = model._rhs_jax
 
     # simulation setup
-    #sim.config.case_study.name = f"{t_end}_hpf/{model.name}/all"
     sim.config.case_study.name = f"{t_end}_hpf/{model.name}/full"
+    #sim.config.case_study.name = f"{t_end}_hpf/{model.name}/log2p1"
 
     sim.config.case_study.scenario = f"{gene_id}"
 
@@ -131,7 +131,7 @@ def main(gene_id, model_version, kernel="nuts", t_end=120, plot=True, smooth=Fal
     sim.config.create_directory("scenario", force=True)
 
     # --- prepare Data ---
-    obs = prepare_dataset(gene_id, model_version, t_end)
+    obs = prepare_dataset(gene_id, model_version, t_end, scale="tpm")
     sim.observations = obs
 
     sim.config.simulation.n_ode_states = 2
@@ -139,7 +139,7 @@ def main(gene_id, model_version, kernel="nuts", t_end=120, plot=True, smooth=Fal
     sim.config.simulation.seed = seed
     sim.config.report.goodness_of_fit_use_predictions = True
 
-    jax.config.update("jax_enable_x64", True)
+    #jax.config.update("jax_enable_x64", True)
     
     sim.solver = JaxSolver
     sim.config.jaxsolver.throw_exception = False

@@ -16,13 +16,16 @@ import numpy as np
 import pandas as pd
 
 
-def prepare_dataset(gene_id, t_end):
+def prepare_dataset(gene_id, t_end, scale="tpm"):
 
     try:
         transcript_data = xr.load_dataset("data/genes_tpms_white_pauli_JN_BK_mean.nc").sel(time=slice(0, t_end))
         obs = transcript_data.sel(ensembl_gene_id=gene_id).tpm.to_dataset(name="y") 
     except Exception as e:
         raise FileNotFoundError(f"gene id {gene_id} not found in dataset. \n {e}") 
+
+    if scale == "log2":
+        obs = np.log2(obs+1)
 
     return obs
 
@@ -34,20 +37,35 @@ def gof_evaluation(idata, gene_id, model, out_path):
     for src in idata.observed_data.source.values:
         ds = idata.sel(source=src)
         non_nan_times = ds.observed_data.y.time.values[np.isfinite(ds.observed_data.y.values)]
-        obs = ds.observed_data.y.sel(time=non_nan_times).values
-        pred = idata.posterior_model_fits.y.mean(dim=("chain","draw","source")).sel(time=non_nan_times).values
+        obs = ds.observed_data.y.sel(time=non_nan_times)
+        pred = idata.posterior_model_fits.y.mean(dim=("chain","draw","source")).sel(time=non_nan_times)
 
-        metrics = pd.DataFrame(columns=["gene_id", "model", "BIC", "rho", "NRMSE", "MASE"])
+        ll = idata.log_likelihood["y"]  # dims: (chain, draw, time, source)
+        grouped_ll = ll.sum(dim="source")   # -> dims: (chain, draw, time)
+
+        # Wrap into a fresh InferenceData for WAIC/LOO
+        idata_grouped = az.InferenceData(
+            posterior=idata.posterior,          # reuse original posterior
+            log_likelihood=xr.Dataset({"y": grouped_ll}),
+        )
+
+        waic = az.waic(idata_grouped, pointwise=True).elpd_waic
+        loo = az.loo(idata_grouped, pointwise=True).elpd_loo
 
         rho = spearman_correlation(obs, pred)
-        nrmse = calc_nrmse(obs, pred, norm="mean")
+        pearsonr = pearson_correlation(obs, pred)
+        nrmse = calc_nrmse(obs, pred, norm="range")
 
         row.append({
             "gene_id":gene_id,
             "model":model,
             "source": src,
             "BIC": calc_bic(ds),
+            "AIC": calc_AIC(ds),
+            "WAIC": waic,
+            "LOO": loo,
             "rho": rho,
+            "pearsonr": pearsonr,
             "NRMSE": nrmse, 
             "MASE": calc_mase(obs, pred),
         })
@@ -77,7 +95,7 @@ def main(gene_id, kernel="nuts", t_end=120, plot=True, smooth=False, skip_duplic
     sim = SimulationBase()
     model = "Basic"
 
-    sim.config.case_study.name = f"{t_end}_hpf/{model}/all"
+    sim.config.case_study.name = f"{t_end}_hpf/{model}/full"
     sim.config.case_study.scenario = gene_id
     
     # --- Create output directories -
@@ -95,7 +113,7 @@ def main(gene_id, kernel="nuts", t_end=120, plot=True, smooth=False, skip_duplic
     sim.config.create_directory("scenario", force=True)
 
     # --- Prepare the Simulation --
-    obs = prepare_dataset(gene_id, t_end)
+    obs = prepare_dataset(gene_id, t_end, scale="tpm")
     sim.observations = obs 
     n_source = obs.sizes["source"]
     sim.model = make_basic_1s(n_source)

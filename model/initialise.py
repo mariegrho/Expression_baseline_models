@@ -24,7 +24,7 @@ def init_Basic(sim):
     sim.config.model_parameters.delta = Param(value=delta_0, free=True,     prior=f"lognorm(scale={delta_0}, s=1.0)")
 
     # Error Model
-    sim.config.model_parameters.sigma_y = Param(value=0.1,  free=True, prior="lognorm(scale=0.5, s=0.5)")
+    sim.config.model_parameters.sigma_y = Param(value=0.1,  free=True, prior="lognorm(scale=0.3, s=1)")
     sim.config.error_model.y = "normal(loc=0, scale=sigma_y, obs=jnp.log1p(obs) - jnp.log1p(y), obs_inv=jnp.expm1(res + jnp.log1p(y)))"
 
     sim.model_parameters["parameters"] = sim.config.model_parameters.value_dict
@@ -62,7 +62,7 @@ def init_ZGA_M(sim, model):
     sim.config.model_parameters.s =   Param(value=s_fixed, free=False)
 
     # Error Model
-    sim.config.model_parameters.sigma_y = Param(value=0.3,  free=True, prior="lognorm(scale=0.5, s=0.5)")
+    sim.config.model_parameters.sigma_y = Param(value=0.3,  free=True, prior="lognorm(scale=0.3, s=1)")
     sim.config.error_model.y = "normal(loc=0, scale=sigma_y, obs=jnp.log1p(obs) - jnp.log1p(y), obs_inv=jnp.expm1(res + jnp.log1p(y)))"
     sim.model_parameters["parameters"] = sim.config.model_parameters.value_dict
 
@@ -148,7 +148,7 @@ def init_Rep_M(sim, model):
     sim.config.model_parameters.s =   Param(value=s_fixed, free=False)
 
     # Error Model
-    sim.config.model_parameters.sigma_y = Param(value=0.3,  free=True, prior="lognorm(scale=0.5, s=0.5)")
+    sim.config.model_parameters.sigma_y = Param(value=0.3,  free=True, prior="lognorm(scale=0.3, s=1)")
     sim.config.error_model.y = "normal(loc=0, scale=sigma_y, obs=jnp.log1p(obs) - jnp.log1p(y), obs_inv=jnp.expm1(res + jnp.log1p(y)))"
     sim.model_parameters["parameters"] = sim.config.model_parameters.value_dict
 
@@ -198,7 +198,7 @@ def init_Rep_Z(sim, model):
     sim.config.model_parameters.s =   Param(value=s_fixed, free=False)
 
     # Error Model
-    sim.config.model_parameters.sigma_y = Param(value=0.3,  free=True, prior="lognorm(scale=0.5, s=0.5)")
+    sim.config.model_parameters.sigma_y = Param(value=0.3,  free=True, prior="lognorm(scale=0.3, s=1)")
     sim.config.error_model.y = "normal(loc=0, scale=sigma_y, obs=jnp.log1p(obs) - jnp.log1p(y), obs_inv=jnp.expm1(res + jnp.log1p(y)))"
     sim.model_parameters["parameters"] = sim.config.model_parameters.value_dict
 

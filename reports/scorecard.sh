@@ -23,8 +23,7 @@ OUT_CSV="results/results_summary/${MODEL}/fit_scorecard.csv"
 
 echo "[$(date)] Starting task ${MODEL}"
 srun python reports/build_fit_scorecard.py --results-root "$RESULTS_ROOT" --out-csv "$OUT_CSV" --n-workers "$SLURM_CPUS_PER_TASK" --checkpoint-every 200
-#srun python reports/recompute_loo_waic.py --results-root "$RESULTS_ROOT" --out-csv "$OUT_CSV" --n-workers "$SLURM_CPUS_PER_TASK"
 
 echo "[$(date)] Finished task"
 
-# sbatch --array=1-2 reports/scorecard.sh
+# sbatch --array=0-2 reports/scorecard.sh
