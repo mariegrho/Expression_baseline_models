@@ -10,8 +10,12 @@ To execute the model fits as arrayjob on HPC cluster run:
 sbatch --array=1-1000%50 run_array_job_loop.sh 
 
 # GOF evaluation
-To collect the gof metrics of the model fit, run:
+To collect the gooodness_of_fit.csv report of each model fit, run:
+sbatch reports/collect_gof.sh
+
+To calculate the gof metrics for evaluation:
 sbatch --array=0-2 reports/scorecard.sh
+
 
 # Post processing
 To collect the fitted model parameter and trajectories, run:

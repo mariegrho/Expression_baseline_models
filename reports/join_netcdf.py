@@ -52,7 +52,7 @@ def collect_results_concurrent(res_dir, gene_file, out_dir, mode):
     print("[INFO] Number of genes:", len(gene_list))
     print(f"[INFO] Mode: {mode} (group={group}, out_name={out_name})")
 
-    tmp_dir = Path(res_dir) / "_tmp_gene_results"
+    tmp_dir = Path(res_dir) / f"_tmp_gene_results_{mode}"
     tmp_dir.mkdir(exist_ok=True)
 
     tasks = [(gene, res_dir, tmp_dir, group) for gene in gene_list]
@@ -63,9 +63,9 @@ def collect_results_concurrent(res_dir, gene_file, out_dir, mode):
     out_files = [f for f in out_files if f is not None]
 
     print("[INFO] Opening reduced datasets...")
-    ds_res = xr.open_mfdataset(out_files, combine="by_coords", parallel=True)
+    ds_res = xr.open_mfdataset(out_files, combine="by_coords", parallel=True, engine="netcdf4")
     out_path = Path(out_dir) / out_name
-    ds_res.to_netcdf(out_path)
+    ds_res.to_netcdf(out_path, engine="netcdf4")
 
     genes = ds_res.ensembl_gene_id.size
     print(f"[INFO] {genes} found and saved to {out_path}")

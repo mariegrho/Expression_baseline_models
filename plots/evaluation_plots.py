@@ -14,7 +14,7 @@ FIG_PATH = "./figures"
 NRMSE_thres = 0.45
 RHO_thres = 0.7
 
-cluster = xr.load_dataset("data/all_gene_cluster_annotation_minmax.nc")
+cluster = xr.load_dataset("data/avg_gene_cluster_annotation_minmax.nc")
 cluster_order = ["SD", "DSD", "SU", "DSU"]
 cluster_names = {0 : "SD", 1 : "DSD", 2 : "SU", 3 : "DSU"}
 col_c = sns.color_palette("Set1", n_colors=4)  
@@ -44,8 +44,8 @@ def combine_ds(save_csv=False):
     data = data.sel(ensembl_gene_id=mask)
     genes = data.ensembl_gene_id.values
     """
-    labels = xr.load_dataset("data/all_gene_cluster_annotation_minmax.nc")
-    genes = labels.ensembl_gene_id.values
+
+    genes = cluster.ensembl_gene_id.values
 
     for model in model_order:
 

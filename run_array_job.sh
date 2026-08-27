@@ -36,7 +36,7 @@ echo "[$(date)] Finished task $SLURM_ARRAY_TASK_ID: $GENE_ID"
 # sbatch --array=1-15130%50 run_array_job.sh
 # watch squeue --me
 # sed -i 's/\r$//' data/non_conv_genes_m.txt
-# rm results/logs/fit*
+# rm results/logs/fit_basic*
 # rm -rf results/120_hpf/Rep_V/*
-# rm -rf results/120_hpf/Rep_Z/all1*
+# rm -rf results/120_hpf/Rep_Z/all*
 
