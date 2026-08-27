@@ -113,8 +113,6 @@ def main(gene_id, model_version, kernel="nuts", t_end=120, plot=True, smooth=Fal
 
     # simulation setup
     sim.config.case_study.name = f"{t_end}_hpf/{model.name}/full"
-    #sim.config.case_study.name = f"{t_end}_hpf/{model.name}/log2p1"
-
     sim.config.case_study.scenario = f"{gene_id}"
 
     # output directories
@@ -139,7 +137,7 @@ def main(gene_id, model_version, kernel="nuts", t_end=120, plot=True, smooth=Fal
     sim.config.simulation.seed = seed
     sim.config.report.goodness_of_fit_use_predictions = True
 
-    #jax.config.update("jax_enable_x64", True)
+    jax.config.update("jax_enable_x64", True)
     
     sim.solver = JaxSolver
     sim.config.jaxsolver.throw_exception = False
@@ -147,8 +145,8 @@ def main(gene_id, model_version, kernel="nuts", t_end=120, plot=True, smooth=Fal
     sim.config.jaxsolver.pcoeff = 0.2
     sim.config.jaxsolver.icoeff = 0.4
     sim.config.jaxsolver.icoeff = 0.1
-    sim.config.jaxsolver.rtol = 1e-08
-    sim.config.jaxsolver.atol = 1e-10
+    sim.config.jaxsolver.rtol = 1e-06
+    sim.config.jaxsolver.atol = 1e-08
     sim.config.jaxsolver.max_steps = int(1e6)
     sim.solver_post_processing = model._solver_post_processing
     
@@ -173,7 +171,7 @@ def main(gene_id, model_version, kernel="nuts", t_end=120, plot=True, smooth=Fal
     sim.dispatch_constructor()
     sim.set_inferer("numpyro")
     sim.config.inference_numpyro.kernel = kernel
-    sim.config.inference_numpyro.init_strategy= "init_to_value"
+    sim.config.inference_numpyro.init_strategy= "init_to_median"
 
     sim.config.inference_numpyro.svi_iterations = 20000
     sim.config.inference_numpyro.svi_learning_rate = 0.001
@@ -183,7 +181,7 @@ def main(gene_id, model_version, kernel="nuts", t_end=120, plot=True, smooth=Fal
     sim.config.inference_numpyro.draws = 2000
     sim.config.inference_numpyro.chains = 4
     sim.config.inference_numpyro.nuts_step_size = 0.1
-    sim.config.inference_numpyro.nuts_target_accept_prob = 0.95
+    sim.config.inference_numpyro.nuts_target_accept_prob = 0.8
     sim.config.inference_numpyro.nuts_dense_mass = True
     sim.config.inference_numpyro.nuts_adapt_step_size = True
     sim.config.inference_numpyro.nuts_adapt_mass_matrix = True

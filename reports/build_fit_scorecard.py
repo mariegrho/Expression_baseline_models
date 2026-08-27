@@ -14,13 +14,18 @@ Each InferenceData is expected to have groups:
 Requires: arviz, numpy, pandas
 """
 
+import os
+os.environ["OMP_NUM_THREADS"] = "1"
+os.environ["OPENBLAS_NUM_THREADS"] = "1"
+os.environ["MKL_NUM_THREADS"] = "1"
+os.environ["NUMEXPR_NUM_THREADS"] = "1"
+
+from tqdm import tqdm
+from scipy.stats import spearmanr, pearsonr
 import numpy as np
 import pandas as pd
 import arviz as az
 import xarray as xr
-import os
-from tqdm import tqdm
-from scipy.stats import spearmanr, pearsonr
 
 
 SCORECARD_COLUMNS = [
@@ -51,10 +56,13 @@ def score_gene(gene_id: str, idata: az.InferenceData, obs_var: str = "y") -> dic
 
     # ---- 1. Convergence diagnostics (posterior + sample_stats) --------
     try:
-        summ = az.summary(idata, group="posterior", var_names=None)
-        row["rhat_max"] = summ["r_hat"].max()
-        row["ess_bulk_min"] = summ["ess_bulk"].min()
-        row["ess_tail_min"] = summ["ess_tail"].min()
+        rhat_ds = az.rhat(idata, method="rank")
+        ess_bulk_ds = az.ess(idata, method="bulk")
+        ess_tail_ds = az.ess(idata, method="tail")
+
+        row["rhat_max"] = max(float(np.nanmax(v.values)) for v in rhat_ds.data_vars.values())
+        row["ess_bulk_min"] = min(float(np.nanmin(v.values)) for v in ess_bulk_ds.data_vars.values())
+        row["ess_tail_min"] = min(float(np.nanmin(v.values)) for v in ess_tail_ds.data_vars.values())
     except Exception as e:
         row["rhat_max"] = np.nan
         row["ess_bulk_min"] = np.nan
@@ -96,17 +104,20 @@ def score_gene(gene_id: str, idata: az.InferenceData, obs_var: str = "y") -> dic
         model_fit = idata.posterior_model_fits[obs_var]
         pred = model_fit.mean(dim=("chain", "draw", "source"))
 
-        ss_res = ((obs.mean(dim=("source")) - pred) ** 2).sum(dim="time")
-        ss_tot = ((obs.mean(dim=("source")) - obs.mean(dim=("time", "source"))) ** 2).sum(dim="time")
+        obs_mean = obs.mean(dim="source")
+
+        ss_res = ((obs_mean - pred) ** 2).sum(dim="time")
+        ss_tot = ((obs_mean - obs.mean(dim=("time", "source"))) ** 2).sum(dim="time")
         r2_per_source = (1 - ss_res / ss_tot).where(ss_tot > 0)
         r2_mean = r2_per_source.mean().item()
 
         row["r2"] = r2_mean
-        row["spearman_rho"] = spearmanr(obs.mean(dim=("source")), pred)[0]
-        row["pearson_r"] = pearsonr(obs.mean(dim=("source")), pred)[0]
+        row["spearman_rho"] = spearmanr(obs_mean, pred)[0]
+        row["pearson_r"] = pearsonr(obs_mean, pred)[0]
 
     # ---- 4. Posterior predictive coverage --------------------------
         pp = idata.posterior_predictive[obs_var]  # posterior_predictive dims: (chain, draw, time, source)
+        pp = pp.isel(draw=slice(None, None, 4))   # every 4th draw
         mask = obs.notnull()
         for cred, (lo_q, hi_q) in { "50": (0.25, 0.75), "90": (0.05, 0.95),}.items():
             lo = pp.quantile( lo_q, dim=("chain", "draw"))
@@ -215,7 +226,8 @@ def build_scorecard_from_files(paths: dict, obs_var: str = "y", out_csv: str = "
 
     with mp.Pool(n_workers) as pool:
         #pbar = tqdm(pool.imap_unordered(_score_one_file, todo), total=len(todo), desc="Scoring genes", mininterval=30)
-        for i, row in enumerate(pool.imap_unordered(_score_one_file, todo), start=1):
+        #for i, row in enumerate(pool.imap_unordered(_score_one_file, todo), start=1):
+        for i, row in enumerate(pool.imap_unordered(_score_one_file, todo, chunksize=4), start=1):
         #for i, row in enumerate(pbar, start=1):
             buffer.append(row)
             if i % checkpoint_every == 0 or i == len(todo):
@@ -336,7 +348,7 @@ if __name__ == "__main__":
     @click.option("--filename", type=str, default="numpyro_posterior.nc", show_default=True,help="NetCDF filename inside each gene subfolder.",)
     @click.option("--obs-var", type=str, default="y", show_default=True, help="Name of the observed variable in observed_data/posterior_predictive.",)
     @click.option("--out-csv", type=click.Path(), default="fit_scorecard.csv", show_default=True, help="Path to write the scorecard CSV.",)
-    @click.option("--n-workers", type=int, default=4, show_default=True, help="Number of parallel worker processes.",)
+    @click.option("--n-workers", type=int, default=8, show_default=True, help="Number of parallel worker processes.",)
     @click.option("--checkpoint-every", type=int, default=200, show_default=True, help="Write to out_csv every N scored genes.",)
     def main(results_root, filename, obs_var, out_csv, n_workers, checkpoint_every):
         """Build a per-gene fit-quality scorecard from ArviZ NetCDF results."""

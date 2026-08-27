@@ -40,6 +40,6 @@ done
 echo "[$(date)] Finished task $SLURM_ARRAY_TASK_ID: $GENE_ID"
 
 # sbatch --array=1-30 run_array_job_loop.sh
-# sbatch --array=1-15130%50 run_array_job_loop.sh
+# sbatch --array=1-4335%200 run_array_job_loop.sh
 # watch squeue --me
 # sed -i 's/\r$//' data/genes.txt

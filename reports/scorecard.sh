@@ -4,7 +4,7 @@
 #SBATCH --error=results/logs/%x_%A_%a.err
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --cpus-per-task=4
+#SBATCH --cpus-per-task=8
 #SBATCH --mem=32G
 #SBATCH --time=24:00:00
 
@@ -26,4 +26,4 @@ srun python reports/build_fit_scorecard.py --results-root "$RESULTS_ROOT" --out-
 
 echo "[$(date)] Finished task"
 
-# sbatch --array=0-2 reports/scorecard.sh
+# sbatch --array=1-2 reports/scorecard.sh
