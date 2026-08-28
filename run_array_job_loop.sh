@@ -34,7 +34,7 @@ model_versions=("Rep_M" "Rep_Z")
     #srun python basic_model.py --gene_id "$GENE_ID" --dataset "$dataset" --plot --t_end 120 --skip_duplicates
 
 for model_version in "${model_versions[@]}"; do
-    srun python simulate.py --gene_id "$GENE_ID" --model_version "$model_version" --plot --t_end 120 --seed 1 --skip_duplicates
+    srun python simulate.py --gene_id "$GENE_ID" --model_version "$model_version" --plot --t_end 120 --seed 1
 done
 
 echo "[$(date)] Finished task $SLURM_ARRAY_TASK_ID: $GENE_ID"

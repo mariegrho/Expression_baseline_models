@@ -14,7 +14,7 @@ FIG_PATH = "./figures"
 NRMSE_thres = 0.45
 RHO_thres = 0.7
 
-cluster = xr.load_dataset("data/avg_gene_cluster_annotation_minmax.nc")
+cluster = xr.load_dataset("data/all_gene_cluster_annotation_minmax.nc")
 cluster_order = ["SD", "DSD", "SU", "DSU"]
 cluster_names = {0 : "SD", 1 : "DSD", 2 : "SU", 3 : "DSU"}
 col_c = sns.color_palette("Set1", n_colors=4)  
@@ -737,19 +737,19 @@ gof_all_combined, gof_src_combined, params_combined, scores_combined = combine_d
 # barplot_accepted_subcluster(pd.read_csv("results/results_summary/gof_all_combined.csv",))
 
 '''-- Parameter plots --'''
-for model in model_order:
-    plot_params_cluster_model(pd.read_csv("results/results_summary/params_combined.csv",), model)
-plot_rep_params_violin(pd.read_csv("results/results_summary/params_combined.csv",))
+# for model in model_order:
+#     plot_params_cluster_model(pd.read_csv("results/results_summary/params_combined.csv",), model)
+# plot_rep_params_violin(pd.read_csv("results/results_summary/params_combined.csv",))
 
-plot_regulation_direction(pd.read_csv("results/results_summary/params_combined.csv",))
-plot_regulation_direction_2(pd.read_csv("results/results_summary/params_combined.csv",))
-plot_t_params(pd.read_csv("results/results_summary/params_combined.csv",))
-plot_half_life(pd.read_csv("results/results_summary/params_combined.csv",))
+# plot_regulation_direction(pd.read_csv("results/results_summary/params_combined.csv",))
+# plot_regulation_direction_2(pd.read_csv("results/results_summary/params_combined.csv",))
+# plot_t_params(pd.read_csv("results/results_summary/params_combined.csv",))
+# plot_half_life(pd.read_csv("results/results_summary/params_combined.csv",))
 
-plot_params_cluster(pd.read_csv("results/results_summary/params_combined.csv",))
-plot_params_cluster_treg(pd.read_csv("results/results_summary/params_combined.csv",))
+# plot_params_cluster(pd.read_csv("results/results_summary/params_combined.csv",))
+# plot_params_cluster_treg(pd.read_csv("results/results_summary/params_combined.csv",))
 
 # '''-- Peak time --'''
-plot_peak_expression()
+#plot_peak_expression()
 
 # sbatch plots/plot.sh

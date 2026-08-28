@@ -3,7 +3,7 @@
 #SBATCH --output=results/logs/%x_%A_%a.out
 #SBATCH --error=results/logs/%x_%A_%a.err    
 #SBATCH --time=12:00:00                   
-#SBATCH --mem=8G
+#SBATCH --mem=16G
 #SBATCH --cpus-per-task=4
 
 spack load miniconda3            
@@ -25,4 +25,4 @@ python3 reports/join_netcdf_faster.py "$RESULTS_DIR" "$GENES" "$OUT_DIR" --mode 
 
 echo "[$(date)] Finished post_processing."
 
-# sbatch --array=1-2 reports/post_process.sh 
+# sbatch --array=0-2 reports/post_process.sh 

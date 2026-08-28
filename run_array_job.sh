@@ -17,15 +17,15 @@ spack unload miniconda3
 export XLA_FLAGS="--xla_force_host_platform_device_count=$SLURM_CPUS_PER_TASK"
 
 # --- Get current gene ---
-GENE_ID=$(sed -n "${SLURM_ARRAY_TASK_ID}p" data/missing_genes.txt)
-#GENE_ID=$(sed -n "${SLURM_ARRAY_TASK_ID}p" data/non_conv_genes_z.txt)
+#GENE_ID=$(sed -n "${SLURM_ARRAY_TASK_ID}p" data/missing_genes.txt)
+GENE_ID=$(sed -n "${SLURM_ARRAY_TASK_ID}p" data/non_conv_m.txt)
 
 echo "[$(date)] Starting task $SLURM_ARRAY_TASK_ID: $GENE_ID"
 
 datasets=("White" "Pauli" "BK" "JN" "Medina_Munoz_polyA" "Medina_Munoz_ribo")
-model_versions=("Rep_M" "Rep_Z" "Rep_V" "ZGA_M" "ZGA_Z" "Basic")
+model_versions=("Rep_M" "Rep_Z")
 
-srun python simulate.py --gene_id "$GENE_ID" --model_version ${model_versions[0]} --plot --t_end 120 --seed 1 --skip_duplicates 
+srun python simulate.py --gene_id "$GENE_ID" --model_version ${model_versions[0]} --plot --t_end 120 --seed 1 #--skip_duplicates 
 #srun python basic_model.py --gene_id "$GENE_ID" --plot --t_end 120 --seed 1 --skip_duplicates 
 
 echo "[$(date)] Finished task $SLURM_ARRAY_TASK_ID: $GENE_ID"
@@ -33,10 +33,10 @@ echo "[$(date)] Finished task $SLURM_ARRAY_TASK_ID: $GENE_ID"
 
 
 # sbatch run_array_job.sh
-# sbatch --array=1-1 run_array_job.sh
-# sbatch --array=1-4259%100 run_array_job.sh
+# sbatch --array=1-2 run_array_job.sh
+# sbatch --array=2605-2881%100 run_array_job.sh
 # watch squeue --me
-# sed -i 's/\r$//' data/non_conv_genes_m.txt
+# sed -i 's/\r$//' data/non_conv_m.txt
 # rm results/logs/fit*
 # rm -rf results/120_hpf/Rep_V/*
 # rm -rf results/120_hpf/Rep_Z/all*

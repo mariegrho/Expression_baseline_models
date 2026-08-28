@@ -26,4 +26,4 @@ srun python reports/build_fit_scorecard.py --results-root "$RESULTS_ROOT" --out-
 
 echo "[$(date)] Finished task"
 
-# sbatch --array=1-2 reports/scorecard.sh
+# sbatch --array=0-2 reports/scorecard.sh
