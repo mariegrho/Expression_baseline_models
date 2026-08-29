@@ -13,11 +13,11 @@ import pandas as pd
 import numpy as np
 
 col_m = sns.color_palette("Dark2")  
-mod_color_dict = {"Basic": col_m[7],"Rep_M": col_m[1], "Rep_Z": col_m[4], "Rep_V": col_m[2]} 
-model_order = ["Basic", "Rep_M", "Rep_Z"]
+mod_color_dict = {"Basic": col_m[7],"M-decay": col_m[1], "Z-decay": col_m[4], "Rep_V": col_m[2]} 
+model_order = ["Basic", "M-decay", "Z-decay"]
 
 col_c = sns.color_palette("Set1", n_colors=4)  
-cluster_color_dict = {"SD": col_c[0], "DSD": col_c[1], "SU": col_c[2], "DSU": col_c[3], }
+cluster_color_dict = {"SD": col_c[0], "DSD": col_c[1], "SU": col_c[2], "DSU": col_c[3], "N/A":"grey"}
 
 def format_label(label):
     return label.replace("_", " ").title()
@@ -79,7 +79,7 @@ def plot_pass_rates(df: pd.DataFrame,
 
     
     if title is not None:
-        ax.set_title(f"Proportion of genes passing fit-quality criteria (n = {int(n_total):,} genes) (model = {title})")
+        ax.set_title(f"Proportion of genes passing fit-quality criteria (n = {int(len(df)):,} genes) (model = {title})")
     else:
         ax.set_title(f"Proportion of genes passing fit-quality criteria (n = {int(n_total):,} genes)")
     ax.spines[["top", "right"]].set_visible(False)

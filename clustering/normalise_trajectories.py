@@ -22,7 +22,7 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler, MaxAbsScaler
 # Configuration
 # =====================================================
 
-NORMALIZATION = "minmax"
+NORMALIZATION = "zscore"
 
 # options:
 #   "none"
@@ -32,75 +32,97 @@ NORMALIZATION = "minmax"
 #   "meanmax"
 
 REMOVE_LOW_VARIANCE = True
-VARIANCE_THRESHOLD = 0.01
+VARIANCE_THRESHOLD = 0.001
 
-# =====================================================
-# Normalization methods
-# =====================================================
 
-def normalize_curve(curve, method):
+import numpy as np
+import xarray as xr
 
-    curve = np.asarray(curve)
+def normalize_dataset(da, normalization_method="zscore", 
+                      remove_low_variance=REMOVE_LOW_VARIANCE, variance_threshold=VARIANCE_THRESHOLD):
+    """
+    Normalisiert das Dataset vektorisiert entlang der Zeitachse.
+    Erwartet ein xarray.DataArray mit den Dimensionen (ensembl_gene_id, time).
+    """
+    curves = da.values  # Shape: (gene, time)
+    genes = da.ensembl_gene_id.values
 
+    # 1. VOR der Normalisierung: Low-Variance-Filter anwenden
+    if remove_low_variance:
+        # Berechne echte biologische Varianz pro Gen vorab
+        raw_variances = np.var(curves, axis=1)
+        keep = raw_variances >= variance_threshold
+        
+        # Sofort filtern
+        curves = curves[keep]
+        genes = genes[keep]
+
+    print(curves.shape[0], "genes surviving variance_treshold")
+
+    # Wenn nach dem Filter keine Gene übrig sind, abbrechen
+    if curves.shape[0] == 0:
+        raise ValueError("No genes survive VARIANCE_THRESHOLD. Too high?")
+
+    # 2. Vektorisierte Normalisierung 
+    method = normalization_method.lower()
+    
     if method == "none":
-        return curve
-    
+        normalized = curves
+        
     elif method == "center":
-        return curve - curve.mean()
-    
+        # Zeilenweiser Mittelwert: Shape (n_genes, 1) für korrektes Broadcasting
+        means = curves.mean(axis=1, keepdims=True)
+        normalized = curves - means
+        
     elif method == "zscore":
-        sd = curve.std()
-        if sd < 1e-8:
-            return np.zeros_like(curve)
-        return (curve - curve.mean()) / sd
-    
+        means = curves.mean(axis=1, keepdims=True)
+        stds = curves.std(axis=1, keepdims=True)
+        
+        # Vektorisierter Schutz: Wo std < 1e-8 ist, setzen wir die Kurve auf 0
+        # (Da wir flache Gene oben filtern, betrifft das meist nur komplett tote Gene)
+        with np.errstate(divide='ignore', invalid='ignore'):
+            normalized = (curves - means) / stds
+        normalized[stds.squeeze() < 1e-8] = 0.0
+        
     elif method == "minmax":
-        mn = curve.min()
-        mx = curve.max()
-        if mx == mn:
-            return np.zeros_like(curve)
-        return (curve - mn) / (mx - mn)
-    
+        mn = curves.min(axis=1, keepdims=True)
+        mx = curves.max(axis=1, keepdims=True)
+        
+        with np.errstate(divide='ignore', invalid='ignore'):
+            normalized = (curves - mn) / (mx - mn)
+        normalized[(mx - mn).squeeze() == 0] = 0.0
+        
     elif method == "percentile":
-        lower = np.percentile(curve, 5)
-        upper = np.percentile(curve, 95)
-
-        return (curve - lower) / (upper - lower)
-    
+        # Prozentile entlang axis=1 berechnen
+        lower = np.percentile(curves, 5, axis=1, keepdims=True)
+        upper = np.percentile(curves, 95, axis=1, keepdims=True)
+        
+        with np.errstate(divide='ignore', invalid='ignore'):
+            normalized = (curves - lower) / (upper - lower)
+        normalized[(upper - lower).squeeze() == 0] = 0.0
+        
     elif method == "meanmax":
-        return (curve - curve.mean()) / abs(curve - curve.mean()).max()
-    
+        means = curves.mean(axis=1, keepdims=True)
+        centered = curves - means
+        # Maximaler absoluter Abstand vom Mittelwert pro Gen
+        max_abs_dist = np.abs(centered).max(axis=1, keepdims=True)
+        
+        with np.errstate(divide='ignore', invalid='ignore'):
+            normalized = centered / max_abs_dist
+        normalized[max_abs_dist.squeeze() == 0] = 0.0
+        
     else:
-        raise ValueError("Unknown normalization")
+        raise ValueError(f"Unknown normalization method: {method}")
 
-
-# =====================================================
-# Normalize all trajectories
-# =====================================================
-
-def normalize_dataset(da):
-
-    curves = da.values
-    normalized = np.zeros_like(curves)
-    keep = np.ones(curves.shape[0], dtype=bool)
-
-    for i in range(curves.shape[0]):
-        c = normalize_curve(curves[i], NORMALIZATION)
-        if REMOVE_LOW_VARIANCE:
-            if np.var(c) < VARIANCE_THRESHOLD:
-                keep[i] = False
-                continue
-        normalized[i] = c
-
-    normalized = normalized[keep]
-    genes = da.ensembl_gene_id.values[keep]
+    # 3. Neues xarray DataArray mit den gefilterten & transformierten Daten bauen
     out = xr.DataArray(
         normalized,
         dims=("ensembl_gene_id", "time"),
-        coords={"ensembl_gene_id": genes,"time": da.time.values},
+        coords={"ensembl_gene_id": genes, "time": da.time.values},
         name="trajectory"
     )
     return out
+
 
 
 # =====================================================
@@ -119,8 +141,10 @@ if __name__ == "__main__":
 
     for t_end in [120]:
         print(f"[Info] Normalise dataset -> {t_end} hpf")
-        da = xr.load_dataarray(f"results/{source}_gene_trajectories_{t_end}.nc")
+        da = xr.load_dataarray(f"results/{source}_gene_trajectories_{t_end}_log.nc")
         da = da.sel(ensembl_gene_id = accepted_genes)
-        normalized = normalize_dataset(da)
+
+        normalized = normalize_dataset(da, normalization_method=NORMALIZATION)
+
         normalized.to_netcdf(f"results/{source}_normalized_trajectories_{t_end}_{NORMALIZATION}.nc")
         print(f"[Info] Saved under: ./results/{source}_normalized_trajectories_{t_end}_{NORMALIZATION}.nc")

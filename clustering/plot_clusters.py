@@ -192,7 +192,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 
-def plot_super_subcluster_grid1(trajectories_da, super_labels, sub_labels, max_super=None, max_sub=None, figsize=None):
+def plot_super_subcluster_grid1(trajectories_da, super_labels, sub_labels, figsize=None):
+
+    #cluster_names = {0 : "SD", 1 : "DSD", 2 : "SU", 3 : "DSU"}
+    cluster_names = {0 : "SD", 1:"SU", 2:"DSU", 3: "SU", 4: "", np.nan: "N/A"}
+    col_c = sns.color_palette("Set1", n_colors=8)  
+    cluster_color_dict = {"SD": col_c[0], "DSD": col_c[1], "SU": col_c[2], "DSU": col_c[3], "TU-SU": col_c[4], "TU": col_c[7], }
 
     data = trajectories_da.values
     t = trajectories_da.time.values
@@ -203,23 +208,33 @@ def plot_super_subcluster_grid1(trajectories_da, super_labels, sub_labels, max_s
 
     # estimate layout
     nrows = len(super_ids)
-    ncols = max(len(v) for v in groups.values())
+    ncols = max(len(v) for v in groups.values()) + 1
 
     if figsize is None:
-        figsize = (3 * ncols, 2.5 * nrows)
+        figsize = (2 * ncols, 1.5 * nrows)
 
-    fig, axes = plt.subplots(nrows=nrows,ncols=ncols,figsize=figsize,sharex=True,sharey=True)
+    fig, axes = plt.subplots(nrows=nrows,ncols=ncols,figsize=figsize,sharex=True,sharey="row")
     axes = np.atleast_2d(axes)
 
     for i, sc in enumerate(super_ids):
         sub_ids = groups[sc]
+
+        sc_name = cluster_names[sc]
+
+        # plot mean super cluster in the first row
+        idx = np.where((super_labels == sc))[0]
+        subset = data[idx]
+        mean_sc = subset.mean(axis=0)
+        
+        axes[i, 0].plot(t, mean_sc, linewidth=2, color=cluster_color_dict[sc_name])
+        axes[i, 0].set_title(f"Supercluster {sc_name} ({len(subset)})", fontsize=9)
 
         for j, sb in enumerate(sub_ids):
 
             if j >= ncols:
                 break
 
-            ax = axes[i, j]
+            ax = axes[i, j+1]
             idx = np.where((super_labels == sc) &(sub_labels == sb))[0]
             if len(idx) == 0:
                 ax.set_visible(False)
@@ -229,81 +244,20 @@ def plot_super_subcluster_grid1(trajectories_da, super_labels, sub_labels, max_s
             mean = subset.mean(axis=0)
 
             # plot individual trajectories (limit for readability)
-            for g in range(min(50, len(subset))):
-                ax.plot(t, subset[g], alpha=0.3, linewidth=0.8)
-            ax.plot(t, mean, "k", linewidth=2)
-            ax.set_title(f"S{sc}.C{sb} ({len(subset)})", fontsize=9)
+            for g in range(min(100, len(subset))):
+                ax.plot(t, subset[g], alpha=0.15, linewidth=0.8, color="grey")
+            ax.plot(t, mean, linewidth=2, color=cluster_color_dict[sc_name])
+            ax.set_title(f"{sc_name} - {sb} ({len(subset)})", fontsize=9)
 
         # hide unused columns in this row
-        for j in range(len(sub_ids), ncols):
+        for j in range(len(sub_ids) + 1, ncols):
             axes[i, j].set_visible(False)
 
-    fig.suptitle("Supercluster → Subcluster trajectories", fontsize=12)
+    fig.suptitle("Subcluster trajectories - shape-based FCM cluster", fontsize=12)
     plt.tight_layout()
     plt.savefig("figs/super_subcluster_grid.png", dpi=300)
     #plt.show()
     plt.close()
-
-def plot_super_subcluster_grid(trajectories_da,super_labels,sub_labels,
-                                max_super=None,max_sub=None,figsize=(12, 7)):
-    """
-    Plot trajectories grouped by (supercluster, subcluster)
-    in a single subplot grid.
-    """
-
-    data = trajectories_da.values
-    t = trajectories_da.time.values
-
-    super_ids = np.unique(super_labels)
-    sub_ids = np.unique(sub_labels[sub_labels >= 0])
-
-    if max_super is not None:
-        super_ids = super_ids[:max_super]
-    if max_sub is not None:
-        sub_ids = sub_ids[:max_sub]
-
-    nrows = len(super_ids)
-    ncols = len(sub_ids)
-
-    fig, axes = plt.subplots(
-        nrows=nrows,
-        ncols=ncols,
-        figsize=figsize,
-        sharex=True,
-        sharey=True
-    )
-
-    if nrows == 1:
-        axes = np.expand_dims(axes, 0)
-    if ncols == 1:
-        axes = np.expand_dims(axes, 1)
-
-    for i, sc in enumerate(super_ids):
-        for j, sb in enumerate(sub_ids):
-
-            ax = axes[i, j]
-            idx = np.where((super_labels == sc) &(sub_labels == sb))[0]
-
-            if len(idx) == 0:
-                ax.set_visible(False)
-                continue
-
-            subset = data[idx]
-            mean = subset.mean(axis=0)
-
-            # representative genes (up to 20)
-            for g in idx[:20]:
-                ax.plot(t, subset[g],alpha=0.4)
-
-            ax.plot(t, mean, "k", linewidth=2 )
-            ax.set_title(f"{sc}.{sb}", fontsize=9)
-
-    fig.suptitle("Supercluster × Subcluster trajectories", fontsize=12)
-    plt.tight_layout()
-    plt.savefig("figs/super_subcluster_grid.png")
-    plt.show()
-    plt.close()
-
 
 # =====================================================
 # MAIN
@@ -311,26 +265,28 @@ def plot_super_subcluster_grid(trajectories_da,super_labels,sub_labels,
 
 if __name__ == "__main__":
 
-    NORMALISATION = "minmax"
+    NORMALISATION = "zscore"
     t_end = 120
     data = "all"
+    #data = "joint"
 
     print(f"[Info] Plotting clusters for dataset: {data}, normalization: {NORMALISATION}, t_end: {t_end}")
 
     labels = xr.load_dataset(f"results/{data}_gene_cluster_annotation_{NORMALISATION}.nc")
+    #labels = xr.load_dataset(f"results/joint_gene_params_cluster_annotation.nc").tpm
+
     super_labels = labels.supercluster.values
     sub_labels = labels.subcluster.values
 
     trajectories_da = xr.load_dataarray(f"results/{data}_normalized_trajectories_{t_end}_{NORMALISATION}.nc")
-    trajectories_da = trajectories_da.sel(ensembl_gene_id=labels.ensembl_gene_id)
+    #trajectories_da = xr.load_dataarray("joint_simulation_results.nc")
 
-    trajectories_sub = xr.load_dataarray(f"results/{data}_normalized_trajectories_{t_end}_{NORMALISATION}.nc")
-    trajectories_sub = trajectories_sub.sel(ensembl_gene_id=labels.ensembl_gene_id)
+    trajectories_da = trajectories_da.sel(ensembl_gene_id=labels.ensembl_gene_id)
 
     print("[Info] Plotting supercluster x subcluster grid...")
 
     # Plot super × sub cluster grid
-    plot_super_subcluster_grid1(trajectories_sub, super_labels, sub_labels)
+    plot_super_subcluster_grid1(trajectories_da, super_labels, sub_labels)
 
     print("[Info] Plotting supercluster centers...")
     
