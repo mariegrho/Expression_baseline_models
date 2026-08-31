@@ -248,6 +248,9 @@ def gof_trajectories(ds, trajectories, t_end):
     Returns one row per gene with aggregated metrics.
     """
 
+    # backtranform log2(TPM+1) to TPM -> comparable to ODE model fits
+
+    trajectories = np.exp2(trajectories) -1
     genes = trajectories.ensembl_gene_id.values
     sources = ds.source.values
     rows = []
@@ -319,11 +322,11 @@ if __name__ == "__main__":
 
     ds = xr.load_dataset("../data/genes_tpms_white_pauli_JN_BK_mean.nc")
     ds = ds.transpose("ensembl_gene_id", "source", "time")
-    ds_clean = ds.dropna(dim="time", how="all", subset=["tpm"])
+    ds = ds.dropna(dim="time", how="all", subset=["tpm"])
 
     # Remove low expressed genes -> too noisy, no effective pattern
-    mask = (ds_clean.tpm.max(dim="time", skipna=True) > 0.1).all(dim="source") 
-    ds_clean = ds_clean.sel(ensembl_gene_id=mask)
+    mask = (ds.tpm.max(dim="time", skipna=True) > 0).all(dim="source") 
+    ds_clean = ds.sel(ensembl_gene_id=mask)
     #ds_clean = ds_clean.sel(ensembl_gene_id=ds_clean.ensembl_gene_id.values[0:20]) # test
 
     #ds_clean = ds_clean.mean(dim="source").expand_dims({"source":["avg"]}) # for average fitting
@@ -341,9 +344,9 @@ if __name__ == "__main__":
 
         ds_filtered = ds_clean.sel(time=slice(0, T_END))
         print(f"fitting over t={T_END} hpf")
-        trajectories = fit_all_genes_efficient(ds_filtered)
-        trajectories.to_netcdf(f"results/{data_sel}_gene_trajectories_{T_END}_log.nc")
+        # trajectories = fit_all_genes_efficient(ds_filtered)
+        # trajectories.to_netcdf(f"results/{data_sel}_gene_trajectories_{T_END}_log.nc")
 
         print(f"Calculating goodness of fit...")
         trajectories = xr.load_dataarray(f"results/{data_sel}_gene_trajectories_{T_END}_log.nc")
-        gof_trajectories(ds_filtered, trajectories, T_END)
+        gof_trajectories(ds, trajectories, T_END)

@@ -248,6 +248,7 @@ def plot_super_subcluster_grid1(trajectories_da, super_labels, sub_labels, figsi
                 ax.plot(t, subset[g], alpha=0.15, linewidth=0.8, color="grey")
             ax.plot(t, mean, linewidth=2, color=cluster_color_dict[sc_name])
             ax.set_title(f"{sc_name} - {sb} ({len(subset)})", fontsize=9)
+            ax.set_ylim(-2.5, 2.5)
 
         # hide unused columns in this row
         for j in range(len(sub_ids) + 1, ncols):

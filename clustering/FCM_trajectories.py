@@ -27,6 +27,9 @@ import matplotlib.pyplot as plt
 from sklearn.utils import resample
 from sklearn.metrics import adjusted_rand_score
 
+from FCM_cluster_selection import plot_k_selection, xie_beni_index, plot_clusters
+
+
 try:
     from joblib import Parallel, delayed
     _HAVE_JOBLIB = True
@@ -97,7 +100,7 @@ def _shuffle_trajectories(data, seed_seq):
 
 
 # =====================================================
-# Select optimal K -- stability-based (improved)
+# Select optimal K 
 # =====================================================
 
 def stability_score(data, k, seed_seq, n_runs=15, sample_frac=0.7):
@@ -136,38 +139,6 @@ def stability_score(data, k, seed_seq, n_runs=15, sample_frac=0.7):
         "fpc_mean": float(np.mean(fpcs)),
         "fpc_std": float(np.std(fpcs)),
     }
-
-
-def _plot_k_selection(ks, means, stds, null_means, fpc_scores, xb_scores, best_k, dataset_name):
-    fig, axes = plt.subplots(1, 3, figsize=(13, 3.5))
-
-    ax = axes[0]
-    ax.errorbar(ks, means, yerr=stds, marker="o", linestyle="--", color="k", capsize=5 )
-    ax.axvline(best_k, color="red", alpha=0.3, linestyle="-", linewidth=6, label=f"selected K={best_k}")
-    ax.set_xlabel("Number of clusters (K)")
-    ax.set_ylabel("ARI (1 is best)")
-    ax.set_title("Cluster stability")
-    ax.legend(fontsize=7)
-
-    ax = axes[1]
-    ax.plot(ks, fpc_scores, marker="o", color="darkgreen")
-    ax.plot(ks, np.ones(len(ks))/ks, color="grey", alpha=0.5)
-    ax.axvline(best_k, color="red", alpha=0.3, linewidth=6)
-    ax.set_xlabel("Number of clusters (K)")
-    ax.set_ylabel("FPC (1 is best)")
-    ax.set_title("Fuzzy Partition Coefficient")
-
-    ax = axes[2]
-    ax.plot(ks, xb_scores, marker="o", color="darkred")
-    ax.axvline(best_k, color="red", alpha=0.3, linewidth=6)
-    ax.set_xlabel("Number of clusters (K)")
-    ax.set_ylabel("XB-index (lower is better)")
-    ax.set_title("Xie-Beni index")
-
-    fig.suptitle(f"Fuzzy clustering model selection ({dataset_name})")
-    fig.tight_layout()
-    fig.savefig(f"figs/k_selection_stability_{dataset_name}.png", dpi=300)
-    plt.close(fig)
 
 
 def select_best_k_stability(data, k_range, dataset_name, n_runs=15, sample_frac=0.7,
@@ -249,42 +220,17 @@ def select_best_k_stability(data, k_range, dataset_name, n_runs=15, sample_frac=
     else:
         chosen_idx = best_idx
 
-    best_k = ks[chosen_idx]
-    #best_k = ks[np.argmin(xb_scores)]
+    #best_k = ks[chosen_idx]
+    best_k = ks[np.argmin(xb_scores)]
 
     print("-> Best by stability score:", ks[best_idx])
     print("-> Best by XB index:", ks[np.argmin(xb_scores)])
 
-    _plot_k_selection(ks, means, stds, null_means, fpc_scores, xb_scores, best_k, dataset_name)
+
+
+    plot_k_selection(ks, means, stds, fpc_scores, xb_scores, best_k, dataset_name+"_traj")
 
     return best_k, diagnostics
-
-
-def xie_beni_index(X, cntr, u, m):
-    """
-    XB Index: S = J / (n * d_min²) 
-    with d_min² = spearation, n = no. samples, J_2 = compactness
-
-    The optimal number of clusters k is is such that the index takes the minimum value
-
-    X: Data (features, samples)
-    cntr: Cluster centers (clusters, features)
-    u: Membership Degree (clusters, samples)
-    """
-    n_samples = X.shape[1]
-
-    diff = cntr[:, :, None] - X[None, :, :]   # (k, features, n_samples)
-    dist = np.sum(diff ** 2, axis=1)          # (k, n_samples)
-
-    # fuzzy weighted compactness
-    numerator = np.sum((u ** m) * dist)
-    # cluster separation
-    center_dist = np.linalg.norm(cntr[:, None, :] - cntr[None, :, :], axis=2) ** 2
-
-    np.fill_diagonal(center_dist, np.inf)
-    min_dist = np.min(center_dist)
-
-    return numerator / (n_samples * min_dist)
 
 
 # =====================================================
@@ -331,26 +277,6 @@ def fuzzy_cmeans_clustering(da, dataset_name, k_range=K_RANGE):
     )
     return membership_da, labels_da, centers_da, best_k, fpc
 
-
-# =====================================================
-# Plot cluster trajectories
-# =====================================================
-
-def plot_clusters(centers_da, cluster):
-
-    plt.figure(figsize=(8, 4))
-
-    for k in centers_da.cluster.values:
-        plt.plot( centers_da.time.values,
-            centers_da.sel(cluster=k), label=f"Cluster {k}" )
-
-    plt.xlabel("Time")
-    plt.ylabel("Expression (normalized trajectory)")
-    plt.title(f"Fuzzy c-means cluster center trajectories ({cluster})")
-    plt.legend()
-    plt.tight_layout()
-    plt.savefig(f"figs/FCM_cluster_centers_{cluster}.png")
-    plt.close()
 
 
 def cluster_dataset(da, output_prefix, dataset_name="dataset", k_range=K_RANGE):

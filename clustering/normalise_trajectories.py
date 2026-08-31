@@ -31,7 +31,7 @@ NORMALIZATION = "zscore"
 #   "minmax"
 #   "meanmax"
 
-REMOVE_LOW_VARIANCE = True
+REMOVE_LOW_VARIANCE = False
 VARIANCE_THRESHOLD = 0.001
 
 
@@ -57,7 +57,7 @@ def normalize_dataset(da, normalization_method="zscore",
         curves = curves[keep]
         genes = genes[keep]
 
-    print(curves.shape[0], "genes surviving variance_treshold")
+        print(curves.shape[0], "genes surviving variance_treshold")
 
     # Wenn nach dem Filter keine Gene übrig sind, abbrechen
     if curves.shape[0] == 0:
@@ -134,17 +134,26 @@ if __name__ == "__main__":
     DATA = ["all", "avg", 'White', "Pauli", "BK", "JN"]
     source = DATA[0]
 
+    ds = xr.load_dataset("../data/genes_tpms_white_pauli_JN_BK_mean.nc")
+    # Remove low expressed genes -> too noisy, no effective pattern
+    mask = (ds.tpm.max(dim="time", skipna=True) > 0.1).all(dim="source") 
+    expr_genes = ds.sel(ensembl_gene_id=mask).ensembl_gene_id.values
+
     gof = pd.read_csv("results/gof_trajectories_120.csv")
     gene_sums = gof.groupby("ensembl_gene_id").sum("accepted")
     accepted_genes = gene_sums[gene_sums["accepted"] > 0].index.to_list()
-    print(len(accepted_genes))
+
+    keep = list(set(expr_genes) & set(accepted_genes))
+
+    print("gof accepted", len(accepted_genes))
+    print("keep", len(keep))
+
 
     for t_end in [120]:
         print(f"[Info] Normalise dataset -> {t_end} hpf")
         da = xr.load_dataarray(f"results/{source}_gene_trajectories_{t_end}_log.nc")
-        da = da.sel(ensembl_gene_id = accepted_genes)
+        da = da.sel(ensembl_gene_id = keep)
 
         normalized = normalize_dataset(da, normalization_method=NORMALIZATION)
-
         normalized.to_netcdf(f"results/{source}_normalized_trajectories_{t_end}_{NORMALIZATION}.nc")
         print(f"[Info] Saved under: ./results/{source}_normalized_trajectories_{t_end}_{NORMALIZATION}.nc")

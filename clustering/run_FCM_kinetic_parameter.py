@@ -40,7 +40,8 @@ ds_params["t_reg"] = ds_params.t_reg.clip(max=120)
 membership, labels, centers_std, centers_orig = fc.cluster_dataset(ds_params, f"results/{source}_param_superclusters", dataset_name="supercluster", k_range=range(3, 10))
 
 # --- reindex superclusters by increasing peak time ---
-cluster_peak_times = centers_std.sel(feature="peak_time").values  # peak_time value per cluster
+#cluster_peak_times = centers_std.sel(feature="peak_time").values  # peak_time value per cluster
+cluster_peak_times = centers_std.sel(feature="t_zga").values  # tzga value per cluster
 new_order = np.argsort(cluster_peak_times)    # sort clusters by their peak_time values
 rank = np.argsort(new_order)                  # rank[old_id] = new_id
 
