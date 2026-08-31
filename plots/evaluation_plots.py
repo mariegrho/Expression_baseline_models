@@ -11,12 +11,18 @@ import matplotlib.pyplot as plt
 
 FIG_PATH = "./figures"
 
-NRMSE_thres = 0.45
-RHO_thres = 0.7
+NRMSE_thres = 0.3
+RHO_thres = 0.5
 
-cluster = xr.load_dataset("data/all_gene_cluster_annotation_minmax.nc")
-cluster_order = ["SD", "DSD", "SU", "DSU"]
-cluster_names = {0 : "SD", 1 : "DSD", 2 : "SU", 3 : "DSU"}
+data = xr.load_dataset("data/genes_tpms_white_pauli_JN_BK_mean.nc")
+mask = (data.tpm.max(dim="time", skipna=True) > 0.1).all(dim="source") # Keep only relevantly expressed genes
+data = data.sel(ensembl_gene_id=mask)
+genes = data.ensembl_gene_id.values
+
+cluster = xr.load_dataset("data/all_gene_cluster_annotation_zscore.nc")
+
+cluster_order = ["SD", "SU", "DSU"]
+cluster_names = {0 : "SD", 1 : "SU", 2: "DSU"}
 col_c = sns.color_palette("Set1", n_colors=4)  
 cluster_color_dict = {"SD": col_c[0], "DSD": col_c[1], "SU": col_c[2], "DSU": col_c[3], }
 
@@ -45,7 +51,7 @@ def combine_ds(save_csv=False):
     genes = data.ensembl_gene_id.values
     """
 
-    genes = cluster.ensembl_gene_id.values
+    #genes = cluster.ensembl_gene_id.values
 
     for model in model_order:
 
